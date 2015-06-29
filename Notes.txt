@@ -1,0 +1,8 @@
+http://stackoverflow.com/questions/908258/generating-file-to-download-with-django
+http://www.freeformatter.com/mime-types-list.html
+
+pyinstaller -w -F <filename.py>
+visibility of code to the user?
+individual trolls first before packaging together
+
+All TODO's in the code

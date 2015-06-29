@@ -4,5 +4,5 @@ from trollApp import views
 urlpatterns = patterns('',
     url(r'^$', views.displayWelcome, name = 'home'),
     url(r'^downloads$', views.displayDownloads, name = 'downloads'),
-    url(r'^downloads/test.txt$', views.downloadTest)
+    url(r'^downloads/(?P<filename>\w+.\w+)$', views.downloadFile, name = 'downloadFile')
 )
