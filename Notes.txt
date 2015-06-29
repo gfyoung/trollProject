@@ -5,4 +5,9 @@ pyinstaller -w -F <filename.py>
 visibility of code to the user?
 individual trolls first before packaging together
 
+create a submit (how to make it cross-browser compatible? Mac pyinstaller might help)
+troll emails (Kevin and Hotwheels)
+suggestions page
+UI is awful (content comes first!)
+
 All TODO's in the code

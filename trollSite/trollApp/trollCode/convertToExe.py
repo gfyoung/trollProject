@@ -36,15 +36,10 @@ def isPythonFile(filename):
     return len(filenameParts) == 2 and filenameParts[-1] == "py"
 
 if __name__ == '__main__':
-    if len(sys.argv) == 1:
-        import config
-        opt = config.Options()
-
-    else:
-        parser = OptionParser()
-        parser.add_option("-f", "--file", type="string", dest="fname",
-                          action="append", help="filename(s)")
-        opt, args = parser.parse_args()
+    parser = OptionParser()
+    parser.add_option("-f", "--file", type="string", dest="fname",
+                      action="append", help="filename(s)")
+    opt, args = parser.parse_args()
 
     if not opt.fname:
         print "No file specified for conversion"

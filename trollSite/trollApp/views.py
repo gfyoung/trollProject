@@ -20,9 +20,13 @@ def displayDownloads(request):
     context = {'downloads' :
                [Download('displaySuccessCall.exe','Test Download'),
                 Download('infiniteTrollSongLoop.exe', 'Troll Song Infinite Loop'),
-                Download('persistentTkCall.exe', 'Persistent Tkinter Display')]
+                Download('persistentTkCall.exe', 'Persistent Tkinter Display'),
+                Download('massiveFileWriteCall.exe', 'Write a Ton of Useless Files')]
                }
     return render(request, 'trollApp/downloadsDisplay.html', context)
+
+def displayCustomCreate(request):
+    return render(request, 'trollApp/customCreateDisplay.html')
 
 def downloadFile(request, filename):
     directory = 'trollApp/downloads/'
