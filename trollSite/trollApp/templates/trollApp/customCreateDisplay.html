@@ -1,6 +1,16 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html>
+<head>
+<script src="{% static 'js/jQuery-1.11.3.js' %}"></script>
+<script src="{% static 'js/customCreate.js' %}"></script>
+</head>
 <body>
 <h1>Create Your Own Troll File!</h1>
+<form action="{% url 'trollApp:customDownload' %}" method = "get"><b>Input Your Python Code Here</b><br><br>
+	<textarea type=text id=customCode name=code style="width:500px;height:300px"></textarea><br><br>
+	<input type=submit value=Submit!>
+</form>
 </body>
 </html>

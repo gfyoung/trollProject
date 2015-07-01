@@ -1,13 +1,19 @@
 http://stackoverflow.com/questions/908258/generating-file-to-download-with-django
 http://www.freeformatter.com/mime-types-list.html
+http://stackoverflow.com/questions/12881294/django-create-a-zip-of-multiple-files-and-make-it-downloadable
 
 pyinstaller -w -F <filename.py>
 visibility of code to the user?
 individual trolls first before packaging together
 
-create a submit (how to make it cross-browser compatible? Mac pyinstaller might help)
 troll emails (Kevin and Hotwheels)
 suggestions page
 UI is awful (content comes first!)
+
+create a submit (how to make it cross-browser compatible? Mac pyinstaller might help)
+wrap submission executable in try/except Exception, e (print e) block to print error message?
+give them their code as well in a zip (see stackoverflow above)
+create build file for your convertToExe files via py_compile for use in views?
+performance issues (somewhat slow)
 
 All TODO's in the code
