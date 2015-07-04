@@ -7,13 +7,24 @@ visibility of code to the user?
 individual trolls first before packaging together
 
 troll emails (Kevin and Hotwheels)
-suggestions page
-UI is awful (content comes first!)
 
-create a submit (how to make it cross-browser compatible? Mac pyinstaller might help)
-wrap submission executable in try/except Exception, e (print e) block to print error message?
-give them their code as well in a zip (see stackoverflow above)
-create build file for your convertToExe files via py_compile for use in views?
-performance issues (somewhat slow)
+About page
+- Something basic, make more substantial later
+
+Suggestions page
+- need sender email?
+- email server
+
+UI is awful (content comes first!)
+- Rotating trollFace picture
+- Devil picture/colors
+- Menubar
+
+Custom submission
+- Cross-browser compatiblity (Mac pyinstaller might help)
+- Wrap submission executable in try/except Exception, e (print e) block to print error message?
+- Give them their code as well in a zip (see stackoverflow above)
+- Create build file for your convertToExe files via py_compile for use in views?
+- Performance issues (somewhat slow)
 
 All TODO's in the code

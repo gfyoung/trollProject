@@ -1,3 +1,4 @@
+from django.core.mail import send_mail
 from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -16,6 +17,9 @@ class Download(object):
     
 def displayWelcome(request):
     return render(request, 'trollApp/welcomeDisplay.html')
+
+def displayAbout(request):
+    return render(request, 'trollApp/aboutDisplay.html')
 
 # TODO: Remove the first download when you have an 'official' release
 def displayDownloads(request):
@@ -40,7 +44,7 @@ def downloadFile(request, filename):
     return response
 
 def downloadCustomFile(request):
-    trollCode = request.GET.get("code", "")
+    trollCode = request.POST.get("code", "")
     trollCode = trollCode.replace("\r\n", "\n")
 
     tmpFile = "tmpFile_{}.py".format(int(time()))
@@ -65,3 +69,13 @@ def downloadCustomFile(request):
     response = HttpResponse(wrapper, content_type = content_type)
     response['Content-Disposition'] = 'attachment; filename={}'.format(exeFilename)
     return response
+
+def displaySuggestions(request):
+    return render(request, 'trollApp/suggestionsDisplay.html')
+
+# TODO: Get email server for this method to work!
+def sendSuggestion(request):
+    emailBody = request.POST.get("suggestion", "")
+##    send_mail("Troll Suggestion", emailBody, "no-reply@trollMaster.com",
+##              ['duhtrollmaster@gmail.com'], fail_silently = False)
+    return HttpResponse("The troll master thanks you for the email.")
