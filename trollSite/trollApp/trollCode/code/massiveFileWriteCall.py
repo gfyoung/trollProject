@@ -46,7 +46,6 @@ for index in xrange(1, file_count + 1):
     
 label.pack()
 root.mainloop()
-
 """)
 target.close()
 
