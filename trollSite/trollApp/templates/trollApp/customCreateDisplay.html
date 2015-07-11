@@ -1,23 +1,15 @@
-{% load staticfiles %}
+{% include "trollApp/menuDisplay.html" %}
 
 <!DOCTYPE html>
 <html>
 <head>
 <title>Create the Troll</title>
-<script src="{% static 'js/jQuery-1.11.3.js' %}"></script>
-<script src="{% static 'js/customCreate.js' %}"></script>
-<script src="{% static 'js/verifyTextInput.js' %}"></script>
 </head>
 <body>
 <h1>Create Your Own Troll File!</h1>
-<a href="{% url 'trollApp:home' %}">Home</a><br>
-<a href="{% url 'trollApp:about' %}">About</a><br>
-<a href="{% url 'trollApp:downloads' %}">Downloads</a><br>
-<a href="{% url 'trollApp:customCreate' %}">Create Your Own!</a><br>
-<a href="{% url 'trollApp:suggestions' %}">Send Suggestions!</a><br><br>
 <form action="{% url 'trollApp:customDownload' %}" method = "post"><b>Input Your Python Code Here</b><br><br>
 {% csrf_token %}
-	<div id=error></div>
+	<div class=error></div>
 	<textarea type=text id=customCode name=code style="width:500px;height:300px"></textarea><br><br>
 	<input type=submit value=Submit!>
 </form>

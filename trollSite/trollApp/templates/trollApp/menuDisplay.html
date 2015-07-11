@@ -1,0 +1,77 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+a {
+	color:red;
+	text-decoration:none
+}
+a:hover {
+	text-decoration:underline
+}
+a.download {
+	color:blue;
+	text-decoration:underline
+}
+div, h1, h2 {
+	text-align:center
+}
+div.error {
+	text-align:left;
+	color:red
+}
+iframe.trollSong {
+	width:560px;
+	height:315px;
+	frameborder:0px
+}
+img.burningFlame {
+	height:20px;
+	width:20px
+}
+img#burningFlameRight {
+	padding-right:5em
+}
+img.rotatingFace {
+	height:40px;
+	width:40px
+}
+</style>
+<script src="{% static 'js/jQuery-1.11.3.js' %}"></script>
+<script src="{% static 'js/customCreate.js' %}"></script>
+<script src="{% static 'js/verifyTextInput.js' %}"></script>
+<script src="{% static 'js/trollHover.js' %}"></script>
+<script src="{% static 'js/trollAboutEffects.js' %}"></script>
+<script src="{% static 'js/rotatingTrollFaces.js' %}"></script>
+</head>
+<body>
+<div>
+<h1>
+<img class='rotatingFace' id='rightRotatingFace' alt='rightRotatingFace' src="{% static 'images/trollFace1.jpg' %}">
+Trollololer
+<img class='rotatingFace' id='leftRotatingFace' alt='leftRotatingFace' src="{% static 'images/trollFace1.jpg' %}">
+</h1>
+</div>
+<h2>Your Resource for all Things Troll</h2>
+<div>
+<img class="burningFlame" id="burningFlameLeft" alt="burningFlame" src="{% static 'images/flame.gif' %}">
+<a href="{% url 'trollApp:home' %}">Home</a>
+<img class="burningFlame" id="burningFlameRight" alt="burningFlame" src="{% static 'images/flame.gif' %}">
+<img class="burningFlame" id="burningFlameLeft" alt="burningFlame" src="{% static 'images/flame.gif' %}">
+<a href="{% url 'trollApp:about' %}">About</a>
+<img class="burningFlame" id="burningFlameRight" alt="burningFlame" src="{% static 'images/flame.gif' %}">
+<img class="burningFlame" id="burningFlameLeft" alt="burningFlame" src="{% static 'images/flame.gif' %}">
+<a href="{% url 'trollApp:downloads' %}">Downloads</a>
+<img class="burningFlame" id="burningFlameRight" alt="burningFlame" src="{% static 'images/flame.gif' %}">
+<img class="burningFlame" id="burningFlameLeft" alt="burningFlame" src="{% static 'images/flame.gif' %}">
+<a href="{% url 'trollApp:customCreate' %}">Create Your Own!</a>
+<img class="burningFlame" id="burningFlameRight" alt="burningFlame" src="{% static 'images/flame.gif' %}">
+<img class="burningFlame" id="burningFlameLeft" alt="burningFlame" src="{% static 'images/flame.gif' %}">
+<a href="{% url 'trollApp:suggestions' %}">Send Suggestions!</a>
+<img class="burningFlame" id="burningFlameRight" alt="burningFlame" src="{% static 'images/flame.gif' %}">
+</div>
+<hr>
+</body>
+</html>

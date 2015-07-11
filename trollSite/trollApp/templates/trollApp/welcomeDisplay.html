@@ -1,16 +1,32 @@
+{% include "trollApp/menuDisplay.html" %}
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html>
 <head>
 <title>Home of the Troll</title>
+<style>
+textarea {
+	background:white;
+	border:none;
+	color:red;
+	font-size:30px;
+	height:300px;
+	padding-right:1em;
+	width:300px;
+}
+</style>
 </head>
 <body>
-<h1>Welcome!</h1>
-<a href="{% url 'trollApp:home' %}">Home</a><br>
-<a href="{% url 'trollApp:about' %}">About</a><br>
-<a href="{% url 'trollApp:downloads' %}">Downloads</a><br>
-<a href="{% url 'trollApp:customCreate' %}">Create Your Own!</a><br>
-<a href="{% url 'trollApp:suggestions' %}">Send Suggestions!</a><br><br>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/o1eHKf-dMwo?autoplay=1""
+<h1>Greetings, Fellow Troll!</h1>
+<div>
+<textarea disabled>
+May the troll&#13;&#10;be with you!&#13;&#10;&#13;&#10;Navigate this website at your&#13;&#10;peril! Hehehe...
+</textarea>
+<iframe class="trollSong" width="560" height="315" src="https://www.youtube.com/embed/o1eHKf-dMwo?autoplay=1""
 frameborder="0" allowfullscreen></iframe>
+<img class="welcomeDevil" alt="welcomeDevil" src="{% static 'images/welcomeDevil.jpg' %}"
+height="300" width="300" style="padding-left:5em">
+</div>
 </body>
 </html>

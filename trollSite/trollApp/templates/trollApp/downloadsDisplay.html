@@ -1,3 +1,5 @@
+{% include "trollApp/menuDisplay.html" %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,15 +7,10 @@
 </head>
 <body>
 <h1>Example Troll Files</h1>
-<a href="{% url 'trollApp:home' %}">Home</a><br>
-<a href="{% url 'trollApp:about' %}">About</a><br>
-<a href="{% url 'trollApp:downloads' %}">Downloads</a><br>
-<a href="{% url 'trollApp:customCreate' %}">Create Your Own!</a><br>
-<a href="{% url 'trollApp:suggestions' %}">Send Suggestions!</a><br><br>
 <p>Below are some samples that you can download for your own convenience. Although we can assure you that these
 files are benign, please feel free to perform a virus scan to double check!</p>
 {% for download in downloads %}
-	<a href="{% url 'trollApp:downloadFile' download.filename %}">{{ download.description }}</a><br>
+	<a class="download" href="{% url 'trollApp:downloadFile' download.filename %}">{{ download.description }}</a><br>
 {% endfor %}
 </body>
 </html>
