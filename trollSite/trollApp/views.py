@@ -8,7 +8,7 @@ from subprocess import call
 from time import time
 from webbrowser import open_new_tab
 
-trollRedirectProb = 0
+trollRedirectProb = 0.3
 
 # TODO: Consider making a Model class if the number of examples become massive
 class Download(object):
@@ -97,8 +97,8 @@ def sendSuggestion(request):
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
         emailBody = request.POST.get("suggestion", "")
-##        send_mail("Troll Suggestion", emailBody, "no-reply@trollololer.com",
-##                  ['duhtrollmaster@gmail.com'], fail_silently = False)
+        send_mail("Troll Suggestion", emailBody, "no-reply@trollololer.com",
+                  ['duhtrollmaster@gmail.com'], fail_silently = False)
         return HttpResponse("The troll master thanks you for the email.")
 
 def playTrollSong(request):
