@@ -12,5 +12,8 @@ urlpatterns = patterns('',
     url(r'^customCreation/download$', views.downloadCustomFile, name = 'customDownload'),
     url(r'^suggestions$', views.displaySuggestions, name = 'suggestions'),
     url(r'^sendSuggestion$', views.sendSuggestion, name = 'sendSuggestion'),
-    url(r'^playTrollSong$', views.playTrollSong, name = 'playTrollSong')
+    url(r'^playTrollSong$', views.playTrollSong, name = 'playTrollSong'),
+    url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': 'trollApp/static'}
+    )
 )
