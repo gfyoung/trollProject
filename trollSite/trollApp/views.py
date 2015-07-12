@@ -70,6 +70,8 @@ def downloadCustomFile(request):
 
     codeDirectory = 'trollApp/customTrollCode/code/'
 
+    import os
+    raise Exception(os.getcwd())
     if getPlatform() == "Windows":
         CREATE_NO_WINDOW = 0x08000000
         returnCode = call("python {}/convertToExe.py -f {}"
