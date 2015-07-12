@@ -77,8 +77,6 @@ def downloadCustomFile(request):
                           creationflags = CREATE_NO_WINDOW)
 
     else:
-        import os
-        raise Exception(os.listdir(os.getcwd() + "/" + codeDirectory))
         returnCode = call("python {}/convertToExe.py -f {}"
                   .format(codeDirectory, tmpFile))
         
@@ -87,6 +85,10 @@ def downloadCustomFile(request):
         
     exeFilename = tmpFile.replace(".py", ".exe")
     exeDirectory = 'trollApp/customTrollCode/downloads/'
+
+    import os
+    raise Exception(os.listdir(os.getcwd() + "/" + exeDirectory))
+
     wrapper = FileWrapper(open(exeDirectory + exeFilename, 'rb'))
     content_type = guess_type(exeFilename)[0]
 
