@@ -3,6 +3,7 @@ from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse
 from django.shortcuts import render
 from mimetypes import guess_type
+from platform import uname
 from random import random
 from subprocess import call
 from time import time
@@ -68,11 +69,17 @@ def downloadCustomFile(request):
     target.close()
 
     codeDirectory = 'trollApp/customTrollCode/code/'
-    CREATE_NO_WINDOW = 0x08000000
-    returnCode = call("python {}/convertToExe.py -f {}"
-                      .format(codeDirectory, tmpFile),
-                      creationflags = CREATE_NO_WINDOW)
 
+    if getPlatform() == "Windows":
+        CREATE_NO_WINDOW = 0x08000000
+        returnCode = call("python {}/convertToExe.py -f {}"
+                          .format(codeDirectory, tmpFile),
+                          creationflags = CREATE_NO_WINDOW)
+
+    else:
+        returnCode = call("python {}/convertToExe.py -f {}"
+                  .format(codeDirectory, tmpFile))
+        
     if returnCode != 0: # fail
         return HttpResponse("Sorry! It looks like we couldn't convert your code. Please try submitting again.")
         
@@ -91,6 +98,14 @@ def displaySuggestions(request):
     else:
         return render(request, 'trollApp/suggestionsDisplay.html')
 
+def getPlatform():
+    return uname()[0]
+
+def playTrollSong(request):
+    troll_song = "https://www.youtube.com/watch?v=o1eHKf-dMwo"
+    open_new_tab(troll_song)
+    return HttpResponse("Success!")
+
 # TODO: Get email server for this method to work!
 def sendSuggestion(request):
     if random() < trollRedirectProb:
@@ -100,8 +115,3 @@ def sendSuggestion(request):
         send_mail("Troll Suggestion", emailBody, "no-reply@trollololer.com",
                   ['duhtrollmaster@gmail.com'], fail_silently = False)
         return HttpResponse("The troll master thanks you for the email.")
-
-def playTrollSong(request):
-    troll_song = "https://www.youtube.com/watch?v=o1eHKf-dMwo"
-    open_new_tab(troll_song)
-    return HttpResponse("Success!")

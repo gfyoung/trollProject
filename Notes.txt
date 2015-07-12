@@ -12,7 +12,9 @@ Suggestions page
 - email server
 
 Custom submission
-- Cross-browser compatiblity (Mac pyinstaller might help)
+- Cross-browser compatiblity
+  - Mac pyinstaller might help
+  - creationflag not used in OSX or Linux
 - Give them their code as well in a zip (see stackoverflow above)
   - http://stackoverflow.com/questions/14568647/create-zip-in-python
 - Build file for convertToExe files via py_compile for use in views?
