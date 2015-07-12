@@ -6,11 +6,11 @@
 <title>Advise the Troll</title>
 </head>
 <body>
-<h1>Send us your suggestions for new trolls and improvements to the website!</h1>
-<form action="{% url 'trollApp:sendSuggestion' %}" method = "post"><b>Send Your Suggestion!</b><br><br>
+<h1 class="pageTitle">Send us your suggestions for new trolls and improvements to the website!</h1>
+<form action="{% url 'trollApp:sendSuggestion' %}" method = "post"><b style="color:orange">Send Your Suggestion!</b><br><br>
 {% csrf_token %}
 	<div class=error></div>
-	<textarea type=text id=suggestion name=suggestion style="width:500px;height:300px"></textarea><br><br>
+	<textarea type=text id=suggestion name=suggestion></textarea><br><br>
 	<input type=submit value=Submit!>
 </form>
 </body>

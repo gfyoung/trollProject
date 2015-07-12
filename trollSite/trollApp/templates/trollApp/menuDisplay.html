@@ -4,16 +4,18 @@
 <html>
 <head>
 <style>
-a {
+a.menuLink {
 	color:red;
 	text-decoration:none
 }
-a:hover {
+a.menuLink:hover {
 	text-decoration:underline
 }
 a.download {
-	color:blue;
-	text-decoration:underline
+	color:red;
+}
+body {
+	background: black;
 }
 div, h1, h2 {
 	text-align:center
@@ -21,6 +23,12 @@ div, h1, h2 {
 div.error {
 	text-align:left;
 	color:red
+}
+form > textarea {
+	background:black;
+	color:#ff5200;
+	width:500px;
+	height:300px
 }
 iframe.trollSong {
 	width:560px;
@@ -38,6 +46,9 @@ img.rotatingFace {
 	height:40px;
 	width:40px
 }
+h1.pageTitle {
+	color:#FF8250
+}
 </style>
 <script src="{% static 'js/jQuery-1.11.3.js' %}"></script>
 <script src="{% static 'js/customCreate.js' %}"></script>
@@ -48,28 +59,28 @@ img.rotatingFace {
 </head>
 <body>
 <div>
-<h1>
+<h1 style="color:red">
 <img class='rotatingFace' id='rightRotatingFace' alt='rightRotatingFace' src="{% static 'images/trollFace1.jpg' %}">
 Trollololer
 <img class='rotatingFace' id='leftRotatingFace' alt='leftRotatingFace' src="{% static 'images/trollFace1.jpg' %}">
 </h1>
 </div>
-<h2>Your Resource for all Things Troll</h2>
+<h2 style="color:#FF6600">Your Resource for all Things Troll</h2>
 <div>
 <img class="burningFlame" id="burningFlameLeft" alt="burningFlame" src="{% static 'images/flame.gif' %}">
-<a href="{% url 'trollApp:home' %}">Home</a>
+<a class="menuLink" href="{% url 'trollApp:home' %}">Home</a>
 <img class="burningFlame" id="burningFlameRight" alt="burningFlame" src="{% static 'images/flame.gif' %}">
 <img class="burningFlame" id="burningFlameLeft" alt="burningFlame" src="{% static 'images/flame.gif' %}">
-<a href="{% url 'trollApp:about' %}">About</a>
+<a class="menuLink" href="{% url 'trollApp:about' %}">About</a>
 <img class="burningFlame" id="burningFlameRight" alt="burningFlame" src="{% static 'images/flame.gif' %}">
 <img class="burningFlame" id="burningFlameLeft" alt="burningFlame" src="{% static 'images/flame.gif' %}">
-<a href="{% url 'trollApp:downloads' %}">Downloads</a>
+<a class="menuLink" href="{% url 'trollApp:downloads' %}">Downloads</a>
 <img class="burningFlame" id="burningFlameRight" alt="burningFlame" src="{% static 'images/flame.gif' %}">
 <img class="burningFlame" id="burningFlameLeft" alt="burningFlame" src="{% static 'images/flame.gif' %}">
-<a href="{% url 'trollApp:customCreate' %}">Create Your Own!</a>
+<a class="menuLink" href="{% url 'trollApp:customCreate' %}">Create Your Own!</a>
 <img class="burningFlame" id="burningFlameRight" alt="burningFlame" src="{% static 'images/flame.gif' %}">
 <img class="burningFlame" id="burningFlameLeft" alt="burningFlame" src="{% static 'images/flame.gif' %}">
-<a href="{% url 'trollApp:suggestions' %}">Send Suggestions!</a>
+<a class="menuLink" href="{% url 'trollApp:suggestions' %}">Send Suggestions!</a>
 <img class="burningFlame" id="burningFlameRight" alt="burningFlame" src="{% static 'images/flame.gif' %}">
 </div>
 <hr>

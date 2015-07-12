@@ -2,8 +2,12 @@ var playVideo = false;
 var playVideoProb = 0.1;
 var alertVideoProb = 0.05;
 
+var changeFontSizeProb = 0.1;
+var fontSizeMultiplier = 10;
+var fontSize = 16;
+
 $(document).ready(function() {
-	$("a").hover(
+	$("a.menuLink").hover(
 		function() {
 			if(Math.random() < playVideoProb) {
 				playVideo = true;
@@ -20,5 +24,18 @@ $(document).ready(function() {
 				alert("Who knew hovering over a link was so perilous? :P");
 			}
 		}
-	)
+	);
+	
+	$("a.download").hover(
+		function() {
+			fontSize = $("a.download#" + this.id).css("font-size").replace("px", "");
+			
+			if(Math.random() < changeFontSizeProb) {
+				$("a.download#" + this.id).css("font-size", fontSize * fontSizeMultiplier + "px");
+			}
+		},
+		function() {
+			$("a.download#" + this.id).css("font-size", fontSize + "px");
+		}
+	);
 });

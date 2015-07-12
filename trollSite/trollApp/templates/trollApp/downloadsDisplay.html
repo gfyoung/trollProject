@@ -4,13 +4,20 @@
 <html>
 <head>
 <title>Download the Troll</title>
+<style>
+p {
+	color:orange
+}
+</style>
 </head>
 <body>
-<h1>Example Troll Files</h1>
-<p>Below are some samples that you can download for your own convenience. Although we can assure you that these
-files are benign, please feel free to perform a virus scan to double check!</p>
+<h1 class="pageTitle">Example Troll Files</h1>
+<p>Below are some samples that you can download for your own <em>convenience</em> (for real though, no trolls here,
+at least for now...). To download, just click the link. Although we can assure you that these files are benign, we
+<em>encourage</em> you nevertheless to perform a virus scan to double check! It is good practice to do so!<br><br>
+<b>NOTE:</b> These downloads are for Windows only, but we will be releasing versions for Linux and OSX soon!</p>
 {% for download in downloads %}
-	<a class="download" href="{% url 'trollApp:downloadFile' download.filename %}">{{ download.description }}</a><br>
+	<a id="{{ download.shortname }}" class="download" href="{% url 'trollApp:downloadFile' download.filename %}">{{ download.description }}</a><br><br>
 {% endfor %}
 </body>
 </html>

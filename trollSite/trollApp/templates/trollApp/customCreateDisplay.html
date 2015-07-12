@@ -6,11 +6,11 @@
 <title>Create the Troll</title>
 </head>
 <body>
-<h1>Create Your Own Troll File!</h1>
-<form action="{% url 'trollApp:customDownload' %}" method = "post"><b>Input Your Python Code Here</b><br><br>
+<h1 class="pageTitle">Create Your Own Troll File!</h1>
+<form action="{% url 'trollApp:customDownload' %}" method = "post"><b style="color:orange">Input Your Python Code Here</b><br><br>
 {% csrf_token %}
 	<div class=error></div>
-	<textarea type=text id=customCode name=code style="width:500px;height:300px"></textarea><br><br>
+	<textarea type=text id=customCode name=code></textarea><br><br>
 	<input type=submit value=Submit!>
 </form>
 </body>

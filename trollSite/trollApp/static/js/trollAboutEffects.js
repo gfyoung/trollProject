@@ -1,8 +1,12 @@
-var ids = ["#redText", "#orangeText", "#greenText"];
 var randomIdIndex = 0;
 var vanishTimeout = 10000;
 var reappearTimeout = 1000;
 
+function getIds() {
+	return $.map($("pre"), function(para) {
+		return "#" + para.id;
+	});
+}
 function getRandomIdIndex() {
 	return Math.floor(Math.random() * ids.length);
 }
@@ -18,6 +22,7 @@ function makeIdReappear() {
 	setTimeout(makeIdVanish, vanishTimeout);
 }
 
-$(document).ready(function() {		
+$(document).ready(function() {
+	ids = getIds();
 	makeIdVanish();
 });

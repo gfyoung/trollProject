@@ -8,11 +8,13 @@ from subprocess import call
 from time import time
 from webbrowser import open_new_tab
 
-trollRedirectProb = 0.3
+trollRedirectProb = 0
 
 # TODO: Consider making a Model class if the number of examples become massive
 class Download(object):
     def __init__(self, filename, description):
+        # currently, all downloads are .exe files
+        self.shortname = filename.replace('.exe', '')
         self.filename = filename
         self.description = description
 
@@ -48,46 +50,40 @@ def displayCustomCreate(request):
         return render(request, 'trollApp/customCreateDisplay.html')
 
 def downloadFile(request, filename):
-    if random() < trollRedirectProb:
-        return render(request, 'trollApp/trollRedirectDisplay.html')
-    else:
-        directory = 'trollApp/trollCode/downloads/'
-        wrapper = FileWrapper(open(directory + filename, 'rb'))
-        content_type = guess_type(filename)[0]
-        
-        response = HttpResponse(wrapper, content_type = content_type)
-        response['Content-Disposition'] = 'attachment; filename={}'.format(filename)
-        return response
+    directory = 'trollApp/trollCode/downloads/'
+    wrapper = FileWrapper(open(directory + filename, 'rb'))
+    content_type = guess_type(filename)[0]
+    
+    response = HttpResponse(wrapper, content_type = content_type)
+    response['Content-Disposition'] = 'attachment; filename={}'.format(filename)
+    return response
 
 def downloadCustomFile(request):
-    if random() < trollRedirectProb:
-        return render(request, 'trollApp/trollRedirectDisplay.html')
-    else:
-        trollCode = request.POST.get("code", "")
-        trollCode = trollCode.replace("\r\n", "\n")
+    trollCode = request.POST.get("code", "")
+    trollCode = trollCode.replace("\r\n", "\n")
 
-        tmpFile = "tmpFile_{}.py".format(int(time()))
-        target = open("trollApp/customTrollCode/code/{}".format(tmpFile), "w")
-        target.write(trollCode)
-        target.close()
+    tmpFile = "tmpFile_{}.py".format(int(time()))
+    target = open("trollApp/customTrollCode/code/{}".format(tmpFile), "w")
+    target.write(trollCode)
+    target.close()
 
-        codeDirectory = 'trollApp/customTrollCode/code/'
-        CREATE_NO_WINDOW = 0x08000000
-        returnCode = call("python {}/convertToExe.py -f {}"
-                          .format(codeDirectory, tmpFile),
-                          creationflags = CREATE_NO_WINDOW)
+    codeDirectory = 'trollApp/customTrollCode/code/'
+    CREATE_NO_WINDOW = 0x08000000
+    returnCode = call("python {}/convertToExe.py -f {}"
+                      .format(codeDirectory, tmpFile),
+                      creationflags = CREATE_NO_WINDOW)
 
-        if returnCode != 0: # fail
-            return HttpResponse("Sorry! It looks like we couldn't convert your code. Please try submitting again.")
-            
-        exeFilename = tmpFile.replace(".py", ".exe")
-        exeDirectory = 'trollApp/customTrollCode/downloads/'
-        wrapper = FileWrapper(open(exeDirectory + exeFilename, 'rb'))
-        content_type = guess_type(exeFilename)[0]
+    if returnCode != 0: # fail
+        return HttpResponse("Sorry! It looks like we couldn't convert your code. Please try submitting again.")
+        
+    exeFilename = tmpFile.replace(".py", ".exe")
+    exeDirectory = 'trollApp/customTrollCode/downloads/'
+    wrapper = FileWrapper(open(exeDirectory + exeFilename, 'rb'))
+    content_type = guess_type(exeFilename)[0]
 
-        response = HttpResponse(wrapper, content_type = content_type)
-        response['Content-Disposition'] = 'attachment; filename={}'.format(exeFilename)
-        return response
+    response = HttpResponse(wrapper, content_type = content_type)
+    response['Content-Disposition'] = 'attachment; filename={}'.format(exeFilename)
+    return response
 
 def displaySuggestions(request):
     if random() < trollRedirectProb:
@@ -101,7 +97,7 @@ def sendSuggestion(request):
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
         emailBody = request.POST.get("suggestion", "")
-##        send_mail("Troll Suggestion", emailBody, "no-reply@trollMaster.com",
+##        send_mail("Troll Suggestion", emailBody, "no-reply@trollololer.com",
 ##                  ['duhtrollmaster@gmail.com'], fail_silently = False)
         return HttpResponse("The troll master thanks you for the email.")
 

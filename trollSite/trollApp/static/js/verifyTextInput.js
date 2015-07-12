@@ -14,14 +14,16 @@ function playTrollSong() {
 
 $(document).ready(function() {
 	$("form").submit(function(e) {
-		var textInput = $("textarea").html().replace(/\s/g, "");
-		$(".error").empty();
-
+		var textInput = $("textarea").val().replace(/\s/g, "");
+		debugger;
+		
 		if(!textInput){
 			e.preventDefault();
-			$(".error").html("Input is empty!").after("<br>");
-			
 			setTimeout(playTrollSong, 500);
+			
+			if($(".error").html() == ""){
+				$(".error").html("Input is empty!").after("<br>");
+			}
 		}
 	});
 });
