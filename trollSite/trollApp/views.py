@@ -72,14 +72,14 @@ def downloadCustomFile(request):
 
     if getPlatform() == "Windows":
         CREATE_NO_WINDOW = 0x08000000
-        returnCode = call("python {0}/convertToExe.py -f {1}"
+        returnCode = call("python {}/convertToExe.py -f {}"
                           .format(codeDirectory, tmpFile),
                           creationflags = CREATE_NO_WINDOW)
 
     else:
         import os
         raise Exception(os.listdir(getcwd() + codeDirectory))
-        returnCode = call("python {0}/convertToExe.py -f {1}"
+        returnCode = call("python {}/convertToExe.py -f {}"
                   .format(codeDirectory, tmpFile))
         
     if returnCode != 0: # fail
