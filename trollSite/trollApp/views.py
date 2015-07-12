@@ -78,7 +78,7 @@ def downloadCustomFile(request):
 
     else:
         import os
-        raise Exception(os.listdir(getcwd() + codeDirectory))
+        raise Exception(os.listdir(os.getcwd() + codeDirectory))
         returnCode = call("python {}/convertToExe.py -f {}"
                   .format(codeDirectory, tmpFile))
         
