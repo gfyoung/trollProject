@@ -2,3 +2,4 @@
 *.sqlite3
 fabfile.py
 serverLogin.json
+update.sh
