@@ -1,7 +1,7 @@
 # trollProject
 Website for all wonderful things troll
 
-# Running the website in development mode
+# Running the website locally (for dev. work)
 * Move to your trollProject/trollSite directory
 * From there, run the following command: `python manage.py runserver`
   * If there are issues running this command, try changing the port number by adding `<Port Number>` to the end of the command
