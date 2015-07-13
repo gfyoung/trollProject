@@ -9,7 +9,7 @@ from subprocess import call
 from time import time
 from webbrowser import open_new_tab
 
-trollRedirectProb = 0.3
+trollRedirectProb = 0
 
 # TODO: Consider making a Model class if the number of examples become massive
 class Download(object):
@@ -106,7 +106,14 @@ def displaySuggestions(request):
     if random() < trollRedirectProb:
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
-        return render(request, 'trollApp/suggestionsDisplay.html')
+        context = {
+            "error_msg": request.session.get("error_msg"),
+            "prev_email": request.session.get("prev_email")
+        }
+        request.session["error_msg"] = None
+        request.session["prev_emails"] = None
+        
+        return render(request, 'trollApp/suggestionsDisplay.html', context)
 
 def getPlatform():
     return uname()[0]
@@ -116,13 +123,27 @@ def playTrollSong(request):
     open_new_tab(troll_song)
     return HttpResponse("Success!")
 
-# Do not touch this page until you are working
-# with the production version directly in DEBUG mode
 def sendSuggestion(request):
     if random() < trollRedirectProb:
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
         emailBody = request.POST.get("suggestion", "")
-        send_mail("Troll Suggestion", emailBody, "no-reply@trollololer.com",
-                  ['duhtrollmaster@gmail.com'], fail_silently = False)
-        return HttpResponse("Success!")
+        emailSucceed = True
+        successCount = 0
+        
+        try:
+            msgCount = send_mail("Troll Suggestion", emailBody, "no-reply@trollololer.com",
+                                 ['duhtrollmaster@gmail.com'], fail_silently = True)
+        except:
+            emailSucceed = False
+            
+        finally:
+            if emailSucceed and successCount > 0:
+                request.session["error_msg"] = "The Troll Master Thanks You!"
+                request.session["prev_email"] = None
+
+            else: # fail
+                request.session["error_msg"] = "Error! Please try submitting again"
+                request.session["prev_email"] = emailBody
+
+            return HttpResponseRedirect("/trollApp/suggestions")

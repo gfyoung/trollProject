@@ -7,10 +7,15 @@
 </head>
 <body>
 <h1 class="pageTitle">Send us your suggestions for new trolls and improvements to the website!</h1>
-<form method = "post"><b style="color:orange">Send Your Suggestion!</b><br><br>
+<form action="{% url 'trollApp:sendSuggestion' %}" method = "post"><b style="color:orange">Send Your Suggestion!</b><br><br>
 {% csrf_token %}
-	<div class=error></div>
-	<textarea type=text id=suggestion name=suggestion></textarea><br><br>
+	{% if error_msg %}
+		<div class=error>{{ error_msg }}</div><br>
+		<textarea type=text id=suggestion name=suggestion>{{ prev_email }}</textarea><br><br>
+	{% else %}
+		<div class=error></div>
+		<textarea type=text id=suggestion name=suggestion></textarea><br><br>
+	{% endif %}
 	<input type=submit value=Submit!>
 </form>
 </body>
