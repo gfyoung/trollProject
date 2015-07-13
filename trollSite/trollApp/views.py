@@ -140,7 +140,7 @@ def sendSuggestion(request):
         finally:
             if emailSucceed and successCount > 0:
                 request.session["error_msg"] = "The Troll Master Thanks You!"
-                request.session["prev_email"] = None
+                request.session["prev_email"] = ""
 
             else: # fail
                 request.session["error_msg"] = "Error! Please try submitting again"
