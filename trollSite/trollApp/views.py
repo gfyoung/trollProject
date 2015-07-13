@@ -9,7 +9,7 @@ from subprocess import call
 from time import time
 from webbrowser import open_new_tab
 
-trollRedirectProb = 0.3
+trollRedirectProb = 0
 
 # TODO: Consider making a Model class if the number of examples become massive
 class Download(object):
@@ -72,20 +72,19 @@ def downloadCustomFile(request):
 
     if getPlatform() == "Windows":
         CREATE_NO_WINDOW = 0x08000000
-        returnCode = call("python {}/convertToExe.py -f {}"
-                          .format(codeDirectory, tmpFile),
-                          creationflags = CREATE_NO_WINDOW)
+        exeFilename = tmpFile.replace(".py", ".exe")
+        returnCode = call(["python", "{}/convertToExe.py".format(codeDirectory),
+                           "-f", tmpFile], creationflags = CREATE_NO_WINDOW)
 
     else:
-        returnCode = call("python {}/convertToExe.py -f {}"
-                  .format(codeDirectory, tmpFile))
+        exeFilename = tmpFile.replace(".py", "")
+        returnCode = call(["python", "{}/convertToExe.py".format(codeDirectory),
+                          "-f", tmpFile])
         
     if returnCode != 0: # fail
         return HttpResponse("Sorry! It looks like we couldn't convert your code. Please try submitting again.")
-        
-    exeFilename = tmpFile.replace(".py", ".exe")
-    exeDirectory = 'trollApp/customTrollCode/downloads/'
 
+    exeDirectory = 'trollApp/customTrollCode/downloads/'
     wrapper = FileWrapper(open(exeDirectory + exeFilename, 'rb'))
     content_type = guess_type(exeFilename)[0]
 
