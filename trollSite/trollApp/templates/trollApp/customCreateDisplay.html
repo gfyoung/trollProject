@@ -9,8 +9,13 @@
 <h1 class="pageTitle">Create Your Own Troll File!</h1>
 <form action="{% url 'trollApp:customDownload' %}" method = "post"><b style="color:orange">Input Your Python Code Here</b><br><br>
 {% csrf_token %}
-	<div class=error></div>
-	<textarea type=text id=customCode name=code></textarea><br><br>
+	{% if error_msg %}
+		<div class=error>{{ error_msg }}</div><br>
+		<textarea type=text id=customCode name=code>{{ prev_code }}</textarea><br><br>
+	{% else %}
+		<div class=error></div>
+		<textarea type=text id=customCode name=code></textarea><br><br>
+	{% endif %}
 	<input type=submit value=Submit!>
 </form>
 </body>

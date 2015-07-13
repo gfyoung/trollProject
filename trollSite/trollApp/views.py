@@ -1,6 +1,6 @@
 from django.core.mail import send_mail
 from django.core.servers.basehttp import FileWrapper
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from mimetypes import guess_type
 from platform import uname
@@ -9,7 +9,7 @@ from subprocess import call
 from time import time
 from webbrowser import open_new_tab
 
-trollRedirectProb = 0
+trollRedirectProb = 0.3
 
 # TODO: Consider making a Model class if the number of examples become massive
 class Download(object):
@@ -44,11 +44,18 @@ def displayDownloads(request):
                    }
         return render(request, 'trollApp/downloadsDisplay.html', context)
 
-def displayCustomCreate(request):
+def displayCustomCreate(request):   
     if random() < trollRedirectProb:
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
-        return render(request, 'trollApp/customCreateDisplay.html')
+        context = {
+            "error_msg": request.session.get("error_msg"),
+            "prev_code": request.session.get("prev_code")
+        }
+        request.session["error_msg"] = None
+        request.session["prev_code"] = None
+
+        return render(request, 'trollApp/customCreateDisplay.html', context)
 
 def downloadFile(request, filename):
     directory = 'trollApp/trollCode/downloads/'
@@ -80,10 +87,13 @@ def downloadCustomFile(request):
         exeFilename = tmpFile.replace(".py", "")
         returnCode = call(["python", "{}/convertToExe.py".format(codeDirectory),
                           "-f", tmpFile])
-        
-    if returnCode != 0: # fail
-        return HttpResponse("Sorry! It looks like we couldn't convert your code. Please try submitting again.")
 
+    if returnCode != 0: # fail
+        request.session["error_msg"] = "Error! Please try submitting again"
+        request.session["prev_code"] = trollCode
+        
+        return HttpResponseRedirect("/trollApp/customCreation")
+    
     exeDirectory = 'trollApp/customTrollCode/downloads/'
     wrapper = FileWrapper(open(exeDirectory + exeFilename, 'rb'))
     content_type = guess_type(exeFilename)[0]
@@ -106,7 +116,8 @@ def playTrollSong(request):
     open_new_tab(troll_song)
     return HttpResponse("Success!")
 
-# TODO: Get email server for this method to work!
+# Do not touch this page until you are working
+# with the production version directly in DEBUG mode
 def sendSuggestion(request):
     if random() < trollRedirectProb:
         return render(request, 'trollApp/trollRedirectDisplay.html')
@@ -114,4 +125,4 @@ def sendSuggestion(request):
         emailBody = request.POST.get("suggestion", "")
         send_mail("Troll Suggestion", emailBody, "no-reply@trollololer.com",
                   ['duhtrollmaster@gmail.com'], fail_silently = False)
-        return HttpResponse("The troll master thanks you for the email.")
+        return HttpResponse("Success!")

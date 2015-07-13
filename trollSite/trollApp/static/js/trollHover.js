@@ -12,8 +12,8 @@ $(document).ready(function() {
 			if(Math.random() < playVideoProb) {
 				playVideo = true;
 				$.ajax({
-					type: "GET",
-					url: "/trollApp/playTrollSong"
+					url: "/trollApp/playTrollSong",
+					type: "GET"
 				});
 			}else{
 				playVideo = false;
