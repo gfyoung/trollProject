@@ -17,6 +17,12 @@ Custom submission
   - visibility of code to the user?
   - http://stackoverflow.com/questions/14568647/create-zip-in-python
 - Build file for convertToExe files via py_compile for use in views?
+- Concurrency Issues (What happens when there are simultaneous submissions?)
+  - Current method is to use the system time to create temp file, but that can
+    be bad if there are mulitple submissions at the same time (file overwrite
+    is a potential issue)
+  - Perhaps better way of naming temp files is needed (e.g. user-provided title)
 - Performance issues (somewhat slow)
+- Allow user to upload file as alternative to typing in textarea
 
 All TODO's in the code
