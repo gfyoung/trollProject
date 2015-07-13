@@ -132,8 +132,8 @@ def sendSuggestion(request):
         successCount = 0
         
         try:
-            msgCount = send_mail("Troll Suggestion", emailBody, "no-reply@trollololer.com",
-                                 ['duhtrollmaster@gmail.com'], fail_silently = True)
+            successCount = send_mail("Troll Suggestion", emailBody, "no-reply@trollololer.com",
+                                     ['duhtrollmaster@gmail.com'], fail_silently = True)
         except:
             emailSucceed = False
             
