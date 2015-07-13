@@ -1,21 +1,20 @@
-http://stackoverflow.com/questions/908258/generating-file-to-download-with-django
 http://www.freeformatter.com/mime-types-list.html
 
 pyinstaller -w -F <filename.py>
-visibility of code to the user?
 individual trolls first before packaging together
 
-troll emails (Kevin and Hotwheels)
+troll emails
+- Kevin and Hotwheels
 
 Suggestions page
 - need sender email?
-- email server
 
 Custom submission
 - Cross-browser compatiblity
   - Mac pyinstaller might help
   - creationflag not used in OSX or Linux
 - Give them their code as well in a zip (see stackoverflow above)
+  - visibility of code to the user?
   - http://stackoverflow.com/questions/14568647/create-zip-in-python
 - Build file for convertToExe files via py_compile for use in views?
 - Performance issues (somewhat slow)
