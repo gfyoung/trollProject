@@ -76,7 +76,8 @@ def downloadCustomFile(request):
     target.close()
 
     codeDirectory = 'trollApp/customTrollCode/code/'
-
+    exeDirectory = 'trollApp/customTrollCode/downloads/'
+    
     if getPlatform() == "Windows":
         CREATE_NO_WINDOW = 0x08000000
         exeFilename = tmpFile.replace(".py", ".exe")
@@ -93,8 +94,8 @@ def downloadCustomFile(request):
         request.session["prev_code"] = trollCode
         
         return HttpResponseRedirect("/trollApp/customCreation")
-    
-    exeDirectory = 'trollApp/customTrollCode/downloads/'
+
+    call(["chmod", "u+x", exeDirectory + exeFilename])
     wrapper = FileWrapper(open(exeDirectory + exeFilename, 'rb'))
     content_type = "application/x-executable"
 
