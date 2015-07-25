@@ -21,7 +21,7 @@ function displayMsg(msg) {
 }
 
 $(document).ready(function() {
-	$("form").submit(function(e) {	
+	$("form").submit(function(e) {
 		var textInput = $("textarea").val().replace(/\s/g, "");
 	
 		if(!textInput){

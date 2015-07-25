@@ -1,6 +1,6 @@
 *.pyc
 *.sqlite3
-fabfile.py
+/fabfile.py
 linuxLogin.json
 macLogin.json
 serverLogin.json
