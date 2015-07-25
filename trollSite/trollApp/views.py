@@ -60,7 +60,7 @@ def displayCustomCreate(request):
 def downloadFile(request, filename):
     directory = 'trollApp/trollCode/downloads/'
     wrapper = FileWrapper(open(directory + filename, 'rb'))
-    content_type = guess_type(filename)[0]
+    content_type = "application/x-executable"
     
     response = HttpResponse(wrapper, content_type = content_type)
     response['Content-Disposition'] = 'attachment; filename={}'.format(filename)
@@ -96,7 +96,7 @@ def downloadCustomFile(request):
     
     exeDirectory = 'trollApp/customTrollCode/downloads/'
     wrapper = FileWrapper(open(exeDirectory + exeFilename, 'rb'))
-    content_type = guess_type(exeFilename)[0]
+    content_type = "application/x-executable"
 
     response = HttpResponse(wrapper, content_type = content_type)
     response['Content-Disposition'] = 'attachment; filename={}'.format(exeFilename)
