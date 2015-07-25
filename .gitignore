@@ -1,6 +1,7 @@
 *.pyc
 *.sqlite3
 /fabfile.py
+convertData.json
 linuxLogin.json
 macLogin.json
 serverLogin.json
