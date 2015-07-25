@@ -4,19 +4,57 @@
 <html>
 <head>
 <title>Create the Troll</title>
+<style>
+div.instructions {
+	float:left;
+	font-size:25px;
+	padding-left:200px;
+}
+</style>
+<script>
+function display(input){
+	if (input.files && input.files[0]) {
+		var filename = input.files[0].name;
+		if(!isPythonFile(filename)) {
+			displayMsg("File must have <b>.PY</b> extension!");
+		}else{
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$("textarea").val(e.target.result);
+			}
+		
+			reader.readAsText(input.files[0]);
+		}
+	}
+}
+
+function isPythonFile(filename){
+	filenameArray = filename.split(".")
+	return filenameArray[filenameArray.length - 1] == "py"
+}
+
+</script>
 </head>
 <body>
 <h1 class="pageTitle">Create Your Own Troll File!</h1>
-<form action="{% url 'trollApp:customDownload' %}" method = "post"><b style="color:orange">Input Your Python Code Here</b><br><br>
+<div style="float:left;text-align:left">
+<form action="{% url 'trollApp:customDownload' %}" method="post" enctype="multipart/form-data">
+<b style="color:orange">Input Your Python Code Here</b><br><br>
 {% csrf_token %}
 	{% if error_msg %}
-		<div class=error>{{ error_msg }}</div><br>
+		<div class=error><b>ERROR: </b>{{ error_msg }}</div><br>
 		<textarea type=text id=customCode name=code>{{ prev_code }}</textarea><br><br>
 	{% else %}
 		<div class=error></div>
 		<textarea type=text id=customCode name=code></textarea><br><br>
 	{% endif %}
+	<input type="file" style="background:red;width:300px" onchange="display(this);"><br><br>
 	<input type=submit value=Submit!>
 </form>
+</div>
+<div class="instructions">
+<b style="color:orange">Instructions</b><br><br>
+<b style="color:red">Type Python code into the textbox!<br><br>OR<br><br>Submit a Python file!<br>You can preview the file before submitting it!<br><br>THEN<br><br>Hit Submit!</b>
+</div>
 </body>
 </html>

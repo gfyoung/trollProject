@@ -17,7 +17,7 @@ function displayMsg(msg) {
 		$(".error").after("<br>");
 	}
 	
-	$(".error").html(msg);
+	$(".error").html("<b>ERROR:</b> " + msg);
 }
 
 $(document).ready(function() {

@@ -9,7 +9,7 @@ from subprocess import call
 from time import time
 from webbrowser import open_new_tab
 
-trollRedirectProb = 0.1
+trollRedirectProb = 0.0
 
 # TODO: Consider making a Model class if the number of examples become massive
 class Download(object):
@@ -89,7 +89,7 @@ def downloadCustomFile(request):
                           "-f", tmpFile])
 
     if returnCode != 0: # fail
-        request.session["error_msg"] = "Error! Please try submitting again"
+        request.session["error_msg"] = "Error in submission! Please try submitting again!"
         request.session["prev_code"] = trollCode
         
         return HttpResponseRedirect("/trollApp/customCreation")
@@ -143,7 +143,7 @@ def sendSuggestion(request):
                 request.session["prev_email"] = ""
 
             else: # fail
-                request.session["error_msg"] = "Error! Please try submitting again"
+                request.session["error_msg"] = "Error in submission! Please try submitting again!"
                 request.session["prev_email"] = emailBody
 
             return HttpResponseRedirect("/trollApp/suggestions")
