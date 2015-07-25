@@ -13,6 +13,14 @@ Custom submission
 - Cross-browser compatiblity
   - Mac pyinstaller might help
   - creationflag not used in OSX or Linux
+  - Current work around: rely on different servers (with different OS's)
+    to run the code
+  - Better work around might be to have as many copies of Python so as to not
+    need to require multiple servers and trick pyinstaller into compiling for
+    different systems
+- Due to security issues, need cooperation from user for the file to be run
+(e.g. user needs to okay .exe download OR user needs to make file executable
+in Linux and OSX)
 - Give them their code as well in a zip (see stackoverflow above)
   - visibility of code to the user?
   - http://stackoverflow.com/questions/14568647/create-zip-in-python
@@ -23,6 +31,7 @@ Custom submission
     is a potential issue)
   - Perhaps better way of naming temp files is needed (e.g. user-provided title)
 - Performance issues (somewhat slow)
-- Allow user to upload file as alternative to typing in textarea
+- What happens if a user provides a library that does not exist in the current
+  libraries for any of the servers?
 
 All TODO's in the code
