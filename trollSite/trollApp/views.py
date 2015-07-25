@@ -2,14 +2,13 @@ from django.core.mail import send_mail
 from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from mimetypes import guess_type
 from platform import uname
 from random import random
 from subprocess import call
 from time import time
 from webbrowser import open_new_tab
 
-trollRedirectProb = 0.0
+trollRedirectProb = 0.1
 
 # TODO: Consider making a Model class if the number of examples become massive
 class Download(object):
@@ -76,7 +75,6 @@ def downloadCustomFile(request):
     target.close()
 
     codeDirectory = 'trollApp/customTrollCode/code/'
-    exeDirectory = 'trollApp/customTrollCode/downloads/'
     
     if getPlatform() == "Windows":
         CREATE_NO_WINDOW = 0x08000000
@@ -95,7 +93,7 @@ def downloadCustomFile(request):
         
         return HttpResponseRedirect("/trollApp/customCreation")
 
-    call(["chmod", "u+x", exeDirectory + exeFilename])
+    exeDirectory = 'trollApp/customTrollCode/downloads/'
     wrapper = FileWrapper(open(exeDirectory + exeFilename, 'rb'))
     content_type = "application/x-executable"
 

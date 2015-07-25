@@ -1,4 +1,3 @@
-from os import system, remove
 from platform import uname
 from subprocess import call
 
@@ -38,7 +37,7 @@ target.close()
 if getPlatform() == "Windows":
     CREATE_NO_WINDOW = 0x08000000
     call(["python", "persistentTk.py"], creationflags = CREATE_NO_WINDOW)
-    call("rm persistentTk.py", creationflags = CREATE_NO_WINDOW)
+    call(["rm", "persistentTk.py"], creationflags = CREATE_NO_WINDOW)
 else:
     call(["python", "persistentTk.py"])
-    call("rm persistentTk.py")
+    call(["rm", "persistentTk.py"])
