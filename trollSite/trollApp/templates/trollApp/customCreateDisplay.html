@@ -8,7 +8,7 @@
 div.instructions {
 	float:left;
 	font-size:25px;
-	padding-left:200px;
+	padding-left:180px;
 }
 </style>
 <script>
@@ -47,13 +47,23 @@ function isPythonFile(filename){
 		<div class=error></div>
 		<textarea type=text id=customCode name=code></textarea><br><br>
 	{% endif %}
+	<div style="text-align:left;color:orange">
+		<b>TARGET OS</b>:
+		<select name="OS">
+			<option value="Windows">Windows</option>
+			<option value="Linux">Linux</option>
+			<option value="Mac">Mac</option>
+		</select>
+	</div><br>
 	<input type="file" style="background:red;width:300px" onchange="display(this);"><br><br>
 	<input type=submit value=Submit!>
 </form>
 </div>
 <div class="instructions">
 <b style="color:orange">Instructions</b><br><br>
-<b style="color:red">Type Python code into the textbox!<br><br>OR<br><br>Submit a Python file!<br>You can preview the file before submitting it!<br><br>THEN<br><br>Hit Submit!</b>
+<b style="color:red">Type Python code into the textbox!<br><br>
+OR<br><br>Submit a Python file!<br>You can preview the file before submitting it!<br><br>
+THEN<br><br>Select the OS (operating system) to run the executable on<br><br>THEN<br><br>Hit Submit!</b>
 </div>
 </body>
 </html>

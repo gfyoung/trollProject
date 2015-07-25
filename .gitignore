@@ -1,6 +1,8 @@
 *.pyc
 *.sqlite3
 fabfile.py
+linuxLogin.json
+macLogin.json
 serverLogin.json
 update.sh
-customTrollCode/
+tmpFile*

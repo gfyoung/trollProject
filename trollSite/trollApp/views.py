@@ -2,6 +2,9 @@ from django.core.mail import send_mail
 from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from fabric.api import lcd, local
+from json import dump
+from os import chdir, getcwd
 from platform import uname
 from random import random
 from subprocess import call
@@ -75,25 +78,64 @@ def downloadCustomFile(request):
     target.close()
 
     codeDirectory = 'trollApp/customTrollCode/code/'
+    exeDirectory = 'trollApp/customTrollCode/downloads/'
+    remoteDirectory = 'trollApp/customTrollCode/code/remote/'
     
-    if getPlatform() == "Windows":
-        CREATE_NO_WINDOW = 0x08000000
+    osTarget = request.POST.get("OS")
+    sysPlatform = getPlatform()
+
+    if osTarget == "Windows":
         exeFilename = tmpFile.replace(".py", ".exe")
-        returnCode = call(["python", "{}/convertToExe.py".format(codeDirectory),
-                           "-f", tmpFile], creationflags = CREATE_NO_WINDOW)
+        if osTarget == sysPlatform:
+            CREATE_NO_WINDOW = 0x08000000
+            returnCode = call(["python", "{}/convertToExe.py".format(codeDirectory),
+                               "-f", tmpFile], creationflags = CREATE_NO_WINDOW)
+
+        else: # No VM on which to run this conversion yet
+            returnCode = 1
 
     else:
         exeFilename = tmpFile.replace(".py", "")
-        returnCode = call(["python", "{}/convertToExe.py".format(codeDirectory),
-                          "-f", tmpFile])
+        if osTarget == sysPlatform: # run locally if possible
+            returnCode = call(["python", "{}/convertToExe.py".format(codeDirectory),
+                               "-f", tmpFile])
+            
+        else:
+            returnCode = 0
+            if osTarget == "Mac":
+                homeDir = "/Users/gyoung/trollProject/trollSite/"
+                with lcd(remoteDirectory):
+                    local("cp macLogin.json serverLogin.json")
 
+                    target = open(remoteDirectory + "convertData.json", "w")
+                    transferData = {"tmpFile": tmpFile,
+                                    "homeDir": homeDir
+                                    }
+                    dump(transferData, target)
+                    target.close()
+
+                    local("fab convert_to_exe")
+                    
+            else: # osTarget = "Linux"
+                homeDir = "/home/gfyoung/trollProject/trollSite/"
+                with lcd(remoteDirectory):
+                    local("cp linuxLogin.json serverLogin.json")
+
+                    target = open(remoteDirectory + "convertData.json", "w")
+                    transferData = {"tmpFile": tmpFile,
+                                    "homeDir": homeDir
+                                    }
+                    dump(transferData, target)
+                    target.close()
+
+                    local("fab convert_to_exe")
+                
     if returnCode != 0: # fail
         request.session["error_msg"] = "Error in submission! Please try submitting again!"
         request.session["prev_code"] = trollCode
         
         return HttpResponseRedirect("/trollApp/customCreation")
 
-    exeDirectory = 'trollApp/customTrollCode/downloads/'
     wrapper = FileWrapper(open(exeDirectory + exeFilename, 'rb'))
     content_type = "application/x-executable"
 
