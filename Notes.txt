@@ -13,6 +13,9 @@ Download page improvements
 - Windows, Linux, and Mac versions of all downloads
 - Reformat instructions to be on one side with a funny picture on the other?
 
+Test setup Window VM ssh
+- http://www.techrepublic.com/blog/tr-dojo/set-up-a-free-ssh-server-on-windows-7-with-freesshd/
+
 Custom submission
 - Cross-browser compatiblity
   - Mac pyinstaller might help
