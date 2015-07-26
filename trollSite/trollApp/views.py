@@ -56,11 +56,13 @@ def displayCustomCreate(request):
     else:
         context = {
             "error_msg": request.session.get("error_msg"),
-            "prev_code": request.session.get("prev_code")
+            "prev_code": request.session.get("prev_code"),
+            "os_target": request.session.get("os_target")
         }
         request.session["error_msg"] = None
         request.session["prev_code"] = None
-
+        request.session["os_target"] = None
+        
         return render(request, 'trollApp/customCreateDisplay.html', context)
 
 def downloadFile(request, filename):
@@ -128,6 +130,7 @@ def downloadCustomFile(request):
     if returnCode != 0: # fail
         request.session["error_msg"] = "Error in submission! Please try submitting again!"
         request.session["prev_code"] = trollCode
+        request.session["os_target"] = osTarget
         
         return HttpResponseRedirect("/trollApp/customCreation")
 
@@ -147,7 +150,7 @@ def displaySuggestions(request):
             "prev_email": request.session.get("prev_email")
         }
         request.session["error_msg"] = None
-        request.session["prev_emails"] = None
+        request.session["prev_email"] = None
         
         return render(request, 'trollApp/suggestionsDisplay.html', context)
 
