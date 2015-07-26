@@ -5,6 +5,8 @@ individual trolls first before packaging together
 
 troll emails
 - Kevin and Hotwheels
+- Synonyms dictionary to replace known words with longer, less known (and hence
+more confusing) words
 
 Suggestions page
 - need sender email?
