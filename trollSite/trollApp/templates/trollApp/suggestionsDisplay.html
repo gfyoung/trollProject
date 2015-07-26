@@ -1,12 +1,22 @@
 {% include "trollApp/menuDisplay.html" %}
+{% load staticfiles %}
 
 <!DOCTYPE html>
 <html>
 <head>
 <title>Advise the Troll</title>
+<style>
+img#trollAtComputer {
+	width:500px;
+	height:305px;
+	padding-left:10px;
+	padding-top:20px;
+}
+</style>
 </head>
 <body>
 <h1 class="pageTitle">Send us your suggestions for new trolls and improvements to the website!</h1>
+<div style="float:left;text-align:left">
 <form action="{% url 'trollApp:sendSuggestion' %}" method="post"><b style="color:orange">Send Your Suggestion!</b><br><br>
 {% csrf_token %}
 	{% if error_msg %}
@@ -18,5 +28,10 @@
 	{% endif %}
 	<input type=submit value=Submit!>
 </form>
+</div>
+<div>
+<div><b style="color:orange">Trust us, he'll read ALL of them</b></div>
+<img id="trollAtComputer" alt="trollAtComputer" src="{% static 'images/trollAtComputer.jpg' %}">
+</div>
 </body>
 </html>
