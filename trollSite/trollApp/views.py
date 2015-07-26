@@ -109,10 +109,10 @@ def downloadCustomFile(request):
         else:
             returnCode = 0
             if osTarget == LINUX:
-                serverConfigFile = "linuxLogin.json"
+                serverConfigFile = "linuxConfig.json"
 
             elif osTarget == MAC:
-                serverConfigFile = "macLogin.json"
+                serverConfigFile = "macConfig.json"
 
             else:
                 raise Exception("Unknown OS Target: {}".format(osTarget))

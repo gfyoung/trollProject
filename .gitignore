@@ -2,8 +2,8 @@
 *.sqlite3
 /fabfile.py
 tmpFileConfig.json
-linuxLogin.json
-macLogin.json
+linuxConfig.json
+macConfig.json
 serverConfig.json
 serverLogin.json
 update.sh
