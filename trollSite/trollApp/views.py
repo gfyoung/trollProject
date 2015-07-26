@@ -13,6 +13,10 @@ from webbrowser import open_new_tab
 
 trollRedirectProb = 0.1
 
+WINDOWS = "Windows"
+LINUX = "Linux"
+MAC = "Darwin"
+
 # TODO: Consider making a Model class if the number of examples become massive
 class Download(object):
     def __init__(self, filename, description):
@@ -84,7 +88,7 @@ def downloadCustomFile(request):
     osTarget = request.POST.get("OS")
     sysPlatform = getPlatform()
 
-    if osTarget == "Windows":
+    if osTarget == WINDOWS:
         exeFilename = tmpFile.replace(".py", ".exe")
         if osTarget == sysPlatform:
             CREATE_NO_WINDOW = 0x08000000
@@ -102,33 +106,24 @@ def downloadCustomFile(request):
             
         else:
             returnCode = 0
-            if osTarget == "Mac":
-                homeDir = "/Users/gyoung/trollProject/trollSite/"
-                with lcd(remoteDirectory):
-                    local("cp macLogin.json serverLogin.json")
+            if osTarget == LINUX:
+                serverConfigFile = "linuxLogin.json"
 
-                    target = open(remoteDirectory + "convertData.json", "w")
-                    transferData = {"tmpFile": tmpFile,
-                                    "homeDir": homeDir
-                                    }
-                    dump(transferData, target)
-                    target.close()
+            elif osTarget == MAC:
+                serverConfigFile = "macLogin.json"
 
-                    local("fab convert_to_exe")
-                    
-            else: # osTarget = "Linux"
-                homeDir = "/home/gfyoung/trollProject/trollSite/"
-                with lcd(remoteDirectory):
-                    local("cp linuxLogin.json serverLogin.json")
+            else:
+                raise Exception("Unknown OS Target {}".format(osTarget))
+            
+            with lcd(remoteDirectory):
+                local("cp {} serverConfig.json".format(serverConfigFile))
 
-                    target = open(remoteDirectory + "convertData.json", "w")
-                    transferData = {"tmpFile": tmpFile,
-                                    "homeDir": homeDir
-                                    }
-                    dump(transferData, target)
-                    target.close()
+                target = open(remoteDirectory + "tmpFileConfig.json", "w")
+                tmpFileConfig = {"tmpFile": tmpFile}
+                dump(tmpFileConfig, target)
+                target.close()
 
-                    local("fab convert_to_exe")
+                local("fab convert_to_exe")
                 
     if returnCode != 0: # fail
         request.session["error_msg"] = "Error in submission! Please try submitting again!"

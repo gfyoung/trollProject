@@ -7,21 +7,22 @@ exeDirectory = 'trollApp/customTrollCode/downloads/'
     
 def login_into_server():
     try:
-        jsonFile = "serverLogin.json"
+        jsonFile = "serverConfig.json"
         jsonData = open(jsonFile, 'r')
-        convertData = load(jsonData)
+        serverConfig = load(jsonData)
 
     except:
-        print "Missing 'serverLogin.json' file!"
+        print "Missing 'serverConfig.json' file!"
         print "Aborting Server access immediately"
     
         import sys
         sys.exit(1)
 
     try:
-        env.hosts.append(convertData['server'])
-        env.user = convertData['username']
-        env.password = convertData['password']
+        env.hosts.append(serverConfig['server'])
+        env.user = serverConfig['username']
+        env.password = serverConfig['password']
+        homeDir = serverConfig['homeDir']
 
     except:
         print "Improper configuraton of 'serverLogin.json' file!"
@@ -29,16 +30,15 @@ def login_into_server():
 
         import sys
         sys.exit(1)
+
+    return homeDir
         
 def convert_to_exe():
-    jsonFile = "convertData.json"
-    jsonData = open(jsonFile, 'r')
-    convertData = load(jsonData)
-    
+    global homeDir
     try:
-        jsonFile = "convertData.json"
+        jsonFile = "tmpFileConfig.json"
         jsonData = open(jsonFile, 'r')
-        convertData = load(jsonData)
+        tmpFileConfig = load(jsonData)
 
     except:
         print "Missing 'convertData.json' file!"
@@ -48,8 +48,7 @@ def convert_to_exe():
         sys.exit(1)
 
     try:
-        tmpFile = convertData['tmpFile']
-        homeDir = convertData['homeDir']
+        tmpFile = tmpFileConfig['tmpFile']
         exeFile = tmpFile.replace(".py", "")
         
     except:
@@ -73,4 +72,5 @@ def convert_to_exe():
 # only when we run the file with the fab command do we want to login
 # for sure; otherwise, none of our commands will work
 if 'fab-script' in argv[0]:
-    login_into_server()
+    global homeDir
+    homeDir = login_into_server()
