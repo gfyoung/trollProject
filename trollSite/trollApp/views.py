@@ -113,7 +113,7 @@ def downloadCustomFile(request):
                 serverConfigFile = "macLogin.json"
 
             else:
-                raise Exception("Unknown OS Target {}".format(osTarget))
+                raise Exception("Unknown OS Target: {}".format(osTarget))
             
             with lcd(remoteDirectory):
                 local("cp {} serverConfig.json".format(serverConfigFile))
