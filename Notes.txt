@@ -11,9 +11,6 @@ more confusing) words
 Suggestions page
 - need sender email?
 
-Download page improvements
-- Reformat instructions to be on one side with a funny picture on the other?
-
 Test setup Window VM ssh
 - http://www.techrepublic.com/blog/tr-dojo/set-up-a-free-ssh-server-on-windows-7-with-freesshd/
 

@@ -5,32 +5,49 @@
 <head>
 <title>Download the Troll</title>
 <style>
-p {
-	color:orange
+div.download {
+	float:left;
+	padding-left:5em;
+}
+
+div#Linux, div#Mac {
+	padding-left:15em;
 }
 
 h2.OS {
 	color:#FF8250;
-	text-align:left
+}
+
+p {
+	color:orange
 }
 </style>
 </head>
 <body>
 <h1 class="pageTitle">Example Troll Files</h1>
-<p>Below are some samples that you can download for your own <em>convenience</em> (for real though, no trolls here,
-at least for now...). To download, just click the link. Although we can assure you that these files are benign, we
-<em>encourage</em> you nevertheless to perform a virus scan to double check! It is good practice to do so!</p>
+<p style="font-size:20px">Below are some samples that you can download for your own convenience
+(for real though, no trolls here, at least for now...)<br>
+To download, <b>JUST CLICK</b> any link corresponding to your operating system!<br><br>
+Although we can assure you that these files are benign, given the format of these files, we
+<b>ENCOURAGE</b> you nevertheless to perform a virus scan to double check!<br>
+It is good practice to do so in the case that you encounter actual malicious software, which could resemble files like these!</p>
+<div class="download" id="Windows">
 <h2 class="OS">WINDOWS</h2>
 {% for download in windows_downloads %}
 	<a id="{{ download.getShortName }}" class="download" href="{% url 'trollApp:downloadFile' download.target_os download.filename %}">{{ download.description }}</a><br><br>
 {% endfor %}
+</div>
+<div class="download" id="Linux">
 <h2 class="OS">LINUX</h2>
 {% for download in linux_downloads %}
 	<a id="{{ download.getShortName }}" class="download" href="{% url 'trollApp:downloadFile' download.target_os download.filename %}">{{ download.description }}</a><br><br>
 {% endfor %}
+</div>
+<div class="download" id="Mac">
 <h2 class="OS">MAC</h2>
 {% for download in mac_downloads %}
 	<a id="{{ download.getShortName }}" class="download" href="{% url 'trollApp:downloadFile' download.target_os download.filename %}">{{ download.description }}</a><br><br>
 {% endfor %}
+</div>
 </body>
 </html>
