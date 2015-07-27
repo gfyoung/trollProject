@@ -27,7 +27,6 @@ def displayAbout(request):
     else:
         return render(request, 'trollApp/aboutDisplay.html')
 
-# TODO: Remove the first download when you have an 'official' release
 def displayDownloads(request):
     if random() < trollRedirectProb:
         return render(request, 'trollApp/trollRedirectDisplay.html')
