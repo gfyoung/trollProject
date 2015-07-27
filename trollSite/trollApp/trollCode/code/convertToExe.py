@@ -6,6 +6,7 @@ from sqlite3 import connect
 
 DATABASE = "../../../db.sqlite3"
 TABLE = "trollApp_download"
+MIGRATION = "../migration.txt"
 
 def createSetupFile(filename):
     target = open('setup.py', 'w')
@@ -83,12 +84,15 @@ if __name__ == '__main__':
                         conn = connect(DATABASE)
                         nextId = conn.execute("SELECT COALESCE(MAX(id), 0) " +
                                               "FROM {}".format(TABLE)).fetchone()[0] + 1
-                        conn.execute("INSERT INTO {} ".format(TABLE) +
-                                     "VALUES ({}, '{}', '{}', '{}')".format(
-                                         nextId, platform, executable, descr))
+                        cmd = "INSERT INTO {} VALUES ({}, '{}', '{}', '{}')".format(
+                            TABLE, nextId, platform, executable, descr)
+                        conn.execute(cmd)
                         conn.commit()
                         conn.close()
 
+                        target = open("../migration.txt", "a")
+                        target.write(cmd + "\n")
+                        target.close()
                     else:
                         print "No description provided for file, so no new entry was added"
                     

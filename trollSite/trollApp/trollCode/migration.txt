@@ -1,0 +1,4 @@
+INSERT INTO trollApp_download VALUES (1, 'Windows', 'displaySuccessCall.exe', 'Test Download')
+INSERT INTO trollApp_download VALUES (2, 'Windows', 'infiniteTrollSongLoop.exe', 'Troll Song Infinite Loop')
+INSERT INTO trollApp_download VALUES (3, 'Windows', 'persistentTkCall.exe', 'Persistent Tkinter Display')
+INSERT INTO trollApp_download VALUES (4, 'Windows', 'massiveFileWriteCall.exe', 'Write a Ton of Useless Files')
