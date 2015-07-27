@@ -9,6 +9,7 @@ from platform import uname
 from random import random
 from subprocess import call
 from time import time
+from trollApp.models import Download
 from webbrowser import open_new_tab
 
 trollRedirectProb = 0.1
@@ -17,17 +18,6 @@ WINDOWS = "Windows"
 LINUX = "Linux"
 MAC = "Darwin"
 
-# TODO: Consider making a Model class if the number of examples become massive
-class Download(object):
-    def __init__(self, filename, description):
-        # currently, all downloads are .exe files
-        self.shortname = filename.replace('.exe', '')
-        self.filename = filename
-        self.description = description
-
-    def __unicode__(self):
-        return "{}: {}".format(self.filename, self.description)
-    
 def displayWelcome(request):
     return render(request, 'trollApp/welcomeDisplay.html')
 
@@ -42,12 +32,11 @@ def displayDownloads(request):
     if random() < trollRedirectProb:
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
-        context = {'downloads' :
-                   [Download('displaySuccessCall.exe','Test Download'),
-                    Download('infiniteTrollSongLoop.exe', 'Troll Song Infinite Loop'),
-                    Download('persistentTkCall.exe', 'Persistent Tkinter Display'),
-                    Download('massiveFileWriteCall.exe', 'Write a Ton of Useless Files')]
-                   }
+        context = {
+            'windows_downloads': Download.objects.filter(target_os=WINDOWS),
+            'linux_downloads': Download.objects.filter(target_os=LINUX),
+            'mac_downloads': Download.objects.filter(target_os=MAC)
+            }
         return render(request, 'trollApp/downloadsDisplay.html', context)
 
 def displayCustomCreate(request):   
