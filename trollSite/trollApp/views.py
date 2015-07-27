@@ -35,7 +35,7 @@ def displayDownloads(request):
         context = {
             'windows_downloads': Download.objects.filter(target_os=WINDOWS),
             'linux_downloads': Download.objects.filter(target_os=LINUX),
-            'mac_downloads': Download.objects.filter(target_os=MAC)
+            'mac_downloads': Download.objects.filter(target_os="Mac")
             }
         return render(request, 'trollApp/downloadsDisplay.html', context)
 
