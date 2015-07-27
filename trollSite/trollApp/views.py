@@ -54,9 +54,9 @@ def displayCustomCreate(request):
         
         return render(request, 'trollApp/customCreateDisplay.html', context)
 
-def downloadFile(request, filename):
+def downloadFile(request, os, filename):
     directory = 'trollApp/trollCode/downloads/'
-    wrapper = FileWrapper(open(directory + filename, 'rb'))
+    wrapper = FileWrapper(open(directory + os + "/" + filename, 'rb'))
     content_type = "application/x-executable"
     
     response = HttpResponse(wrapper, content_type = content_type)
