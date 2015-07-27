@@ -22,15 +22,15 @@ at least for now...). To download, just click the link. Although we can assure y
 <em>encourage</em> you nevertheless to perform a virus scan to double check! It is good practice to do so!</p>
 <h2 class="OS">WINDOWS</h2>
 {% for download in windows_downloads %}
-	<a id="{{ download.getShortName }}" class="download" href="{% url 'trollApp:downloadFile' 'Windows' download.filename %}">{{ download.description }}</a><br><br>
+	<a id="{{ download.getShortName }}" class="download" href="{% url 'trollApp:downloadFile' download.target_os download.filename %}">{{ download.description }}</a><br><br>
 {% endfor %}
 <h2 class="OS">LINUX</h2>
 {% for download in linux_downloads %}
-	<a id="{{ download.getShortName }}" class="download" href="{% url 'trollApp:downloadFile' 'Linux' download.filename %}">{{ download.description }}</a><br><br>
+	<a id="{{ download.getShortName }}" class="download" href="{% url 'trollApp:downloadFile' download.target_os download.filename %}">{{ download.description }}</a><br><br>
 {% endfor %}
 <h2 class="OS">MAC</h2>
 {% for download in mac_downloads %}
-	<a id="{{ download.getShortName }}" class="download" href="{% url 'trollApp:downloadFile' 'Mac' download.filename %}">{{ download.description }}</a><br><br>
+	<a id="{{ download.getShortName }}" class="download" href="{% url 'trollApp:downloadFile' download.target_os download.filename %}">{{ download.description }}</a><br><br>
 {% endfor %}
 </body>
 </html>
