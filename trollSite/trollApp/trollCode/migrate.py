@@ -14,9 +14,12 @@ migrations = target.readlines()
 
 if len(migrations) != latestId:
     print "Applying migrations to database..."
+
     for migration in migrations[latestId:]:
         conn.execute(migration.strip())
         conn.commit()
 
+    print "Done!"
+    
 else:
     print "Database already up to date"
