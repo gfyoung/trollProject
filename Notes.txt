@@ -12,7 +12,6 @@ Suggestions page
 - need sender email?
 
 Download page improvements
-- Windows, Linux, and Mac versions of all downloads
 - Reformat instructions to be on one side with a funny picture on the other?
 
 Test setup Window VM ssh
