@@ -93,6 +93,7 @@ if __name__ == '__main__':
                         target = open("../migration.txt", "a")
                         target.write(cmd + "\n")
                         target.close()
+                        
                     else:
                         print "No description provided for file, so no new entry was added"
                     

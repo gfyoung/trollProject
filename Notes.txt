@@ -14,6 +14,11 @@ Suggestions page
 Test setup Window VM ssh
 - http://www.techrepublic.com/blog/tr-dojo/set-up-a-free-ssh-server-on-windows-7-with-freesshd/
 
+Provided downloads
+- Remove "Test Download" in any official releases
+- Will need to refactor migration code, as migrations will eventually include
+updates and deletions
+
 Custom submission
 - Cross-browser compatiblity
   - Mac pyinstaller might help
