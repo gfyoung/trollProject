@@ -1,0 +1,37 @@
+{% include "trollApp/menuDisplay.html" %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Advise the Troll</title>
+<style>
+img#trollAtComputer {
+	width:500px;
+	height:305px;
+	padding-left:10px;
+	padding-top:20px;
+}
+</style>
+</head>
+<body>
+<h1 class="pageTitle">Classic Troll: Make your messasges deliberately confusing!</h1>
+<div style="float:left;text-align:left">
+<form action="{% url 'trollApp:trollEmail' %}" method="post"><b style="color:orange">Write Your Email Here, and We'll Trollify It!</b><br><br>
+{% csrf_token %}
+	{% if error_msg %}
+		<div class=error><b>ERROR: </b>{{ error_msg }}</div><br>
+		<textarea type=text id=email name=email>{{ prev_email }}</textarea><br><br>
+	{% else %}
+		<div class=error></div>
+		<textarea type=text id=email name=email></textarea><br><br>
+	{% endif %}
+	<input type=submit value=Submit!>
+</form>
+</div>
+<div>
+<div><b style="color:orange">Trust us, he'll read ALL of them</b></div>
+<img id="trollAtComputer" alt="trollAtComputer" src="{% static 'images/trollAtComputer.jpg' %}">
+</div>
+</body>
+</html>

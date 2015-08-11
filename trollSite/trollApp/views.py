@@ -198,7 +198,7 @@ def trollifyEmail(request):
 
         for word in words:
             emailBody = emailBody.replace(word, getSynonym(word))
-            
+
         return HttpResponse(emailBody)
         
 def getSynonym(word):
@@ -206,7 +206,7 @@ def getSynonym(word):
         return word
     
     currentSyns = Synonym.objects.filter(word=word)
-
+    
     if currentSyns:
         bestSynObj = currentSyns[0]
         bestSyn = bestSynObj.synonym
@@ -217,7 +217,7 @@ def getSynonym(word):
             bestSynObj.save()
 
     else:
-        bestSyn = getBestSynonym(word))
+        bestSyn = getBestSynonym(word)
         bestSynObj = Synonym(word=word, synonym=bestSyn)
         bestSynObj.save()
 
@@ -236,8 +236,8 @@ def getBestSynonym(word, curSyn=""):
         bestSyn = curSyn
 
         for synset in allSyns:
-            for possSyn in synset:
-                if len(possSyn) > bestSyn:
+            for possSyn in synset.lemma_names():
+                if len(possSyn) > len(bestSyn):
                     bestSyn = possSyn
 
     return bestSyn

@@ -13,5 +13,6 @@ urlpatterns = patterns('',
     url(r'^suggestions$', views.displaySuggestions, name = 'suggestions'),
     url(r'^sendSuggestion$', views.sendSuggestion, name = 'sendSuggestion'),
     url(r'^playTrollSong$', views.playTrollSong, name = 'playTrollSong'),
+    url(r'^trollifyEmail$', views.displayTrollifyEmail, name = 'displayTrollEmail'),
     url(r'^trollifyEmail/create$', views.trollifyEmail, name = 'trollEmail')
 )
