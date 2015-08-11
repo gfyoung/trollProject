@@ -10,3 +10,7 @@ class Download(models.Model):
 
     def __unicode__(self):
         return "{}: {}".format(self.filename, self.description)
+
+class Synonym(models.Model):
+    word = models.CharField(max_length=200)
+    synonym = models.CharField(max_length=200)

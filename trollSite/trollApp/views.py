@@ -5,14 +5,19 @@ from django.shortcuts import render
 from fabric.api import lcd, local
 from json import dump
 from os import chdir, getcwd
+from nltk.corpus import wordnet
 from platform import uname
 from random import random
 from subprocess import call
 from time import time
-from trollApp.models import Download
+from trollApp.models import Download, Synonym
 from webbrowser import open_new_tab
 
+import re
+
 trollRedirectProb = 0.1
+updateFrequency = 0.05
+spaces = re.compile(r'\s+')
 
 WINDOWS = "Windows"
 LINUX = "Linux"
@@ -152,7 +157,7 @@ def playTrollSong(request):
 
 def sendSuggestion(request):
     if random() < trollRedirectProb:
-        return render(request, 'trollApp/trollRedirectDisplay.html')
+        return render(request, 'trollApp/trollRedirectDisplay.html')   
     else:
         emailBody = request.POST.get("suggestion", "")
         emailSucceed = True
@@ -174,3 +179,65 @@ def sendSuggestion(request):
                 request.session["prev_email"] = emailBody
 
             return HttpResponseRedirect("/trollApp/suggestions")
+
+def displayTrollifyEmail(request):
+    #if random() < trollRedirectProb:
+    if False:
+        return render(request, 'trollApp/trollRedirectDisplay.html')
+    else:
+        return render(request, 'trollApp/trollifyDisplay.html')
+    
+def trollifyEmail(request):
+    #if random() < trollRedirectProb:
+    if False:
+        return render(request, 'trollApp/trollRedirectDisplay.html')
+    else:
+        emailBody = request.POST.get("email", "")
+        emailBody = re.sub(spaces, " ", emailBody)
+        words = set(emailBody.split(" "))
+
+        for word in words:
+            emailBody = emailBody.replace(word, getSynonym(word))
+            
+        return HttpResponse(emailBody)
+        
+def getSynonym(word):
+    if not word:
+        return word
+    
+    currentSyns = Synonym.objects.filter(word=word)
+
+    if currentSyns:
+        bestSynObj = currentSyns[0]
+        bestSyn = bestSynObj.synonym
+        
+        if random() < updateFrequency:
+            bestSyn = getBestSynonym(word, curSyn=bestSyn)
+            bestSynObj.synonym = bestSyn
+            bestSynObj.save()
+
+    else:
+        bestSyn = getBestSynonym(word))
+        bestSynObj = Synonym(word=word, synonym=bestSyn)
+        bestSynObj.save()
+
+    return bestSyn
+
+def getBestSynonym(word, curSyn=""):
+    if not word:
+        return word
+    
+    allSyns = wordnet.synsets(word)
+
+    if not allSyns:
+        return word
+
+    else:
+        bestSyn = curSyn
+
+        for synset in allSyns:
+            for possSyn in synset:
+                if len(possSyn) > bestSyn:
+                    bestSyn = possSyn
+
+    return bestSyn
