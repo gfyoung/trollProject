@@ -8,6 +8,7 @@ from os import chdir, getcwd
 from nltk.corpus import wordnet
 from platform import uname
 from random import random
+from string import maketrans, punctuation
 from subprocess import call
 from time import time
 from trollApp.models import Download, Synonym
@@ -18,6 +19,7 @@ import re
 trollRedirectProb = 0.1
 updateFrequency = 0.05
 spaces = re.compile(r'\s+')
+punctuation = """!"#$%&()*+,-./:;<=>?@[\]^_`{|}~"""
 
 WINDOWS = "Windows"
 LINUX = "Linux"
@@ -185,7 +187,53 @@ def displayTrollifyEmail(request):
     if False:
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
-        return render(request, 'trollApp/trollifyDisplay.html')
+        context = {
+            "error_msg": request.session.get("error_msg", ""),
+            "orig_email": request.session.get("orig_email", ""),
+            "troll_email": request.session.get("troll_email", ""),
+            "subject": request.session.get("subject", ""),
+            "sender": request.session.get("sender", ""),
+            "receiver": request.session.get("receiver", ""),
+        }
+
+        return render(request, 'trollApp/trollifyDisplay.html', context)
+
+def sendTrollifiedEmail(request):
+    #if random() < trollRedirectProb:
+    if False:
+        return render(request, 'trollApp/trollRedirectDisplay.html')
+    else:
+        subject = request.POST.get("subject", "")
+        sender = request.POST.get("sender", "")
+        receiver = request.POST.get("receiver", "")
+        emailBody = request.POST.get("email", "")
+
+        emailSucceed = True
+        successCount = 0
+        
+        try:
+            successCount = send_mail(subject, emailBody, receiver,
+                                     [sender], fail_silently = True)
+        except:
+            emailSucceed = False
+
+        finally:
+            if emailSucceed and successCount > 0:
+                request.session["error_msg"] = "Email Successfully Sent!"
+                request.session["orig_email"] = ""
+                request.session["troll_email"] = ""
+                request.session["subject"] = ""
+                request.session["sender"] = ""
+                request.session["receiver"] = ""
+
+            else: # fail
+                request.session["error_msg"] = "Error in submission! Please try submitting again!"
+                request.session["subject"] = subject
+                request.session["sender"] = sender
+                request.session["receiver"] = receiver
+                request.session["troll_email"] = emailBody
+
+        return HttpResponseRedirect("/trollApp/trollifyEmail")
     
 def trollifyEmail(request):
     #if random() < trollRedirectProb:
@@ -193,13 +241,18 @@ def trollifyEmail(request):
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
         emailBody = request.POST.get("email", "")
-        emailBody = re.sub(spaces, " ", emailBody)
+        request.session["orig_email"] = emailBody
+        
         words = set(emailBody.split(" "))
-
+    
         for word in words:
-            emailBody = emailBody.replace(word, getSynonym(word))
+            cleanWord = sanitizeWord(word)
+            emailBody = emailBody.replace(
+                cleanWord, getSynonym(cleanWord))
 
-        return HttpResponse(emailBody)
+        request.session["troll_email"] = emailBody
+        
+        return HttpResponseRedirect("/trollApp/trollifyEmail")
         
 def getSynonym(word):
     if not word:
@@ -241,3 +294,6 @@ def getBestSynonym(word, curSyn=""):
                     bestSyn = possSyn
 
     return bestSyn
+
+def sanitizeWord(word):
+    return str(word).translate(maketrans("", ""), punctuation)

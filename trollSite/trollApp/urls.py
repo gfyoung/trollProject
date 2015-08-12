@@ -14,5 +14,6 @@ urlpatterns = patterns('',
     url(r'^sendSuggestion$', views.sendSuggestion, name = 'sendSuggestion'),
     url(r'^playTrollSong$', views.playTrollSong, name = 'playTrollSong'),
     url(r'^trollifyEmail$', views.displayTrollifyEmail, name = 'displayTrollEmail'),
-    url(r'^trollifyEmail/create$', views.trollifyEmail, name = 'trollEmail')
+    url(r'^trollifyEmail/create$', views.trollifyEmail, name = 'trollEmail'),
+    url(r'^trollifyEmail/send$', views.sendTrollifiedEmail, name = 'sendTrollEmail')
 )

@@ -7,6 +7,9 @@ troll emails
 - Kevin and Hotwheels
 - Synonyms dictionary to replace known words with longer, less known (and hence
 more confusing) words
+- Need to be able to trollify multiple times if needed (i.e. send trollify
+request multiple times before sending)
+- Cannot detect that send box is empty if you delete email before hitting send
 
 Suggestions page
 - need sender email?
