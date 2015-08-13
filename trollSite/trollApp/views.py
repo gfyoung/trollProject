@@ -194,6 +194,13 @@ def displayTrollifyEmail(request):
             "receiver": request.session.get("receiver", ""),
         }
 
+        request.session["error_msg"] = ""
+        request.session["orig_email"] = ""
+        request.session["troll_email"] = ""
+        request.session["subject"] = ""
+        request.session["sender"] = ""
+        request.session["receiver"] = ""
+
         return render(request, 'trollApp/trollifyDisplay.html', context)
 
 def sendTrollifiedEmail(request):
@@ -207,10 +214,10 @@ def sendTrollifiedEmail(request):
 
         emailSucceed = True
         successCount = 0
-        
+
         try:
             successCount = send_mail(subject, emailBody, receiver,
-                                     [sender], fail_silently = True)
+                                     [sender], fail_silently=True)
         except:
             emailSucceed = False
 
