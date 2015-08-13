@@ -69,71 +69,72 @@ def downloadFile(request, os, filename):
     return response
 
 def downloadCustomFile(request):
-    trollCode = request.POST.get("code", "")
-    trollCode = trollCode.replace("\r\n", "\n")
+    if request.method == "POST":
+        trollCode = request.POST.get("code", "")
+        trollCode = trollCode.replace("\r\n", "\n")
 
-    tmpFile = "tmpFile_{}.py".format(int(time()))
-    target = open("trollApp/customTrollCode/code/{}".format(tmpFile), "w")
-    target.write(trollCode)
-    target.close()
+        tmpFile = "tmpFile_{}.py".format(int(time()))
+        target = open("trollApp/customTrollCode/code/{}".format(tmpFile), "w")
+        target.write(trollCode)
+        target.close()
 
-    codeDirectory = 'trollApp/customTrollCode/code/'
-    exeDirectory = 'trollApp/customTrollCode/downloads/'
-    remoteDirectory = 'trollApp/customTrollCode/code/remote/'
-    
-    osTarget = request.POST.get("OS")
-    sysPlatform = getPlatform()
+        codeDirectory = 'trollApp/customTrollCode/code/'
+        exeDirectory = 'trollApp/customTrollCode/downloads/'
+        remoteDirectory = 'trollApp/customTrollCode/code/remote/'
 
-    if osTarget == WINDOWS:
-        exeFilename = tmpFile.replace(".py", ".exe")
-        if osTarget == sysPlatform:
-            CREATE_NO_WINDOW = 0x08000000
-            returnCode = call(["python", "{}/convertToExe.py".format(codeDirectory),
-                               "-f", tmpFile], creationflags = CREATE_NO_WINDOW)
+        osTarget = request.POST.get("OS")
+        sysPlatform = getPlatform()
 
-        else: # No VM on which to run this conversion yet
-            returnCode = 1
+        if osTarget == WINDOWS:
+            exeFilename = tmpFile.replace(".py", ".exe")
+            if osTarget == sysPlatform:
+                CREATE_NO_WINDOW = 0x08000000
+                returnCode = call(["python", "{}/convertToExe.py".format(codeDirectory),
+                                   "-f", tmpFile], creationflags = CREATE_NO_WINDOW)
 
-    else:
-        exeFilename = tmpFile.replace(".py", "")
-        if osTarget == sysPlatform: # run locally if possible
-            returnCode = call(["python", "{}/convertToExe.py".format(codeDirectory),
-                               "-f", tmpFile])
-            
+            else: # No VM on which to run this conversion yet
+                returnCode = 1
+
         else:
-            returnCode = 0
-            if osTarget == LINUX:
-                serverConfigFile = "linuxConfig.json"
-
-            elif osTarget == MAC:
-                serverConfigFile = "macConfig.json"
+            exeFilename = tmpFile.replace(".py", "")
+            if osTarget == sysPlatform: # run locally if possible
+                returnCode = call(["python", "{}/convertToExe.py".format(codeDirectory),
+                                   "-f", tmpFile])
 
             else:
-                raise Exception("Unknown OS Target: {}".format(osTarget))
-            
-            with lcd(remoteDirectory):
-                local("cp {} serverConfig.json".format(serverConfigFile))
+                returnCode = 0
+                if osTarget == LINUX:
+                    serverConfigFile = "linuxConfig.json"
 
-                target = open(remoteDirectory + "tmpFileConfig.json", "w")
-                tmpFileConfig = {"tmpFile": tmpFile}
-                dump(tmpFileConfig, target)
-                target.close()
+                elif osTarget == MAC:
+                    serverConfigFile = "macConfig.json"
 
-                local("fab convert_to_exe")
-                
-    if returnCode != 0: # fail
-        request.session["error_msg"] = "Error in submission! Please try submitting again!"
-        request.session["prev_code"] = trollCode
-        request.session["os_target"] = osTarget
-        
-        return HttpResponseRedirect("/trollApp/customCreation")
+                else:
+                    raise Exception("Unknown OS Target: {}".format(osTarget))
 
-    wrapper = FileWrapper(open(exeDirectory + exeFilename, 'rb'))
-    content_type = "application/x-executable"
+                with lcd(remoteDirectory):
+                    local("cp {} serverConfig.json".format(serverConfigFile))
 
-    response = HttpResponse(wrapper, content_type=content_type)
-    response['Content-Disposition'] = 'attachment; filename={}'.format(exeFilename)
-    return response
+                    target = open(remoteDirectory + "tmpFileConfig.json", "w")
+                    tmpFileConfig = {"tmpFile": tmpFile}
+                    dump(tmpFileConfig, target)
+                    target.close()
+
+                    local("fab convert_to_exe")
+
+        if returnCode != 0: # fail
+            request.session["error_msg"] = "Error in submission! Please try submitting again!"
+            request.session["prev_code"] = trollCode
+            request.session["os_target"] = osTarget
+
+            return HttpResponseRedirect("/trollApp/customCreation")
+
+        wrapper = FileWrapper(open(exeDirectory + exeFilename, 'rb'))
+        content_type = "application/x-executable"
+
+        response = HttpResponse(wrapper, content_type=content_type)
+        response['Content-Disposition'] = 'attachment; filename={}'.format(exeFilename)
+        return response
 
 def displaySuggestions(request):
     if random() < trollRedirectProb:
@@ -160,26 +161,27 @@ def sendSuggestion(request):
     if random() < trollRedirectProb:
         return render(request, 'trollApp/trollRedirectDisplay.html')   
     else:
-        emailBody = request.POST.get("suggestion", "")
-        emailSucceed = True
-        successCount = 0
-        
-        try:
-            successCount = send_mail("Troll Suggestion", emailBody, "no-reply@trollololer.com",
-                                     ['duhtrollmaster@gmail.com'], fail_silently = True)
-        except:
-            emailSucceed = False
-            
-        finally:
-            if emailSucceed and successCount > 0:
-                request.session["error_msg"] = "The Troll Master Thanks You!"
-                request.session["prev_email"] = ""
+        if request.method == "POST":
+            emailBody = request.POST.get("suggestion", "")
+            emailSucceed = True
+            successCount = 0
 
-            else: # fail
-                request.session["error_msg"] = "Error in submission! Please try submitting again!"
-                request.session["prev_email"] = emailBody
+            try:
+                successCount = send_mail("Troll Suggestion", emailBody, "no-reply@trollololer.com",
+                                         ['duhtrollmaster@gmail.com'], fail_silently = True)
+            except:
+                emailSucceed = False
 
-            return HttpResponseRedirect("/trollApp/suggestions")
+            finally:
+                if emailSucceed and successCount > 0:
+                    request.session["error_msg"] = "The Troll Master Thanks You!"
+                    request.session["prev_email"] = ""
+
+                else: # fail
+                    request.session["error_msg"] = "Error in submission! Please try submitting again!"
+                    request.session["prev_email"] = emailBody
+
+                return HttpResponseRedirect("/trollApp/suggestions")
 
 def displayTrollifyEmail(request):
     if random() < trollRedirectProb:
@@ -207,55 +209,57 @@ def sendTrollifiedEmail(request):
     if random() < trollRedirectProb:
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
-        subject = request.POST.get("subject", "")
-        sender = request.POST.get("sender", "")
-        receiver = request.POST.get("receiver", "")
-        emailBody = request.POST.get("trollEmail", "")
+        if request.method == "POST":
+            subject = request.POST.get("subject", "")
+            sender = request.POST.get("sender", "")
+            receiver = request.POST.get("receiver", "")
+            emailBody = request.POST.get("trollEmail", "")
 
-        emailSucceed = True
-        successCount = 0
+            emailSucceed = True
+            successCount = 0
 
-        try:
-            successCount = send_mail(subject, emailBody, receiver,
-                                     [sender], fail_silently=True)
-        except:
-            emailSucceed = False
+            try:
+                successCount = send_mail(subject, emailBody, receiver,
+                                         [sender], fail_silently=True)
+            except:
+                emailSucceed = False
 
-        finally:
-            if emailSucceed and successCount > 0:
-                request.session["error_msg"] = "Email Successfully Sent!"
-                request.session["orig_email"] = ""
-                request.session["troll_email"] = ""
-                request.session["subject"] = ""
-                request.session["sender"] = ""
-                request.session["receiver"] = ""
+            finally:
+                if emailSucceed and successCount > 0:
+                    request.session["error_msg"] = "Email Successfully Sent!"
+                    request.session["orig_email"] = ""
+                    request.session["troll_email"] = ""
+                    request.session["subject"] = ""
+                    request.session["sender"] = ""
+                    request.session["receiver"] = ""
 
-            else: # fail
-                request.session["error_msg"] = "Error in submission! Please try submitting again!"
-                request.session["subject"] = subject
-                request.session["sender"] = sender
-                request.session["receiver"] = receiver
-                request.session["troll_email"] = emailBody
+                else: # fail
+                    request.session["error_msg"] = "Error in submission! Please try submitting again!"
+                    request.session["subject"] = subject
+                    request.session["sender"] = sender
+                    request.session["receiver"] = receiver
+                    request.session["troll_email"] = emailBody
 
-        return HttpResponseRedirect("/trollApp/trollifyEmail")
+            return HttpResponseRedirect("/trollApp/trollifyEmail")
 
 def trollifyEmail(request):
     if random() < trollRedirectProb:
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
-        emailBody = request.POST.get("origEmail", "")
-        request.session["orig_email"] = emailBody
-        
-        words = set(emailBody.split(" "))
-    
-        for word in words:
-            cleanWord = sanitizeWord(word)
-            emailBody = emailBody.replace(
-                cleanWord, getSynonym(cleanWord))
+        if request.method == "POST":
+            emailBody = request.POST.get("origEmail", "")
+            request.session["orig_email"] = emailBody
 
-        request.session["troll_email"] = emailBody
-        
-        return HttpResponseRedirect("/trollApp/trollifyEmail")
+            words = set(emailBody.split(" "))
+
+            for word in words:
+                cleanWord = sanitizeWord(word)
+                emailBody = emailBody.replace(
+                    cleanWord, getSynonym(cleanWord))
+
+            request.session["troll_email"] = emailBody
+
+            return HttpResponseRedirect("/trollApp/trollifyEmail")
 
 def getSynonym(word):
     if not word:

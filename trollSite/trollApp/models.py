@@ -14,3 +14,6 @@ class Download(models.Model):
 class Synonym(models.Model):
     word = models.CharField(max_length=200)
     synonym = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return "Word: {}, Synonym: {}".format(self.word, self.synonym)
