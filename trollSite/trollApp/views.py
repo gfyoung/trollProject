@@ -4,11 +4,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from fabric.api import lcd, local
 from json import dump
-from os import chdir, getcwd
 from nltk.corpus import wordnet
 from platform import uname
 from random import random
-from string import maketrans, punctuation
+from string import maketrans
 from subprocess import call
 from time import time
 from trollApp.models import Download, Synonym
@@ -65,7 +64,7 @@ def downloadFile(request, os, filename):
     wrapper = FileWrapper(open(directory + os + "/" + filename, 'rb'))
     content_type = "application/x-executable"
     
-    response = HttpResponse(wrapper, content_type = content_type)
+    response = HttpResponse(wrapper, content_type=content_type)
     response['Content-Disposition'] = 'attachment; filename={}'.format(filename)
     return response
 
@@ -132,7 +131,7 @@ def downloadCustomFile(request):
     wrapper = FileWrapper(open(exeDirectory + exeFilename, 'rb'))
     content_type = "application/x-executable"
 
-    response = HttpResponse(wrapper, content_type = content_type)
+    response = HttpResponse(wrapper, content_type=content_type)
     response['Content-Disposition'] = 'attachment; filename={}'.format(exeFilename)
     return response
 
@@ -183,8 +182,7 @@ def sendSuggestion(request):
             return HttpResponseRedirect("/trollApp/suggestions")
 
 def displayTrollifyEmail(request):
-    #if random() < trollRedirectProb:
-    if False:
+    if random() < trollRedirectProb:
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
         context = {
@@ -199,14 +197,13 @@ def displayTrollifyEmail(request):
         return render(request, 'trollApp/trollifyDisplay.html', context)
 
 def sendTrollifiedEmail(request):
-    #if random() < trollRedirectProb:
-    if False:
+    if random() < trollRedirectProb:
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
         subject = request.POST.get("subject", "")
         sender = request.POST.get("sender", "")
         receiver = request.POST.get("receiver", "")
-        emailBody = request.POST.get("email", "")
+        emailBody = request.POST.get("trollEmail", "")
 
         emailSucceed = True
         successCount = 0
@@ -234,13 +231,12 @@ def sendTrollifiedEmail(request):
                 request.session["troll_email"] = emailBody
 
         return HttpResponseRedirect("/trollApp/trollifyEmail")
-    
+
 def trollifyEmail(request):
-    #if random() < trollRedirectProb:
-    if False:
+    if random() < trollRedirectProb:
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
-        emailBody = request.POST.get("email", "")
+        emailBody = request.POST.get("origEmail", "")
         request.session["orig_email"] = emailBody
         
         words = set(emailBody.split(" "))
@@ -253,7 +249,7 @@ def trollifyEmail(request):
         request.session["troll_email"] = emailBody
         
         return HttpResponseRedirect("/trollApp/trollifyEmail")
-        
+
 def getSynonym(word):
     if not word:
         return word

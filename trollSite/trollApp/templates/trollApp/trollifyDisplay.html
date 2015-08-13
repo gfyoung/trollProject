@@ -14,13 +14,6 @@ div#becomes {
 	text-align:left;
 }
 
-img#trollAtComputer {
-	width:500px;
-	height:305px;
-	padding-left:10px;
-	padding-top:20px;
-}
-
 form > input.info {
 	background:black;
 	color:#ff5200;
@@ -36,9 +29,9 @@ form > input.info {
 {% csrf_token %}
 	<div class=error></div>
 	{% if error_msg or troll_email %}
-		<textarea type=text id=trollEmail name=trollEmail>{{ orig_email }}</textarea><br><br>
+		<textarea type=text id=origEmail name=origEmail>{{ orig_email }}</textarea><br><br>
 	{% else %}
-		<textarea type=text id=email name=email></textarea><br><br>
+		<textarea type=text id=origEmail name=origEmail></textarea><br><br>
 	{% endif %}
 	<input type=submit value=Trollify!>
 </form>

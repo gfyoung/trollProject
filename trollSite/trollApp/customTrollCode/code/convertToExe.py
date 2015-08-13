@@ -3,8 +3,6 @@ from optparse import OptionParser
 from os import chdir, getcwd, listdir
 from platform import uname
 
-import sys
-
 def createSetupFile(filename):
     target = open('setup.py', 'w')
     target.write(

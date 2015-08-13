@@ -4,7 +4,7 @@ from sys import argv
 
 codeDirectory = 'trollApp/customTrollCode/code/'
 exeDirectory = 'trollApp/customTrollCode/downloads/'
-    
+
 def login_into_server():
     try:
         jsonFile = "serverConfig.json"
@@ -32,7 +32,7 @@ def login_into_server():
         sys.exit(1)
 
     return homeDir
-        
+
 def convert_to_exe():
     global homeDir
     try:
@@ -54,7 +54,6 @@ def convert_to_exe():
     except:
         print "Improper configuraton of 'convertData.json' file!"
         print "Aborting Server access immediately"
-
 
         import sys
         sys.exit(1)

@@ -1,4 +1,3 @@
-from re import sub
 from sqlite3 import connect
 
 DATABASE = "../../db.sqlite3"

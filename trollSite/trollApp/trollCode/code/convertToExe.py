@@ -1,6 +1,6 @@
 from fabric.api import local
 from optparse import OptionParser
-from os import chdir, getcwd, listdir
+from os import getcwd, listdir
 from platform import uname
 from sqlite3 import connect
 
