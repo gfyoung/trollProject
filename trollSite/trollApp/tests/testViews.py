@@ -1,14 +1,21 @@
 from django.test import TestCase
 from tempfile import NamedTemporaryFile
+from trollApp.models import ConfigOption, Synonym
+from trollApp.views import getBestSynonym, getSynonym
 
 class BasicUrlAccessTestCase(TestCase):
+    def setUp(self):
+        trollRedirectProb = ConfigOption.objects.filter(name="trollRedirectProb")[0]
+        trollRedirectProb.value = 0
+        trollRedirectProb.save()
+
     def testGetBackSlash(self):
         response = self.client.get("/")
         self.assertEqual(response.status_code, 302)
 
     def testGetBackSlashTrollApp(self):
-        response = self.client.get("/trollApp")
-        self.assertEqual(response.status_code, 301)
+        response = self.client.get("/trollApp/")
+        self.assertEqual(response.status_code, 302)
 
     def testGetBackSlashTrollAppHome(self):
         response = self.client.get("/trollApp/home")
@@ -64,3 +71,47 @@ class BasicUrlAccessTestCase(TestCase):
     def testgetBackSlashTrollAppPlayTrollSong(self):
         response = self.client.get("/trollApp/playTrollSong")
         self.assertEqual(response.status_code, 200)
+
+class GetBestSynonymTestCase(TestCase):
+    def testGetBestSynonymNoWord(self):
+        bestSynonym = getBestSynonym("")
+        self.assertEqual(bestSynonym, "")
+
+    def testGetBestSynonymWithWord(self):
+        bestSynonym = getBestSynonym("dog")
+        self.assertEqual(bestSynonym, "Canis_familiaris")
+
+    def testGetBestSynonymWithShorterCur(self):
+        bestSynonym = getBestSynonym("dog", curSyn="andiron")
+        self.assertEqual(bestSynonym, "Canis_familiaris")
+
+    def testGetBestSynonymWithLongerCur(self):
+        bestSynonym = getBestSynonym("dog", curSyn="Canis_familiaris_maximus")
+        self.assertEqual(bestSynonym, "Canis_familiaris_maximus")
+
+    def testGetBestSynonymNoSynonymsNoCur(self):
+        bestSynonym = getBestSynonym("trollify")
+        self.assertEqual(bestSynonym, "trollify")
+
+    def testGetBestSynonymNoSynonymsWithCur(self):
+        bestSynonym = getBestSynonym("trollify", curSyn="screwify")
+        self.assertEqual(bestSynonym, "screwify")
+
+class GetSynonymTestCase(TestCase):
+    def setUp(self):
+        updateFrequency = ConfigOption.objects.filter(name="updateFrequency")[0]
+        updateFrequency.value = 0
+        updateFrequency.save()
+
+    def testGetSynonymNoWord(self):
+        synonym = getSynonym("")
+        self.assertEqual(synonym, "")
+
+    def testGetSynonymWithWordNoCur(self):
+        synonym = getSynonym("dog")
+        self.assertEqual(synonym, "Canis_familiaris")
+
+    def testGetSynonymWithWordWithCur(self):
+        Synonym.objects.create(word="dog", synonym="andiron")
+        synonym = getSynonym("dog")
+        self.assertEqual(synonym, "andiron")

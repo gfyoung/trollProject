@@ -10,13 +10,11 @@ from random import random
 from string import maketrans
 from subprocess import call
 from time import time
-from trollApp.models import Download, Synonym
+from trollApp.models import ConfigOption, Download, Synonym
 from webbrowser import open_new_tab
 
 import re
 
-trollRedirectProb = 0.1
-updateFrequency = 0.05
 spaces = re.compile(r'\s+')
 punctuation = """!"#$%&()*+,-./:;<=>?@[\]^_`{|}~"""
 
@@ -24,17 +22,25 @@ WINDOWS = "Windows"
 LINUX = "Linux"
 MAC = "Darwin"
 
+def getTrollRedirectProb():
+    trollRedirectProb = ConfigOption.objects.filter(name="trollRedirectProb")[0]
+    return float(trollRedirectProb.value)
+
+def getUpdateFrequency():
+    updateFrequency = ConfigOption.objects.filter(name="updateFrequency")[0]
+    return float(updateFrequency.value)
+
 def displayWelcome(request):
     return render(request, 'trollApp/welcomeDisplay.html')
 
 def displayAbout(request):
-    if random() < trollRedirectProb:
+    if random() < getTrollRedirectProb():
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
         return render(request, 'trollApp/aboutDisplay.html')
 
 def displayDownloads(request):
-    if random() < trollRedirectProb:
+    if random() < getTrollRedirectProb():
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
         context = {
@@ -45,7 +51,7 @@ def displayDownloads(request):
         return render(request, 'trollApp/downloadsDisplay.html', context)
 
 def displayCustomCreate(request):   
-    if random() < trollRedirectProb:
+    if random() < getTrollRedirectProb():
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
         context = {
@@ -137,7 +143,7 @@ def downloadCustomFile(request):
         return response
 
 def displaySuggestions(request):
-    if random() < trollRedirectProb:
+    if random() < getTrollRedirectProb():
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
         context = {
@@ -158,7 +164,7 @@ def playTrollSong(request):
     return HttpResponse("Success!")
 
 def sendSuggestion(request):
-    if random() < trollRedirectProb:
+    if random() < getTrollRedirectProb():
         return render(request, 'trollApp/trollRedirectDisplay.html')   
     else:
         if request.method == "POST":
@@ -184,7 +190,7 @@ def sendSuggestion(request):
                 return HttpResponseRedirect("/trollApp/suggestions")
 
 def displayTrollifyEmail(request):
-    if random() < trollRedirectProb:
+    if random() < getTrollRedirectProb():
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
         context = {
@@ -206,7 +212,7 @@ def displayTrollifyEmail(request):
         return render(request, 'trollApp/trollifyDisplay.html', context)
 
 def sendTrollifiedEmail(request):
-    if random() < trollRedirectProb:
+    if random() < getTrollRedirectProb():
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
         if request.method == "POST":
@@ -243,7 +249,7 @@ def sendTrollifiedEmail(request):
             return HttpResponseRedirect("/trollApp/trollifyEmail")
 
 def trollifyEmail(request):
-    if random() < trollRedirectProb:
+    if random() < getTrollRedirectProb():
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
         if request.method == "POST":
@@ -271,7 +277,7 @@ def getSynonym(word):
         bestSynObj = currentSyns[0]
         bestSyn = bestSynObj.synonym
         
-        if random() < updateFrequency:
+        if random() < getUpdateFrequency():
             bestSyn = getBestSynonym(word, curSyn=bestSyn)
             bestSynObj.synonym = bestSyn
             bestSynObj.save()
@@ -290,6 +296,9 @@ def getBestSynonym(word, curSyn=""):
     allSyns = wordnet.synsets(word)
 
     if not allSyns:
+        if curSyn:
+            return curSyn
+
         return word
 
     else:

@@ -45,9 +45,6 @@ in Linux and OSX)
   libraries for any of the servers?
 
 Unittests
-- Need to make redirectProb configurable; otherwise, tests will intermittently fail because sometimes
-it will render the troll page or actually do a redirect
-- Test helper synonym generating functions
 - Test trollify email
 
 All TODO's in the code

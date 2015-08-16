@@ -17,3 +17,10 @@ class Synonym(models.Model):
 
     def __unicode__(self):
         return "Word: {}, Synonym: {}".format(self.word, self.synonym)
+
+class ConfigOption(models.Model):
+    name = models.CharField(max_length=200)
+    value = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return "Name: {}, Value: {}".format(self.name, self.value)
