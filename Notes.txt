@@ -3,7 +3,8 @@ http://www.freeformatter.com/mime-types-list.html
 pyinstaller -w -F <filename.py>
 individual trolls first before packaging together
 
-troll emails
+Troll emails
+- Need to unit test
 - Kevin and Hotwheels
 - Synonyms dictionary to replace known words with longer, less known (and hence
 more confusing) words
@@ -20,31 +21,30 @@ Provided downloads
 updates and deletions
 
 Custom submission
-- Cross-browser compatiblity
+- Cross-browser compatibility
   - Mac pyinstaller might help
-  - creationflag not used in OSX or Linux
-  - Current work around: rely on different servers (with different OS's)
-    to run the code
-  - Better work around might be to have as many copies of Python so as to not
-    need to require multiple servers and trick pyinstaller into compiling for
-    different systems
-- Due to security issues, need cooperation from user for the file to be run
-(e.g. user needs to okay .exe download OR user needs to make file executable
-in Linux and OSX)
+  - Current work around: rely on different servers/OS's to run the code
+  - Better work around: different copies of Python on one machine and
+  trick pyinstaller into compiling for different systems
+
+- Security issues
+  - Need cooperation from user for the file to be run
+    - Permission to download .exe
+    - Make file executable on Linux or OSX
+
 - Give them their code as well in a zip (see stackoverflow above)
   - visibility of code to the user?
   - http://stackoverflow.com/questions/14568647/create-zip-in-python
-- Build file for convertToExe files via py_compile for use in views?
+
 - Concurrency Issues (What happens when there are simultaneous submissions?)
   - Current method is to use the system time to create temp file, but that can
-    be bad if there are mulitple submissions at the same time (file overwrite
+    be bad if there are multiple submissions at the same time (file overwrite
     is a potential issue)
   - Perhaps better way of naming temp files is needed (e.g. user-provided title)
+
 - Performance issues (somewhat slow)
+
 - What happens if a user provides a library that does not exist in the current
   libraries for any of the servers?
-
-Unittests
-- Test trollify email
 
 All TODO's in the code
