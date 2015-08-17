@@ -1,19 +1,16 @@
-{% include "trollApp/menuDisplay.html" %}
 {% load staticfiles %}
+{% include "trollApp/menuDisplay.html" %}
 
 <!DOCTYPE html>
 <html>
 <head>
-<title>The Troll Master Got You!</title>
-<style>
-img.winkingDevil {
-	height:300px;
-	width:300px
-}
-</style>
+<title>
+Slight Server Fail Here...
+</title>
 </head>
 <body>
-<h1 class="pageTitle">You Just Got Trolled!<br>Refresh and <em>Maybe</em> You'll Get Your Content. :P</h1>
+<h1 class="pageTitle">Looks Like We've Done Goofed on Our End! Whoops!</h1>
+<h1 class="pageTitle" style="font-size:30px">If You Love the Troll Song, Stay Here! Otherwise, Refresh or Click One of the Links Above!</h1>
 <div>
 <img class="winkingDevil" alt="winkingDevil" src="{% static 'images/winkingDevil.jpg' %}" style="padding-right:4em">
 <iframe class="trollSong" width="560" height="315" src="https://www.youtube.com/embed/o1eHKf-dMwo?autoplay=1"
