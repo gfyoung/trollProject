@@ -46,5 +46,9 @@ Custom submission
 
 - What happens if a user provides a library that does not exist in the current
   libraries for any of the servers?
+  - Executable conversion does not detect non-existent modules --> program will
+    be guaranteed to crash without user knowing
+  - Can use Python library 'imp' to check for existing imports and then use pip
+    if necessary to import missing ones
 
 All TODO's in the code
