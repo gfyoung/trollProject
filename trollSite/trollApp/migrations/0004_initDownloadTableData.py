@@ -15,11 +15,9 @@ def populateDownloadTable(apps, schema_editor):
     Download = apps.get_model("trollApp", "Download")
 
     for platform in platforms:
-        suffix = ".exe" if platform == "Windows" else ""
-
         for program, description in programs.iteritems():
             newDownload = Download.objects.create(
-                target_os=platform, filename=program + suffix, description=description)
+                target_os=platform, filename=program, description=description)
             newDownload.save()
 
 class Migration(migrations.Migration):

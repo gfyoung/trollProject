@@ -4,21 +4,21 @@ from trollApp.models import ConfigOption, Download, Synonym
 class DownloadTestCase(TestCase):
     def setUp(self):
         Download.objects.all().delete()
-        Download.objects.create(target_os="Windows", filename="testFile.exe", description="Test Executable")
+        Download.objects.create(target_os="Windows", filename="testFile", description="Test Executable")
         Download.objects.create(target_os="Linux", filename="testFile", description="Test Executable")
 
-    def testGetShortName(self):
+    def testGetFullName(self):
         windowsDownload = Download.objects.get(target_os="Windows")
         linuxDownload = Download.objects.get(target_os="Linux")
 
-        self.assertEqual(windowsDownload.getShortName(), "testFile")
-        self.assertEqual(linuxDownload.getShortName(), "testFile")
+        self.assertEqual(windowsDownload.getFullName(), "testFile.exe")
+        self.assertEqual(linuxDownload.getFullName(), "testFile")
 
     def testUnicode(self):
         windowsDownload = Download.objects.get(target_os="Windows")
         linuxDownload = Download.objects.get(target_os="Linux")
 
-        self.assertEqual(unicode(windowsDownload), "testFile.exe: Test Executable")
+        self.assertEqual(unicode(windowsDownload), "testFile: Test Executable")
         self.assertEqual(unicode(linuxDownload), "testFile: Test Executable")
 
 class SynonymTestCase(TestCase):

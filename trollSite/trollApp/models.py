@@ -1,12 +1,12 @@
 from django.db import models
 
 class Download(models.Model):
-    target_os = models.CharField(max_length=200)
-    filename = models.CharField(max_length=200)
-    description = models.CharField(max_length=200)
+    target_os = models.CharField(max_length=200, verbose_name="Target OS")
+    filename = models.CharField(max_length=200, verbose_name="Filename")
+    description = models.CharField(max_length=200, verbose_name="Description")
     
-    def getShortName(self):
-        return self.filename.replace(".exe", "")
+    def getFullName(self):
+        return self.filename if self.target_os != "Windows" else self.filename + ".exe"
 
     def __unicode__(self):
         return "{}: {}".format(self.filename, self.description)
