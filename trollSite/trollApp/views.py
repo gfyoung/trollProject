@@ -3,6 +3,7 @@ from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from fabric.api import lcd, local
+from imp import find_module
 from json import dump
 from nltk.corpus import wordnet
 from platform import uname
@@ -74,10 +75,45 @@ def downloadFile(request, os, filename):
     response['Content-Disposition'] = 'attachment; filename={}'.format(filename)
     return response
 
+def moduleExists(module):
+    try:
+        find_module(module)
+        exists = True
+    except ImportError:
+        exists = False
+
+    return exists
+
+def getMissingImports(code):
+    importPattern = re.compile("(?:from .* )?import .*\n*")
+    moduleImports = importPattern.findall(code)
+
+    missingImports = set()
+
+    for moduleImport in moduleImports:
+        if moduleImport.strip()[:4] == "from":
+            module = re.sub("from \s*", "", moduleImport).split(" ")[0].split(".")[0].strip()
+            if module not in missingImports and not moduleExists(module):
+                missingImports.add(module)
+
+        else:
+            modules = re.sub("import \s*", "", moduleImport).split(",")
+
+            for module in modules:
+                module = module.split(".")[0].strip()
+
+                if module not in missingImports and not moduleExists(module):
+                    missingImports.add(module)
+
+    return missingImports
+
 def downloadCustomFile(request):
     if request.method == "POST":
         trollCode = request.POST.get("code", "")
         trollCode = trollCode.replace("\r\n", "\n")
+
+        missingImports = getMissingImports(trollCode)
+        call(["fab", "installModules:{}".format(",".join(missingImports))])
 
         tmpFile = "tmpFile_{}.py".format(int(time()))
         target = open("trollApp/customTrollCode/code/{}".format(tmpFile), "w")
@@ -96,7 +132,7 @@ def downloadCustomFile(request):
             if osTarget == sysPlatform:
                 CREATE_NO_WINDOW = 0x08000000
                 returnCode = call(["python", "{}/convertToExe.py".format(codeDirectory),
-                                   "-f", tmpFile], creationflags = CREATE_NO_WINDOW)
+                                   "-f", tmpFile], creationflags=CREATE_NO_WINDOW)
 
             else: # No VM on which to run this conversion yet
                 returnCode = 1
@@ -174,7 +210,7 @@ def sendSuggestion(request):
 
             try:
                 successCount = send_mail("Troll Suggestion", emailBody, "no-reply@trollololer.com",
-                                         ['duhtrollmaster@gmail.com'], fail_silently = True)
+                                         ['duhtrollmaster@gmail.com'], fail_silently=True)
             except:
                 emailSucceed = False
 
