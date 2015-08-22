@@ -1,4 +1,4 @@
-from fabric.api import local, sudo
+from fabric.api import env, local, sudo
 from json import load
 from platform import uname
 from sys import argv
@@ -8,7 +8,7 @@ def getPlatform():
 
 def login_into_server():
     try:
-        jsonFile = "localConfig.json"
+        jsonFile = "trollApp/customTrollCode/code/localConfig.json"
         jsonData = open(jsonFile, 'r')
         serverConfig = load(jsonData)
 
