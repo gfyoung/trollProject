@@ -1,10 +1,9 @@
 *.pyc
 *.sqlite3
 /fabfile.py
-tmpFileConfig.json
 linuxConfig.json
+localConfig.json
 macConfig.json
 serverConfig.json
-serverLogin.json
 update.sh
 tmpFile*

@@ -25,7 +25,7 @@ def login_into_server():
         homeDir = serverConfig['homeDir']
 
     except:
-        print "Improper configuraton of 'serverLogin.json' file!"
+        print "Improper configuraton of 'serverConfig.json' file!"
         print "Aborting Server access immediately"
 
         import sys
