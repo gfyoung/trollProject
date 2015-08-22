@@ -113,7 +113,8 @@ def downloadCustomFile(request):
         trollCode = trollCode.replace("\r\n", "\n")
 
         missingImports = getMissingImports(trollCode)
-        call(["fab", "installModules:{}".format(",".join(missingImports))])
+        call(["fab", "-f", "trollApp/customTrollCode/code/importUtil.py",
+              "installModules:{}".format(",".join(missingImports))])
 
         tmpFile = "tmpFile_{}.py".format(int(time()))
         target = open("trollApp/customTrollCode/code/{}".format(tmpFile), "w")

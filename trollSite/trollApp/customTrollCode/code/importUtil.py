@@ -48,6 +48,9 @@ def installModules(*modules):
 
 # only when we run the file with the fab command do we want to login
 # for sure; otherwise, none of our commands will work
-if 'fab-script' in argv[0]:
+if argv[0] in ('fab-script', '/usr/local/bin/fab'):
     if getPlatform() != "Windows":
         login_into_server() # will need sudo command
+
+else:
+    raise Exception(argv)

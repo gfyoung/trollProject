@@ -43,6 +43,7 @@ class BasicUrlAccessTestCase(TestCase):
         response = self.client.get("/trollApp/customCreation")
         self.assertEqual(response.status_code, 200)
 
+    @unittest.skip("annoying to run")
     def testPostBackSlashTrollAppCustomCreationDownload(self):
         response = self.client.post("/trollApp/customCreation/download",
                                     {"code": "print 'Hello World!'", "OS": "Windows"})
