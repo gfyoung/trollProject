@@ -1,5 +1,5 @@
 var randomIdIndex = 0;
-var vanishTimeout = 2000;
+var vanishTimeout = 1000;
 var reappearTimeout = 1000;
 
 function getIds() {

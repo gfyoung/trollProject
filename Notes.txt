@@ -1,24 +1,14 @@
-http://www.freeformatter.com/mime-types-list.html
-
-pyinstaller -w -F <filename.py>
-individual trolls first before packaging together
-
 Troll emails
-- Need to unit test
-- Kevin and Hotwheels
-- Synonyms dictionary to replace known words with longer, less known (and hence
-more confusing) words
+- Troll links?
 
 Suggestions page
-- need sender email?
+- Need sender email?
 
 Test setup Window VM ssh
 - http://www.techrepublic.com/blog/tr-dojo/set-up-a-free-ssh-server-on-windows-7-with-freesshd/
 
 Provided downloads
 - Remove "Test Download" in any official releases
-- Will need to refactor migration code, as migrations will eventually include
-updates and deletions
 
 Custom submission
 - Cross-browser compatibility
@@ -41,6 +31,11 @@ Custom submission
     be bad if there are multiple submissions at the same time (file overwrite
     is a potential issue)
   - Perhaps better way of naming temp files is needed (e.g. user-provided title)
+
+- Design considerations
+  - Arrangement of components should look "nice" across all browser/screen sizes
+  - Text should look "large" enough for reading across all browser/screen sizes
+  - Change the fonts to make them more appealing to read
 
 - Performance issues (somewhat slow)
 
