@@ -7,8 +7,28 @@
 <style>
 div.instructions {
 	float:left;
-	font-size:25px;
-	padding-left:180px;
+	font-size:200%;
+	padding-left:15em;
+}
+
+div.os-select {
+    color:orange;
+    text-align:left;
+}
+
+div.os-select > b {
+    font-size:125%;
+}
+
+input[type=file] {
+    background:red;
+    font-size:100%;
+    width:42%;
+}
+
+select {
+    font-size:100%;
+    width:7em;
 }
 </style>
 <script>
@@ -16,7 +36,8 @@ function display(input){
 	if (input.files && input.files[0]) {
 		var filename = input.files[0].name;
 		if(!isPythonFile(filename)) {
-			displayMsg("File must have <b>.PY</b> extension!");
+            $(":file").replaceWith($(":file").clone(true));
+			displayMsg("Missing <b>.PY</b> Extension!");
 		}else{
 			var reader = new FileReader();
 			reader.onload = function (e) {
@@ -29,7 +50,7 @@ function display(input){
 }
 
 function isPythonFile(filename){
-	filenameArray = filename.split(".");
+	var filenameArray = filename.split(".");
 	return filenameArray[filenameArray.length - 1] == "py";
 }
 </script>
@@ -38,12 +59,12 @@ function isPythonFile(filename){
 <h1 class="pageTitle">Create Your Own Troll File!</h1>
 <div style="float:left;text-align:left">
 <form action="{% url 'trollApp:customDownload' %}" method="post" enctype="multipart/form-data">
-<b style="color:orange">Input Your Python Code Here</b><br><br>
+<b class="textarea-instruction">Input Your Python Code Here</b><br><br>
 {% csrf_token %}
 	{% if error_msg %}
 		<div class=error><b>ERROR: </b>{{ error_msg }}</div><br>
 		<textarea type=text id=customCode name=code>{{ prev_code }}</textarea><br><br>
-		<div style="text-align:left;color:orange">
+		<div class="os-select">
 			<b>TARGET OS</b>:
 			<select name="OS">
 				{% if os_target == "Windows" %}
@@ -64,7 +85,7 @@ function isPythonFile(filename){
 	{% else %}
 		<div class=error></div>
 		<textarea type=text id=customCode name=code></textarea><br><br>
-		<div style="text-align:left;color:orange">
+		<div class="os-select">
 			<b>TARGET OS</b>:
 			<select name="OS">
 				<option value="Windows">Windows</option>
@@ -73,7 +94,7 @@ function isPythonFile(filename){
 			</select>
 		</div><br>
 	{% endif %}
-	<input type="file" style="background:red;width:300px" onchange="display(this);"><br><br>
+	<input type="file" onchange="display(this);"><br><br>
 	<input type=submit value=Submit!>
 </form>
 </div>
@@ -81,7 +102,7 @@ function isPythonFile(filename){
 <b style="color:orange">Instructions</b><br><br>
 <b style="color:red">Type Python code into the textbox!<br><br>
 OR<br><br>Submit a Python file!<br>The file contents will appear in the textbox!<br><br>
-THEN<br><br>Select the OS (operating system) to run the executable on<br><br>THEN<br><br>Hit Submit!</b>
+THEN<br><br>Select the OS to run the executable on<br><br>THEN<br><br>Hit Submit!</b>
 </div>
 </body>
 </html>

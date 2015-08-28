@@ -1,47 +1,84 @@
 a.menuLink {
     color:red;
+    font-size:125%;
     font-weight:bold;
-    text-decoration:none
+    text-decoration:none;
 }
 a.menuLink:hover {
-    text-decoration:underline
+    text-decoration:underline;
 }
+
 a.download {
     color:red;
-    font-size:20px
+    font-size:150%;
+    font-weight:bold;
+    text-decoration:none;
 }
+
+a.download:hover {
+    text-decoration:underline;
+}
+
+b.textarea-instruction {
+    color:orange;
+    font-size:175%;
+}
+
 body {
-    background: black
+    background: black;
 }
+
 div, h1, h2 {
-    text-align:center
+    text-align:center;
 }
+
+h1 {
+    font-size:250%;
+}
+
+h2 {
+    font-size:200%;
+}
+
 div.error {
+    color:red;
     text-align:left;
-    color:red
 }
+
 form > textarea {
     background:black;
     color:#ff5200;
-    width:500px;
-    height:300px
+    width:50em;
+    height:40em;
+    resize:none;
 }
+
 iframe.trollSong {
-    width:560px;
-    height:315px;
-    frameborder:0px
+    width:30em;
+    height:22em;
 }
+
+input[type=submit] {
+    font-size:100%;
+}
+
 img.burningFlame {
-    height:20px;
-    width:20px
+    height:2em;
+    width:2em;
 }
+
+img#burningFlameLeft {
+    padding-left:2.5em;
+}
+
 img#burningFlameRight {
-    padding-right:5em
+    padding-right:2.5em;
 }
+
 img.rotatingFace {
-    height:40px;
-    width:40px
+    height:1em;
+    width:1em;
 }
 h1.pageTitle {
-    color:#FF8250
+    color:#FF8250;
 }

@@ -7,27 +7,33 @@
 <title>About the Troll</title>
 <script src="{% static 'js/trollAboutEffects.js' %}"></script>
 <style>
+img#rotatingFace {
+    float:left;
+    width:35em;
+    height:30em;
+    padding-left:6em;
+}
+
 pre {
-	font-family: "Times New Roman", Times, serif;
+    font-family: "Times New Roman", Times, serif;
     font-weight:bold;
-    font-size:25px;
+    font-size:160%;
     text-align:right;
-	position:relative;
-	left:0px;
-	top:0px;
+    position:relative;
+    left:0;
+    top:0
 }
 </style>
 </head>
 <body>
 <h1 class="pageTitle">About</h1>
 <div>
-<img alt='rotatingFace' src="{% static 'images/trollFaceAbout.jpg' %}"
-width="500" height="450" style="float:left;padding-left:100px">
-<div style="float:right;padding-right:100px">
+<img alt='rotatingFace' id='rotatingFace' src="{% static 'images/trollFaceAbout.jpg' %}">
+<div style="float:right;padding-right:2em">
 <pre id="redText" style="color:red">
-Created out of boredom during the summer of my sophomore year,
-this website combines two of my favorite things from college:
-software engineering and trolling.
+Created out of boredom during the summer of my sophomore
+year this website combines two of my favorite things from
+college: software engineering and trolling.
 </pre>
 <pre id="redOrangeText" style="color:#FF5200">
 As much as I enjoy physical trolls, such as hiding my friend's

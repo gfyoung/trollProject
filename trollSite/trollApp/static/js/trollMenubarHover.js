@@ -2,7 +2,7 @@ var playVideo = false;
 var playVideoProb = 0.1;
 var alertVideoProb = 0.05;
 
-var changeFontSizeProb = 0.1;
+var changeFontSizeProb = 0.3;
 var fontSizeMultiplier = 10;
 var fontSize = 16;
 

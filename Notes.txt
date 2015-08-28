@@ -32,10 +32,12 @@ Custom submission
     is a potential issue)
   - Perhaps better way of naming temp files is needed (e.g. user-provided title)
 
-- Design considerations
-  - Arrangement of components should look "nice" across all browser/screen sizes
-  - Text should look "large" enough for reading across all browser/screen sizes
-  - Change the fonts to make them more appealing to read
+Design considerations
+- Arrangement of components should look "nice" across all browser/screen sizes
+- Text should look "large" enough for reading across all browser/screen sizes
+- Change the fonts to make them more appealing to read
+- How to format the sizes of SUBMIT and SELECT input buttons?
+- How to format the font/size of the text in TEXTAREA?
 
 - Performance issues (somewhat slow)
 
