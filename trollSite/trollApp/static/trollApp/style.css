@@ -4,6 +4,7 @@ a.menuLink {
     font-weight:bold;
     text-decoration:none;
 }
+
 a.menuLink:hover {
     text-decoration:underline;
 }
@@ -26,18 +27,13 @@ b.textarea-instruction {
 
 body {
     background: black;
+    border:0;
+    margin:0;
+    padding:0;
 }
 
 div, h1, h2 {
     text-align:center;
-}
-
-h1 {
-    font-size:250%;
-}
-
-h2 {
-    font-size:200%;
 }
 
 div.error {
@@ -48,37 +44,52 @@ div.error {
 form > textarea {
     background:black;
     color:#ff5200;
-    width:50em;
     height:40em;
     resize:none;
+    width:50em;
+}
+
+h1 {
+    font-size:250%;
+}
+
+h2 {
+    font-size:200%;
 }
 
 iframe.trollSong {
-    width:30em;
     height:22em;
-}
-
-input[type=submit] {
-    font-size:100%;
-}
-
-img.burningFlame {
-    height:2em;
-    width:2em;
+    width:30em;
 }
 
 img#burningFlameLeft {
-    padding-left:2.5em;
+    padding-left:2.5%;
 }
 
 img#burningFlameRight {
-    padding-right:2.5em;
+    padding-right:2.5%;
+}
+
+img.burningFlame {
+    height:25px;
+    width:25px;
 }
 
 img.rotatingFace {
     height:1em;
     width:1em;
 }
+
+input[type=submit] {
+    font-size:100%;
+}
+
 h1.pageTitle {
     color:#FF8250;
+}
+
+html {
+    border:0;
+    margin:0;
+    padding:0;
 }
