@@ -41,6 +41,44 @@ div.error {
     text-align:left;
 }
 
+div.menuOption {
+    display:inline-block;
+    height:35px;
+    padding-left:2%;
+    padding-right:2%;
+}
+
+div.menuOption {
+    display:inline-block;
+    height:35px;
+    padding-left:2%;
+    padding-right:2%;
+}
+
+div#about {
+    width:125px;
+}
+
+div#create {
+    width:230px;
+}
+
+div#download {
+    width:170px;
+}
+
+div#home {
+    width:125px;
+}
+
+div#suggest {
+    width:225px;
+}
+
+div#trollify {
+    width:250px;
+}
+
 form > textarea {
     background:black;
     color:#ff5200;

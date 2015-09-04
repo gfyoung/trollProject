@@ -3,59 +3,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Download the Troll</title>
-<style>
-div.download {
-	float:left;
-}
+    <title>Download the Troll</title>
+    <style>
+        div#Linux {
+            padding-left:13%;
+            padding-right:13%;
+        }
 
-div#Windows {
-    padding-left:10%;
-}
+        div#Mac {
+            padding-right:10%;
+        }
 
-div#Linux {
-    padding-left:13%;
-    padding-right:13%;
-}
+        div.download {
+            float:left;
+            width:18%;
+        }
 
-div#Mac {
-    padding-right:10%;
-}
+        div#Windows {
+            padding-left:10%;
+        }
 
-h2.OS {
-    color:#FF8250;
-}
+        h2.OS {
+            color:#FF8250;
+        }
 
-p {
-    color:orange;
-}
-</style>
+        p {
+            color:orange;
+        }
+    </style>
 </head>
 <body>
 <h1 class="pageTitle">Example Troll Files</h1>
-<p style="font-size:20px">Below are some samples that you can download for your own convenience
-(for real though, no trolls here, at least for now...)<br>
-To download, <b>JUST CLICK</b> any link corresponding to your operating system!<br><br>
-Although we can assure you that these files are benign, given the format of these files, we
-<b>ENCOURAGE</b> you nevertheless to perform a virus scan to double check!<br>
-It is good practice to do so in the case that you encounter actual malicious software, which could resemble files like these!</p>
+<p style="font-size:20px">
+    Below are some samples that you can download for your own convenience
+    (for real though, no trolls here, at least for now...)<br>
+    To download, <b>JUST CLICK</b> any link corresponding to your operating system!<br><br>
+    Although we can assure you that these files are benign, given the format of these files, we
+    <b>ENCOURAGE</b> you nevertheless to perform a virus scan to double check!<br>
+    It is good practice to do so in the case that you encounter actual malicious software, which could resemble files like these!</p>
 <div class="download" id="Windows">
-<h2 class="OS">WINDOWS</h2>
-{% for download in windows_downloads %}
-	<a id="{{ download.filename }}" class="download" href="{% url 'trollApp:downloadFile' download.target_os download.getFullName %}">{{ download.description }}</a><br><br>
-{% endfor %}
+    <h2 class="OS">WINDOWS</h2>
+    {% for download in windows_downloads %}
+        <a id="{{ download.filename }}" class="download" href="{% url 'trollApp:downloadFile' download.target_os download.getFullName %}">{{ download.description }}</a><br><br>
+    {% endfor %}
 </div>
 <div class="download" id="Linux">
-<h2 class="OS">LINUX</h2>
-{% for download in linux_downloads %}
-	<a id="{{ download.filename }}" class="download" href="{% url 'trollApp:downloadFile' download.target_os download.getFullName %}">{{ download.description }}</a><br><br>
-{% endfor %}
+    <h2 class="OS">LINUX</h2>
+    {% for download in linux_downloads %}
+        <a id="{{ download.filename }}" class="download" href="{% url 'trollApp:downloadFile' download.target_os download.getFullName %}">{{ download.description }}</a><br><br>
+    {% endfor %}
 </div>
 <div class="download" id="Mac">
-<h2 class="OS">MAC</h2>
-{% for download in mac_downloads %}
-	<a id="{{ download.filename }}" class="download" href="{% url 'trollApp:downloadFile' download.target_os download.getFullName %}">{{ download.description }}</a><br><br>
-{% endfor %}
+    <h2 class="OS">MAC</h2>
+    {% for download in mac_downloads %}
+        <a id="{{ download.filename }}" class="download" href="{% url 'trollApp:downloadFile' download.target_os download.getFullName %}">{{ download.description }}</a><br><br>
+    {% endfor %}
 </div>
 </body>
 </html>

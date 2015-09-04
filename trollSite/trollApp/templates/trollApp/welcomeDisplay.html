@@ -6,29 +6,33 @@
 <head>
 <title>Home of the Troll</title>
 <style>
-textarea {
-	background:black;
-	border:none;
-	color:#FF6600;
-	font-size:200%;
-    font-weight:bold;
-	height:10em;
-	padding-right:1em;
-    resize:none;
-    width:10em;
-}
+    textarea {
+        background:black;
+        border:none;
+        color:#FF6600;
+        font-size:200%;
+        font-weight:bold;
+        height:10em;
+        padding-right:5%;
+        resize:none;
+        width:15%;
+    }
+
+    img.welcomeDevil {
+        height:20em;
+        padding-left:5%;
+        width:20%;
+    }
 </style>
 </head>
 <body>
 <h1 class="pageTitle">Greetings, Fellow Troll!</h1>
-<div>
-<textarea disabled>
-May the troll&#13;&#10;be with you!&#13;&#10;&#13;&#10;Navigate this website at your&#13;&#10;peril! Hehehe...
-</textarea>
-<iframe class="trollSong" width="560" height="315" src="https://www.youtube.com/embed/o1eHKf-dMwo?autoplay=1"
-frameborder="0" allowfullscreen></iframe>
-<img class="welcomeDevil" alt="welcomeDevil" src="{% static 'images/welcomeDevil.jpg' %}"
-height="350em" width="320em" style="padding-left:8em">
+<div style="height:100%;width:100%;text-align:center;">
+    <textarea disabled>May the troll&#13;&#10;be with you!&#13;&#10;&#13;&#10;Navigate this website at your&#13;&#10;peril! Hehehe...
+    </textarea disabled>
+    <iframe class="trollSong" width="560" height="315" src="https://www.youtube.com/embed/o1eHKf-dMwo?autoplay=1"
+            frameborder="0" allowfullscreen></iframe>
+    <img class="welcomeDevil" alt="welcomeDevil" src="{% static 'images/welcomeDevil.jpg' %}">
 </div>
 </body>
 </html>

@@ -3,76 +3,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="{% static 'trollApp/style.css' %}">
-<link rel="shortcut icon" href="/static/images/trollFaceIcon.ico" />
-<script src="{% static 'js/jQuery-1.11.3.js' %}"></script>
-<script src="{% static 'js/tabInTextarea.js' %}"></script>
-<script src="{% static 'js/verifyTextInput.js' %}"></script>
-<script src="{% static 'js/trollMenuBarHover.js' %}"></script>
-<script src="{% static 'js/rotatingTrollFaces.js' %}"></script>
-    <style>
-        div.test {
-            display:inline-block;
-            height:35px;
-            padding-left:2%;
-            padding-right:2%;
-        }
-        div#one {
-            width:125px;
-        }
-        div#two {
-            width:125px;
-        }
-        div#three {
-            width:170px;
-        }
-        div#four {
-            width:230px;
-        }
-        div#five {
-            width:250px;
-        }
-        div#six {
-            width:225px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'trollApp/style.css' %}">
+    <link rel="shortcut icon" href="/static/images/trollFaceIcon.ico" />
+    <script src="{% static 'js/jQuery-1.11.3.js' %}"></script>
+    <script src="{% static 'js/tabInTextarea.js' %}"></script>
+    <script src="{% static 'js/verifyTextInput.js' %}"></script>
+    <script src="{% static 'js/trollMenuBarHover.js' %}"></script>
+    <script src="{% static 'js/rotatingTrollFaces.js' %}"></script>
 </head>
 <body>
 <div>
-<h1 style="color:red">
-<img class='rotatingFace' id='rightRotatingFace' alt='rightRotatingFace' src="{% static 'images/trollFace1.jpg' %}">
-Trollololer
-<img class='rotatingFace' id='leftRotatingFace' alt='leftRotatingFace' src="{% static 'images/trollFace1.jpg' %}">
-</h1>
+    <h1 style="color:red">
+        <img class='rotatingFace' id='rightRotatingFace' alt='rightRotatingFace' src="{% static 'images/trollFace1.jpg' %}">
+        Trollololer
+        <img class='rotatingFace' id='leftRotatingFace' alt='leftRotatingFace' src="{% static 'images/trollFace1.jpg' %}">
+    </h1>
 </div>
 <h2 style="color:#FF6600">Your Website for all Wonderful Things Troll</h2>
 <div style="width:100%">
-    <div class="test" id="one">
+    <div class="menuOption" id="home">
         <img class="burningFlame" id="burningFlameLeft" alt="burningFlame" src="{% static 'images/flame.gif' %}">
         <a class="menuLink" href="{% url 'trollApp:home' %}">Home</a>
         <img class="burningFlame" id="burningFlameRight" alt="burningFlame" src="{% static 'images/flame.gif' %}">
     </div>
-    <div class="test" id="two">
+    <div class="menuOption" id="about">
         <img class="burningFlame" id="burningFlameLeft" alt="burningFlame" src="{% static 'images/flame.gif' %}">
         <a class="menuLink" href="{% url 'trollApp:about' %}">About</a>
         <img class="burningFlame" id="burningFlameRight" alt="burningFlame" src="{% static 'images/flame.gif' %}">
     </div>
-    <div class="test" id="three">
+    <div class="menuOption" id="download">
         <img class="burningFlame" id="burningFlameLeft" alt="burningFlame" src="{% static 'images/flame.gif' %}">
         <a class="menuLink" href="{% url 'trollApp:downloads' %}">Downloads</a>
         <img class="burningFlame" id="burningFlameRight" alt="burningFlame" src="{% static 'images/flame.gif' %}">
     </div>
-    <div class="test" id="four">
+    <div class="menuOption" id="create">
         <img class="burningFlame" id="burningFlameLeft" alt="burningFlame" src="{% static 'images/flame.gif' %}">
         <a class="menuLink" href="{% url 'trollApp:customCreate' %}">Create Your Own!</a>
         <img class="burningFlame" id="burningFlameRight" alt="burningFlame" src="{% static 'images/flame.gif' %}">
     </div>
-    <div class="test" id="five">
+    <div class="menuOption" id="trollify">
         <img class="burningFlame" id="burningFlameLeft" alt="burningFlame" src="{% static 'images/flame.gif' %}">
         <a class="menuLink" href="{% url 'trollApp:displayTrollEmail' %}">Trollify Your Email!</a>
         <img class="burningFlame" id="burningFlameRight" alt="burningFlame" src="{% static 'images/flame.gif' %}">
     </div>
-    <div class="test" id="six">
+    <div class="menuOption" id="suggest">
         <img class="burningFlame" id="burningFlameLeft" alt="burningFlame" src="{% static 'images/flame.gif' %}">
         <a class="menuLink" href="{% url 'trollApp:suggestions' %}">Send Suggestions!</a>
         <img class="burningFlame" id="burningFlameRight" alt="burningFlame" src="{% static 'images/flame.gif' %}">
