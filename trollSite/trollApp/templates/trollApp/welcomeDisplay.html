@@ -6,33 +6,71 @@
 <head>
 <title>Home of the Troll</title>
 <style>
-    textarea {
-        background:black;
-        border:none;
-        color:#FF6600;
-        font-size:200%;
-        font-weight:bold;
-        height:10em;
-        padding-right:5%;
-        resize:none;
-        width:15%;
+    div.welcomeItem {
+        float:left;
+        width:30%;
+        height:100%;
+    }
+
+    div#image {
+        width:20%;
+        height:20%;
+        min-width:250px;
+    }
+
+    div#message {
+        padding-left:10%;
+        width:20%;
+        min-width:300px;
+    }
+
+    div#video {
+        padding-left:3%;
+        padding-right:3%;
+        min-width:500px;
+    }
+
+    iframe.trollSong {
+        width:100%;
     }
 
     img.welcomeDevil {
         height:20em;
-        padding-left:5%;
-        width:20%;
+        padding-right:10%;
+        width:100%;
+    }
+
+    p {
+        color:#FF6600;
+        font-size:200%;
+        font-weight:bold;
+        text-align:center;
     }
 </style>
 </head>
 <body>
 <h1 class="pageTitle">Greetings, Fellow Troll!</h1>
 <div style="height:100%;width:100%;text-align:center;">
-    <textarea disabled>May the troll&#13;&#10;be with you!&#13;&#10;&#13;&#10;Navigate this website at your&#13;&#10;peril! Hehehe...
-    </textarea disabled>
-    <iframe class="trollSong" width="560" height="315" src="https://www.youtube.com/embed/o1eHKf-dMwo?autoplay=1"
-            frameborder="0" allowfullscreen></iframe>
-    <img class="welcomeDevil" alt="welcomeDevil" src="{% static 'images/welcomeDevil.jpg' %}">
+    <div class="welcomeItem" id="message">
+        <p>
+            May the troll
+            be with you,
+            kind visitor!
+        </p>
+        <p>
+            Navigate this website
+            at your peril! Hehehe...
+        </p>
+    </div>
+    <div class="welcomeItem" id="video">
+        <iframe class="trollSong"
+                src="https://www.youtube.com/embed/o1eHKf-dMwo?autoplay=1"
+                frameborder="0" allowfullscreen>
+        </iframe>
+    </div>
+    <div class="welcomeItem" id="image">
+        <img class="welcomeDevil" alt="welcomeDevil" src="{% static 'images/welcomeDevil.jpg' %}">
+    </div>
 </div>
 </body>
 </html>
