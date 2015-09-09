@@ -9,29 +9,29 @@
 img#trollAtComputer {
 	width:40em;
 	height:25em;
-	padding-left:10em;
 	padding-top:1em;
 }
 </style>
 </head>
 <body>
 <h1 class="pageTitle">Send us your suggestions for new trolls and improvements to the website!</h1>
-<div style="float:left;text-align:left">
-<form action="{% url 'trollApp:sendSuggestion' %}" method="post"><b class="textarea-instruction">Send Your Suggestion!</b><br><br>
-{% csrf_token %}
-	{% if error_msg %}
-		<div class=error><b>ERROR: </b>{{ error_msg }}</div><br>
-		<textarea type=text id=suggestion name=suggestion>{{ prev_email }}</textarea><br><br>
-	{% else %}
-		<div class=error></div>
-		<textarea type=text id=suggestion name=suggestion></textarea><br><br>
-	{% endif %}
-	<input type=submit value=Submit!>
-</form>
+<div style="float:left;padding-left:3%;text-align:left">
+    <form action="{% url 'trollApp:sendSuggestion' %}" method="post"><b class="textarea-instruction">Send Your Suggestion!</b><br><br>
+        {% csrf_token %}
+        {% if error_msg %}
+            <div class=error><b>ERROR: </b>{{ error_msg }}</div><br>
+            <textarea type=text id=suggestion name=suggestion>{{ prev_email }}</textarea><br><br>
+        {% else %}
+            <div class=error></div>
+            <textarea type=text id=suggestion name=suggestion></textarea><br><br>
+        {% endif %}
+        <input type=submit value=Submit!>
+    </form>
 </div>
-<div>
-<div><b class="textarea-instruction">Trust us, he'll read ALL of them</b></div>
-<img id="trollAtComputer" alt="trollAtComputer" src="{% static 'images/trollAtComputer.jpg' %}">
+<div style="width:22%;height:1px;float:left;"></div>
+<div style="float:left;width:40em;padding-left:3%">
+    <b class="textarea-instruction">Trust us, he'll read ALL of them</b>
+    <img id="trollAtComputer" alt="trollAtComputer" src="{% static 'images/trollAtComputer.jpg' %}">
 </div>
 </body>
 </html>

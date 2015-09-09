@@ -13,8 +13,8 @@ b.contact-info {
 
 div#becomes {
 	float:left;
-	padding-left:3em;
-	padding-right:3em;
+	padding-left:3%;
+	padding-right:3%;
 	padding-top:7em;
 	text-align:left;
 }
@@ -37,47 +37,47 @@ form > input.info {
 </head>
 <body>
 <h1 class="pageTitle">Classic Troll: Make your messages deliberately confusing!</h1>
-<div style="float:left;text-align:left">
-<form action="{% url 'trollApp:trollEmail' %}" method="post"><b class="textarea-instruction">Write Your Email Here, and We'll Trollify It!</b><br><br>
-{% csrf_token %}
-	<div class=error></div>
-	{% if error_msg or troll_email %}
-		<textarea type=text id=origEmail name=origEmail>{{ orig_email }}</textarea><br><br>
-	{% else %}
-		<textarea type=text id=origEmail name=origEmail></textarea><br><br>
-	{% endif %}
-	<input type=submit value=Trollify!>
-</form>
+<div style="float:left;text-align:left;padding-left:3%">
+    <form action="{% url 'trollApp:trollEmail' %}" method="post"><b class="textarea-instruction">Write Your Email Here, and We'll Trollify It!</b><br><br>
+        {% csrf_token %}
+        <div class=error></div>
+        {% if error_msg or troll_email %}
+            <textarea type=text id=origEmail name=origEmail>{{ orig_email }}</textarea><br><br>
+        {% else %}
+            <textarea type=text id=origEmail name=origEmail></textarea><br><br>
+        {% endif %}
+        <input type=submit value=Trollify!>
+    </form>
 </div>
 <div id=becomes>
-<h1>BECOMES...</h1>
+    <h1>BECOMES...</h1>
 </div>
 <div style="float:left;text-align:left">
-<form action="{% url 'trollApp:sendTrollEmail' %}" method="post"><b class="textarea-instruction">Send Your Newly Trollified Email!</b><br><br>
-{% csrf_token %}
-	{% if error_msg %}
-		<div class=error><b>ERROR: </b>{{ error_msg }}</div><br>
-		<textarea type=text id=trollEmail name=trollEmail>{{ troll_email }}</textarea><br><br>
-		<b class="contact-info" id="sender">SENDER: </b><input class=info type=text id=sender name=sender value="{{ sender }}" required><br><br>
-		<b class="contact-info" id="receiver">RECEIVER: </b><input class=info type=text id=receiver name=receiver value="{{ receiver }}" required><br><br>
-		<b class="contact-info" id="subject">SUBJECT: </b><input class=info type=text id=subject name=subject value="{{ subject }}" required><br><br>
+    <form action="{% url 'trollApp:sendTrollEmail' %}" method="post"><b class="textarea-instruction">Send Your Newly Trollified Email!</b><br><br>
+        {% csrf_token %}
+        {% if error_msg %}
+            <div class=error><b>ERROR: </b>{{ error_msg }}</div><br>
+            <textarea type=text id=trollEmail name=trollEmail>{{ troll_email }}</textarea><br><br>
+            <b class="contact-info" id="sender">SENDER: </b><input class=info type=text id=sender name=sender value="{{ sender }}" required><br><br>
+            <b class="contact-info" id="receiver">RECEIVER: </b><input class=info type=text id=receiver name=receiver value="{{ receiver }}" required><br><br>
+            <b class="contact-info" id="subject">SUBJECT: </b><input class=info type=text id=subject name=subject value="{{ subject }}" required><br><br>
 
-	{% elif troll_email %}
-		<div class=error></div>
-		<textarea type=text id=trollEmail name=trollEmail>{{ troll_email }}</textarea><br><br>
-        <b class="contact-info" id="sender">SENDER: </b><input class=info type=text id=sender name=sender required><br><br>
-        <b class="contact-info" id="receiver">RECEIVER: </b><input class=info type=text id=receiver name=receiver required><br><br>
-        <b class="contact-info" id="subject">SUBJECT: </b><input class=info type=text id=subject name=subject required><br><br>
+        {% elif troll_email %}
+            <div class=error></div>
+            <textarea type=text id=trollEmail name=trollEmail>{{ troll_email }}</textarea><br><br>
+            <b class="contact-info" id="sender">SENDER: </b><input class=info type=text id=sender name=sender required><br><br>
+            <b class="contact-info" id="receiver">RECEIVER: </b><input class=info type=text id=receiver name=receiver required><br><br>
+            <b class="contact-info" id="subject">SUBJECT: </b><input class=info type=text id=subject name=subject required><br><br>
 
-	{% else %}
-		<div class=error></div>
-		<textarea type=text id=email name=email></textarea><br><br>
-        <b class="contact-info" id="sender">SENDER: </b><input class=info type=text id=sender name=sender required><br><br>
-        <b class="contact-info" id="receiver">RECEIVER: </b><input class=info type=text id=receiver name=receiver required><br><br>
-        <b class="contact-info" id="subject">SUBJECT: </b><input class=info type=text id=subject name=subject required><br><br>
-	{% endif %}
-	<input type=submit value=Submit!>
-</form>
+        {% else %}
+            <div class=error></div>
+            <textarea type=text id=email name=email></textarea><br><br>
+            <b class="contact-info" id="sender">SENDER: </b><input class=info type=text id=sender name=sender required><br><br>
+            <b class="contact-info" id="receiver">RECEIVER: </b><input class=info type=text id=receiver name=receiver required><br><br>
+            <b class="contact-info" id="subject">SUBJECT: </b><input class=info type=text id=subject name=subject required><br><br>
+        {% endif %}
+        <input type=submit value=Submit!>
+    </form>
 </div>
 </body>
 </html>

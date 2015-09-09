@@ -6,9 +6,10 @@
 <title>Create the Troll</title>
 <style>
 div.instructions {
+    display:inline;
 	float:left;
 	font-size:200%;
-	padding-left:15em;
+    padding-left:1%;
 }
 
 div.os-select {
@@ -57,52 +58,53 @@ function isPythonFile(filename){
 </head>
 <body>
 <h1 class="pageTitle">Create Your Own Troll File!</h1>
-<div style="float:left;text-align:left">
-<form action="{% url 'trollApp:customDownload' %}" method="post" enctype="multipart/form-data">
-<b class="textarea-instruction">Input Your Python Code Here</b><br><br>
-{% csrf_token %}
-	{% if error_msg %}
-		<div class=error><b>ERROR: </b>{{ error_msg }}</div><br>
-		<textarea type=text id=customCode name=code>{{ prev_code }}</textarea><br><br>
-		<div class="os-select">
-			<b>TARGET OS</b>:
-			<select name="OS">
-				{% if os_target == "Windows" %}
-					<option value="Windows" selected>Windows</option>
-					<option value="Linux">Linux</option>
-					<option value="Darwin">Mac</option>
-				{% elif os_target == "Linux" %}
-					<option value="Windows">Windows</option>
-					<option value="Linux" selected>Linux</option>
-					<option value="Darwin">Mac</option>
-				{% else %}
-					<option value="Windows">Windows</option>
-					<option value="Linux">Linux</option>
-					<option value="Darwin" selected>Mac</option>
-				{% endif %}
-			</select>
-		</div><br>
-	{% else %}
-		<div class=error></div>
-		<textarea type=text id=customCode name=code></textarea><br><br>
-		<div class="os-select">
-			<b>TARGET OS</b>:
-			<select name="OS">
-				<option value="Windows">Windows</option>
-				<option value="Linux">Linux</option>
-				<option value="Darwin">Mac</option>
-			</select>
-		</div><br>
-	{% endif %}
-	<input type="file" onchange="display(this);"><br><br>
-	<input type=submit value=Submit!>
-</form>
+<div style="float:left;text-align:left;padding-left:3%;display:inline">
+    <form action="{% url 'trollApp:customDownload' %}" method="post" enctype="multipart/form-data">
+        <b class="textarea-instruction">Input Your Python Code Here</b><br><br>
+        {% csrf_token %}
+        {% if error_msg %}
+            <div class=error><b>ERROR: </b>{{ error_msg }}</div><br>
+            <textarea type=text id=customCode name=code>{{ prev_code }}</textarea><br><br>
+            <div class="os-select">
+                <b>TARGET OS</b>:
+                <select name="OS">
+                    {% if os_target == "Windows" %}
+                        <option value="Windows" selected>Windows</option>
+                        <option value="Linux">Linux</option>
+                        <option value="Darwin">Mac</option>
+                    {% elif os_target == "Linux" %}
+                        <option value="Windows">Windows</option>
+                        <option value="Linux" selected>Linux</option>
+                        <option value="Darwin">Mac</option>
+                    {% else %}
+                        <option value="Windows">Windows</option>
+                        <option value="Linux">Linux</option>
+                        <option value="Darwin" selected>Mac</option>
+                    {% endif %}
+                </select>
+            </div><br>
+        {% else %}
+            <div class=error></div>
+            <textarea type=text id=customCode name=code></textarea><br><br>
+            <div class="os-select">
+                <b>TARGET OS</b>:
+                <select name="OS">
+                    <option value="Windows">Windows</option>
+                    <option value="Linux">Linux</option>
+                    <option value="Darwin">Mac</option>
+                </select>
+            </div><br>
+        {% endif %}
+        <input type="file" onchange="display(this);"><br><br>
+        <input type=submit value=Submit!>
+    </form>
 </div>
+<div style="width:25%;height:1px;float:left;"></div>
 <div class="instructions">
-<b style="color:orange">Instructions</b><br><br>
-<b style="color:red">Type Python code into the textbox!<br><br>
-OR<br><br>Submit a Python file!<br>The file contents will appear in the textbox!<br><br>
-THEN<br><br>Select the OS to run the executable on<br><br>THEN<br><br>Hit Submit!</b>
+    <b style="color:orange">Instructions</b><br><br>
+    <b style="color:red">Type Python code into the textbox!<br><br>
+        OR<br><br>Submit a Python file!<br>The file contents will appear in the textbox!<br><br>
+        THEN<br><br>Select the OS to run the executable on<br><br>THEN<br><br>Hit Submit!</b>
 </div>
 </body>
 </html>
