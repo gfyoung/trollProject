@@ -10,7 +10,6 @@
         img#trollFace {
             float:left;
             height:30em;
-            padding-left:6em;
             width:35em;
         }
 
@@ -20,34 +19,34 @@
             font-weight:bold;
             left:0;
             position:relative;
-            text-align:right;
             top:0;
         }
 </style>
 </head>
 <body>
 <h1 class="pageTitle">About</h1>
-<div>
+<div style="float:left;height:30em;width:35em;padding-left:6em">
     <img alt='trollFace' id='trollFace' src="{% static 'images/trollFaceAbout.jpg' %}">
-    <div style="float:right;padding-right:2em;width:750px">
-        <pre id="redText" style="color:red">
-            Created out of boredom during the summer of my sophomore
-            year, this website combines two of my favorite things from
-            college: software engineering and trolling.
-        </pre>
-        <pre id="redOrangeText" style="color:#FF5200">
-            As much as I enjoy physical trolls, such as hiding my friend's
-            TIE figher in my room for a month, as a major in Electrical
-            Engineering and Computer Science, I've always wanted to do a
-            more CS kind of troll, and this website is a compilation of
-            the many software trolls that I have come up with since.
-        </pre>
-        <pre id="orangeText" style="color:orange">
-            Like any software-related creation, it is always under constant
-            development, so I encourage you to email me suggestions for
-            improvements at any time! May the troll be with you!
-        </pre>
-    </div>
+</div>
+<div style="float:left;width:10em;height:1em;padding-left:3%"></div>
+<div style="float:left;padding-left:3em;width:750px">
+    <pre id="redText" style="color:red">
+Created out of boredom during the summer of my sophomore
+year, this website combines two of my favorite things from
+college: software engineering and trolling.
+    </pre>
+    <pre id="redOrangeText" style="color:#FF5200">
+As much as I enjoy physical trolls, such as hiding my friend's
+TIE figher in my room for a month, as a major in Electrical
+Engineering and Computer Science, I've always wanted to do a
+more CS kind of troll, and this website is a compilation of
+the many software trolls that I have come up with since.
+    </pre>
+    <pre id="orangeText" style="color:orange">
+Like any software-related creation, it is always under constant
+development, so I encourage you to email me suggestions for
+improvements at any time! May the troll be with you!
+    </pre>
 </div>
 </body>
 </html>
