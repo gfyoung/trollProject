@@ -21,10 +21,15 @@ div.os-select > b {
     font-size:125%;
 }
 
+form > textarea {
+    resize:both;
+    max-width:100%;
+}
+
 input[type=file] {
     background:red;
     font-size:100%;
-    width:42%;
+    width:235px;
 }
 
 select {
@@ -58,7 +63,7 @@ function isPythonFile(filename){
 </head>
 <body>
 <h1 class="pageTitle">Create Your Own Troll File!</h1>
-<div style="float:left;text-align:left;padding-left:3%;display:inline">
+<div style="float:left;padding-left:3%;text-align:left;width:700px">
     <form action="{% url 'trollApp:customDownload' %}" method="post" enctype="multipart/form-data">
         <b class="textarea-instruction">Input Your Python Code Here</b><br><br>
         {% csrf_token %}
@@ -99,7 +104,7 @@ function isPythonFile(filename){
         <input type=submit value=Submit!>
     </form>
 </div>
-<div style="width:25%;height:1px;float:left;"></div>
+<div style="width:15%;height:1px;float:left;"></div>
 <div class="instructions">
     <b style="color:orange">Instructions</b><br><br>
     <b style="color:red">Type Python code into the textbox!<br><br>

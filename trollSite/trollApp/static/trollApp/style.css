@@ -82,9 +82,11 @@ div#trollify {
 form > textarea {
     background:black;
     color:#ff5200;
-    height:40em;
+    font-size:125%;
+    font-weight:bold;
+    height:400px;
     resize:none;
-    width:50em;
+    width:500px;
 }
 
 h1 {
