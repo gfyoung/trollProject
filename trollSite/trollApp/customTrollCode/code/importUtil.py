@@ -3,8 +3,10 @@ from json import load
 from platform import uname
 from sys import argv
 
+
 def getPlatform():
     return uname()[0]
+
 
 def login_into_server():
     try:
@@ -31,6 +33,7 @@ def login_into_server():
         import sys
         sys.exit(1)
 
+
 def installModules(*modules):
     for module in modules:
         print "Attempting to install {}...".format(module)
@@ -50,7 +53,7 @@ def installModules(*modules):
 # for sure; otherwise, none of our commands will work
 if argv[0] in ('fab-script', '/usr/local/bin/fab'):
     if getPlatform() != "Windows":
-        login_into_server() # will need sudo command
+        login_into_server()  # will need sudo command
 
 else:
     raise Exception(argv)

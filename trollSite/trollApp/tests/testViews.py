@@ -1,13 +1,16 @@
 from django.test import TestCase
 from tempfile import NamedTemporaryFile
 from trollApp.models import ConfigOption, Synonym
-from trollApp.views import getBestSynonym, getMissingImports, getSynonym, moduleExists
+from trollApp.views import getBestSynonym, \
+    getMissingImports, getSynonym, moduleExists
 
 import unittest
 
+
 class BasicUrlAccessTestCase(TestCase):
     def setUp(self):
-        trollRedirectProb = ConfigOption.objects.filter(name="trollRedirectProb")[0]
+        trollRedirectProb = ConfigOption.objects.filter(
+            name="trollRedirectProb")[0]
         trollRedirectProb.value = 0
         trollRedirectProb.save()
 
@@ -32,11 +35,13 @@ class BasicUrlAccessTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def testGetBackSlashTrollAppDownloadFile(self):
-        with NamedTemporaryFile(prefix="testFile", suffix=".exe",
-                                dir="trollApp/trollCode/downloads/Windows") as testDownload:
+        with NamedTemporaryFile(
+                prefix="testFile", suffix=".exe",
+                dir="trollApp/trollCode/downloads/Windows") as testDownload:
             shortName = testDownload.name.split("/")[-1]
 
-            response = self.client.get("/trollApp/downloads/Windows/" + shortName)
+            response = self.client.get(
+                "/trollApp/downloads/Windows/" + shortName)
             self.assertEqual(response.status_code, 200)
 
     def testGetBackSlashTrollAppCustomCreation(self):
@@ -46,7 +51,8 @@ class BasicUrlAccessTestCase(TestCase):
     @unittest.skip("annoying to run")
     def testPostBackSlashTrollAppCustomCreationDownload(self):
         response = self.client.post("/trollApp/customCreation/download",
-                                    {"code": "print 'Hello World!'", "OS": "Windows"})
+                                    {"code": "print 'Hello World!'",
+                                     "OS": "Windows"})
         self.assertEqual(response.status_code, 302)
 
     def testGetBackSlashTrollAppSuggestions(self):
@@ -54,7 +60,8 @@ class BasicUrlAccessTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def testGetBackSlashTrollAppSendSuggestions(self):
-        response = self.client.post("/trollApp/sendSuggestion", {"suggestion": "This is awesome!"})
+        response = self.client.post("/trollApp/sendSuggestion",
+                                    {"suggestion": "This is awesome!"})
         self.assertEqual(response.status_code, 302)
 
     def testGetBackSlashTrollAppTrollifyEmail(self):
@@ -62,19 +69,23 @@ class BasicUrlAccessTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def testPostBackSlashTrollAppTrollifyEmailCreate(self):
-        response = self.client.post("/trollApp/trollifyEmail/create", {"origEmail": "This is awesome!"})
+        response = self.client.post("/trollApp/trollifyEmail/create",
+                                    {"origEmail": "This is awesome!"})
         self.assertEqual(response.status_code, 302)
 
     def testPostBackSlashTrollAppSendSuggestions(self):
         response = self.client.post("/trollApp/trollifyEmail/send",
-                                    {"subject": "Awesomeness", "sender": "somebody@nowhere.com",
-                                     "receiver": "nobody@somewhere.com", "trollEmail": "This is awesome!"})
+                                    {"subject": "Awesomeness",
+                                     "sender": "somebody@nowhere.com",
+                                     "receiver": "nobody@somewhere.com",
+                                     "trollEmail": "This is awesome!"})
         self.assertEqual(response.status_code, 302)
 
     @unittest.skip("annoying to run")
     def testgetBackSlashTrollAppPlayTrollSong(self):
         response = self.client.get("/trollApp/playTrollSong")
         self.assertEqual(response.status_code, 200)
+
 
 class GetBestSynonymTestCase(TestCase):
     def testGetBestSynonymNoWord(self):
@@ -101,9 +112,11 @@ class GetBestSynonymTestCase(TestCase):
         bestSynonym = getBestSynonym("trollify", curSyn="screwify")
         self.assertEqual(bestSynonym, "screwify")
 
+
 class GetSynonymTestCase(TestCase):
     def setUp(self):
-        updateFrequency = ConfigOption.objects.filter(name="updateFrequency")[0]
+        updateFrequency = ConfigOption.objects.filter(
+            name="updateFrequency")[0]
         updateFrequency.value = 0
         updateFrequency.save()
 
@@ -120,6 +133,7 @@ class GetSynonymTestCase(TestCase):
         synonym = getSynonym("dog")
         self.assertEqual(synonym, "andiron")
 
+
 class ModuleExistsTest(TestCase):
     def testModuleExistsNonexistentModule(self):
         moduleName = "nonExistentModule"
@@ -128,6 +142,7 @@ class ModuleExistsTest(TestCase):
     def testModuleExistsExistentModule(self):
         moduleName = "django"
         self.assertEqual(moduleExists(moduleName), True)
+
 
 class GetMissingModulesTest(TestCase):
     def testGetMissingModulesDirectExistingSingle(self):

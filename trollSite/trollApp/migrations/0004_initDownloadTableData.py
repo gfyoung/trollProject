@@ -11,6 +11,7 @@ programs = {
     "massiveFileWriteCall": "Write a Ton of Useless Files"
 }
 
+
 def populateDownloadTable(apps, schema_editor):
     Download = apps.get_model("trollApp", "Download")
 
@@ -19,6 +20,7 @@ def populateDownloadTable(apps, schema_editor):
             newDownload = Download.objects.create(
                 target_os=platform, filename=program, description=description)
             newDownload.save()
+
 
 class Migration(migrations.Migration):
 

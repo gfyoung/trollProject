@@ -1,11 +1,16 @@
 from django.test import TestCase
 from trollApp.models import ConfigOption, Download, Synonym
 
+
 class DownloadTestCase(TestCase):
     def setUp(self):
         Download.objects.all().delete()
-        Download.objects.create(target_os="Windows", filename="testFile", description="Test Executable")
-        Download.objects.create(target_os="Linux", filename="testFile", description="Test Executable")
+        Download.objects.create(target_os="Windows",
+                                filename="testFile",
+                                description="Test Executable")
+        Download.objects.create(target_os="Linux",
+                                filename="testFile",
+                                description="Test Executable")
 
     def testGetFullName(self):
         windowsDownload = Download.objects.get(target_os="Windows")
@@ -21,6 +26,7 @@ class DownloadTestCase(TestCase):
         self.assertEqual(unicode(windowsDownload), "testFile: Test Executable")
         self.assertEqual(unicode(linuxDownload), "testFile: Test Executable")
 
+
 class SynonymTestCase(TestCase):
     def setUp(self):
         Synonym.objects.create(word="cat", synonym="feline")
@@ -33,6 +39,7 @@ class SynonymTestCase(TestCase):
         self.assertEqual(unicode(catSynonym), "Word: cat, Synonym: feline")
         self.assertEqual(unicode(dogSynonym), "Word: dog, Synonym: canine")
 
+
 class ConfigOptionTestCase(TestCase):
     def setUp(self):
         ConfigOption.objects.all().delete()
@@ -43,5 +50,7 @@ class ConfigOptionTestCase(TestCase):
         maxWordLengthConfig = ConfigOption.objects.get(name="maxWordLength")
         minWordLengthConfig = ConfigOption.objects.get(name="minWordLength")
 
-        self.assertEqual(unicode(maxWordLengthConfig), "Name: maxWordLength, Value: 5")
-        self.assertEqual(unicode(minWordLengthConfig), "Name: minWordLength, Value: 1")
+        self.assertEqual(unicode(maxWordLengthConfig),
+                         "Name: maxWordLength, Value: 5")
+        self.assertEqual(unicode(minWordLengthConfig),
+                         "Name: minWordLength, Value: 1")

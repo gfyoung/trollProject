@@ -14,7 +14,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Synonym',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False,
+                                        auto_created=True, primary_key=True)),
                 ('word', models.CharField(max_length=200)),
                 ('synonym', models.CharField(max_length=200)),
             ],

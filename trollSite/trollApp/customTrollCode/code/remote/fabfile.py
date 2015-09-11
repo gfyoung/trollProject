@@ -5,6 +5,7 @@ from sys import argv
 codeDirectory = 'trollApp/customTrollCode/code/'
 exeDirectory = 'trollApp/customTrollCode/downloads/'
 
+
 def login_into_server():
     try:
         jsonFile = "serverConfig.json"
@@ -14,7 +15,7 @@ def login_into_server():
     except:
         print "Missing 'serverConfig.json' file!"
         print "Aborting Server access immediately"
-    
+
         import sys
         sys.exit(1)
 
@@ -33,6 +34,7 @@ def login_into_server():
 
     return homeDir
 
+
 def convert_to_exe():
     global homeDir
     try:
@@ -43,14 +45,14 @@ def convert_to_exe():
     except:
         print "Missing 'convertData.json' file!"
         print "Aborting Server access immediately"
-    
+
         import sys
         sys.exit(1)
 
     try:
         tmpFile = tmpFileConfig['tmpFile']
         exeFile = tmpFile.replace(".py", "")
-        
+
     except:
         print "Improper configuraton of 'convertData.json' file!"
         print "Aborting Server access immediately"
@@ -64,10 +66,10 @@ def convert_to_exe():
         put(tmpFile, codeDirectory + tmpFile)
         run("python " + codeDirectory + "convertToExe.py -f " + tmpFile)
         get(exeDirectory + exeFile, exeFile)
-        
+
         local("cp {exeFile} ../../downloads/{exeFile}".format(exeFile=exeFile))
         local("rm {} {}".format(tmpFile, exeFile))
-        
+
 # only when we run the file with the fab command do we want to login
 # for sure; otherwise, none of our commands will work
 if 'fab-script' in argv[0]:

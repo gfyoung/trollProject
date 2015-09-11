@@ -1,9 +1,15 @@
+"""
+Resets the sqlite3 database in case of changes to migrations and optionally
+reruns all of the migrations to repopulate the database if specified
+"""
+
 from sqlite3 import connect
 from fabric.api import local
-from argparse import ArgumentParser # optparse is deprecated
+from argparse import ArgumentParser  # optparse is deprecated
 
 DATABASE = "db.sqlite3"
 APP = "trollApp"
+
 
 def resetDB():
     with connect(DATABASE) as conn:
@@ -13,7 +19,7 @@ def resetDB():
             "WHERE instr(name, '{}') > 0".format(APP)).fetchall()
 
         for table in tablesToDelete:
-            tableName = table[0] # table = (tableName,)
+            tableName = table[0]  # table = (tableName,)
             conn.execute("DROP TABLE {}".format(tableName))
 
         print "{} table deletion complete!".format(APP)
@@ -24,6 +30,7 @@ def resetDB():
 
         print "{} migrations deletion complete!\n".format(APP)
 
+
 def rerunMigrations():
     print "Rerunning {} migrations...\n".format(APP)
     local("python manage.py migrate")
@@ -31,12 +38,14 @@ def rerunMigrations():
 
 if __name__ == "__main__":
     parser = ArgumentParser(description="Reset {} database".format(APP))
-    parser.add_argument("-r", "--rerun", dest="rerun", default=False,
-                        action="store_true", help="rerun {} migrations".format(APP))
+    parser.add_argument("-r", "--rerun",
+                        dest="rerun",
+                        default=False,
+                        action="store_true",
+                        help="rerun {} migrations".format(APP))
 
     resetDB()
     args = parser.parse_args()
 
     if args.rerun:
         rerunMigrations()
-
