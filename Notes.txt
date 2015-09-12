@@ -3,6 +3,7 @@ Troll emails
 
 Suggestions page
 - Need sender email?
+- Optional subject line?
 
 Provided downloads
 - Remove "Test Download" in any official releases
