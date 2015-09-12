@@ -7,3 +7,11 @@ macConfig.json
 serverConfig.json
 update.sh
 tmpFile*
+
+# Checkstyle files
+javascriptStyleErrors.txt
+pythonStyleErrors.txt
+
+# IntelliJ files
+.idea
+trollProject.iml

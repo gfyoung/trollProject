@@ -4,9 +4,6 @@ Troll emails
 Suggestions page
 - Need sender email?
 
-Test setup Window VM ssh
-- http://www.techrepublic.com/blog/tr-dojo/set-up-a-free-ssh-server-on-windows-7-with-freesshd/
-
 Provided downloads
 - Remove "Test Download" in any official releases
 
@@ -37,7 +34,6 @@ Design considerations
 - Text should look "large" enough for reading across all browser/screen sizes
 - Change the fonts to make them more appealing to read
 - How to format the sizes of SUBMIT and SELECT input buttons?
-- How to format the font/size of the text in TEXTAREA?
 
 - Performance issues (somewhat slow)
 
