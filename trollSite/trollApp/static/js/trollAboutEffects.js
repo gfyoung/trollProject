@@ -3,8 +3,8 @@ var vanishTimeout = 1000;
 var reappearTimeout = 1000;
 
 function getIds() {
-	return $.map($("pre"), function(para) {
-		return "#" + para.id;
+	return $.map($('pre'), function(para) {
+		return '#' + para.id;
 	});
 }
 function getRandomIdIndex() {

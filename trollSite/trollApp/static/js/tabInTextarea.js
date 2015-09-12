@@ -7,9 +7,8 @@ $(document).ready(function() {
 			var start = $(this).get(0).selectionStart;
 			var end = $(this).get(0).selectionEnd;
 
-			$(this).val($(this).val().substring(0, start)
-			+ "\t"
-			+ $(this).val().substring(end));
+			$(this).val($(this).val().substring(0, start) +
+				'\t' + $(this).val().substring(end));
 			$(this).get(0).selectionEnd = start + 1;
 		}
 	});
