@@ -3,63 +3,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Create the Troll</title>
-<style>
-div.instructions {
-    display:inline;
-	float:left;
-	font-size:200%;
-    padding-left:1%;
-}
+    <title>Create the Troll</title>
+    <style>
+        div.instructions {
+            display:inline;
+            float:left;
+            font-size:200%;
+            padding-left:1%;
+        }
 
-div.os-select {
-    color:orange;
-    text-align:left;
-}
+        div.os-select {
+            color:orange;
+            text-align:left;
+        }
 
-div.os-select > b {
-    font-size:125%;
-}
+        div.os-select > b {
+            font-size:125%;
+        }
 
-form > textarea {
-    resize:both;
-    max-width:100%;
-}
+        form > textarea {
+            resize:both;
+            max-width:100%;
+        }
 
-input[type=file] {
-    background:red;
-    font-size:100%;
-    width:235px;
-}
+        input[type=file] {
+            background:red;
+            font-size:100%;
+            width:235px;
+        }
 
-select {
-    font-size:100%;
-    width:7em;
-}
-</style>
-<script>
-function display(input){
-	if (input.files && input.files[0]) {
-		var filename = input.files[0].name;
-		if(!isPythonFile(filename)) {
-            $(":file").replaceWith($(":file").clone(true));
-			displayMsg("Missing <b>.PY</b> Extension!");
-		}else{
-			var reader = new FileReader();
-			reader.onload = function (e) {
-				$("textarea").val(e.target.result);
-			};
+        select {
+            font-size:100%;
+            width:7em;
+        }
+    </style>
+    <script>
+        function display(input){
+            if (input.files && input.files[0]) {
+                var filename = input.files[0].name;
+                if(!isPythonFile(filename)) {
+                    $(":file").replaceWith($(":file").clone(true));
+                    displayMsg("Missing <b>.PY</b> Extension!");
+                }else{
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("textarea").val(e.target.result);
+                    };
 
-			reader.readAsText(input.files[0]);
-		}
-	}
-}
+                    reader.readAsText(input.files[0]);
+                }
+            }
+        }
 
-function isPythonFile(filename){
-	var filenameArray = filename.split(".");
-	return filenameArray[filenameArray.length - 1] == "py";
-}
-</script>
+        function isPythonFile(filename){
+            var filenameArray = filename.split(".");
+            return filenameArray[filenameArray.length - 1] == "py";
+        }
+    </script>
 </head>
 <body>
 <h1 class="pageTitle">Create Your Own Troll File!</h1>

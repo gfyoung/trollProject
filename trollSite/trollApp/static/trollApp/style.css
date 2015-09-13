@@ -120,6 +120,11 @@ img.rotatingFace {
     width:1em;
 }
 
+img.winkingDevil {
+    height:20em;
+    width:20em;
+}
+
 input[type=submit] {
     font-size:100%;
 }
