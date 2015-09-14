@@ -20,14 +20,20 @@ function displayMsg(msg) {
 	$('.error').html('<b>ERROR:</b> ' + msg);
 }
 
-$(document).ready(function() {
-	$('form').submit(function(e) {
-		var textInput = $('textarea').val().replace(/\s/g, '');
+function isValidInput(form) {
+    var textInput = $(form).children('textarea').val().replace(/\s/g, '');
 
-		if (!textInput) {
-			e.preventDefault();
-			displayMsg('Input is empty!');
-			setTimeout(playTrollSong, 500);
-		}
-	});
-});
+    if (!textInput) {
+        displayMsg('Input is empty!');
+        setTimeout(playTrollSong, 500);
+        return false;
+    } else {
+        if ($(form).children('.error').next()[0]
+                .tagName.toLowerCase() === 'br') {
+            $(form).children('.error').next().remove();
+        }
+
+        $(form).children('.error').html('');
+        return true;
+    }
+}

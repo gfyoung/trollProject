@@ -16,7 +16,8 @@
 <body>
 <h1 class="pageTitle">Send us your suggestions for new trolls and improvements to the website!</h1>
 <div style="float:left;padding-left:3%;text-align:left">
-    <form action="{% url 'trollApp:sendSuggestion' %}" method="post"><b class="textarea-instruction">Send Your Suggestion!</b><br><br>
+    <form action="{% url 'trollApp:sendSuggestion' %}" method="post" onsubmit="return isValidInput(this)">
+        <b class="textarea-instruction">Send Your Suggestion!</b><br><br>
         {% csrf_token %}
         {% if error_msg %}
             <div class=error><b>ERROR: </b>{{ error_msg }}</div><br>

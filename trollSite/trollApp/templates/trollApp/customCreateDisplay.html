@@ -64,7 +64,8 @@
 <body>
 <h1 class="pageTitle">Create Your Own Troll File!</h1>
 <div style="float:left;padding-left:3%;text-align:left;width:700px">
-    <form action="{% url 'trollApp:customDownload' %}" method="post" enctype="multipart/form-data">
+    <form action="{% url 'trollApp:customDownload' %}" method="post"
+          enctype="multipart/form-data" onsubmit="return isValidInput(this)">
         <b class="textarea-instruction">Input Your Python Code Here</b><br><br>
         {% csrf_token %}
         {% if error_msg %}

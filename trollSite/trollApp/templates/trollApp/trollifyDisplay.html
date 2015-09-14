@@ -38,7 +38,8 @@
 <body>
 <h1 class="pageTitle">Classic Troll: Make your messages deliberately confusing!</h1>
 <div style="float:left;padding-bottom:1%;padding-left:3%;text-align:left">
-    <form action="{% url 'trollApp:trollEmail' %}" method="post"><b class="textarea-instruction">Write Your Email Here, and We'll Trollify It!</b><br><br>
+    <form action="{% url 'trollApp:trollEmail' %}" method="post" onsubmit="return isValidInput(this)">
+        <b class="textarea-instruction">Write Your Email Here, and We'll Trollify It!</b><br><br>
         {% csrf_token %}
         <div class=error></div>
         {% if error_msg or troll_email %}
@@ -53,7 +54,8 @@
     <h1>BECOMES...</h1>
 </div>
 <div style="float:left;padding-left:3%;text-align:left">
-    <form action="{% url 'trollApp:sendTrollEmail' %}" method="post"><b class="textarea-instruction">Send Your Newly Trollified Email!</b><br><br>
+    <form action="{% url 'trollApp:sendTrollEmail' %}" method="post" onsubmit="return isValidInput(this)">
+        <b class="textarea-instruction">Send Your Newly Trollified Email!</b><br><br>
         {% csrf_token %}
         {% if error_msg %}
             <div class=error><b>ERROR: </b>{{ error_msg }}</div><br>

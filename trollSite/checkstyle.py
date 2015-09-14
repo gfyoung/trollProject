@@ -1,7 +1,7 @@
 """
-Runs basic checkstyle on the entire codebase using the PEP8 convention.
-Note that this file is self-reflective, so checkstyle will also be run
-on the checkstyle.py file itself!
+Runs basic checkstyle on the entire codebase using the PEP8 and Google
+Closure Linter conventions. Note that this file is self-reflective, so
+checkstyle will also be run on the checkstyle.py file itself!
 """
 
 from fabric.api import hide, local
