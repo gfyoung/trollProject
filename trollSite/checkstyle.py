@@ -18,14 +18,18 @@ except ImportError:
 errorsFound = False
 
 currentDir = getcwd()
+excludedPy = ['.svn', 'CVS', '.bzr', '.hg', '.git',
+              '__pycache__', '.tox', 'tmpFile*']
 pythonErrorFile = "pythonStyleErrors.txt"
 
 print "\nPerforming Python checkstyle..."
 
 try:
     with hide('aborts', 'running'):
-        local("pep8 {projDir} > {errFile}"
-              .format(projDir=currentDir, errFile=pythonErrorFile))
+        local("pep8 {projDir} --exclude={excludedPy} > {errFile}"
+              .format(projDir=currentDir,
+                      excludedPy=','.join(excludedPy),
+                      errFile=pythonErrorFile))
         print "SUCCESS: Python checkstyle passed!"
 except:
     errorsFound = True
@@ -43,7 +47,7 @@ except ImportError:
           "to install\n"
     exit(-1)
 
-excluded = ['jQuery.js']
+excludedJs = ['jQuery.js']
 javascriptErrorFile = "javascriptStyleErrors.txt"
 
 print "\nPerforming Javascript checkstyle..."
@@ -52,9 +56,9 @@ try:
     # Disable tab indentation checks because
     # those inhibit readability of JS code
     with hide('aborts', 'running'):
-        local("gjslint --disable 5 -r {projDir} -x {excluded} "
+        local("gjslint --disable 5 -r {projDir} -x {excludedJs} "
               "> {errFile}".format(projDir=currentDir,
-                                   excluded=','.join(excluded),
+                                   excludedJs=','.join(excludedJs),
                                    errFile=javascriptErrorFile))
         print "SUCCESS: Javascript Checkstyle passed!"
 except:

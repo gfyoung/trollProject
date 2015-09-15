@@ -9,7 +9,7 @@ Custom submission
 
 - Cross-browser compatibility
   - Requires working version of Python for each OS
-  - Can emulate Windows with Wine but no equivalent for Mac
+  - Can emulate Windows with Wine but no equivalent for Mac <-- TEST ON VM
   - Current work around: rely on different servers/OS's to run the code
     but this is not feasible in production due to lack of OS's on Linux server
 
@@ -22,9 +22,13 @@ Custom submission
   - visibility of code to the user?
   - http://stackoverflow.com/questions/14568647/create-zip-in-python
 
+Admin page
+- Better UI
+  - Not of high priority given that it is not to be used by the public
+
 Design considerations
 - Arrangement of components should look "nice" across all browser/screen sizes
 - Text should look "nice" for reading across all browser/screen sizes
 
 Troll games (next release)
-- Speed typing game
+- Speed typing game (look at pygame version)
