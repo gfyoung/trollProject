@@ -20,11 +20,9 @@ function displayMsg(msg) {
 	$('.error').html('<b>ERROR:</b> ' + msg);
 }
 
-function isValidInput(form) {
-    var textInput = $(form).children('textarea').val().replace(/\s/g, '');
-
-    if (!textInput) {
-        displayMsg('Input is empty!');
+function isValidString(form, validString, infoMsg) {
+    if (!validString) {
+        displayMsg(infoMsg);
         setTimeout(playTrollSong, 500);
         return false;
     } else {
@@ -36,4 +34,41 @@ function isValidInput(form) {
         $(form).children('.error').html('');
         return true;
     }
+}
+
+function isValidInput(form) {
+    var textInput = $(form).children('textarea').val().replace(/\s/g, '');
+    return isValidString(form, textInput, 'Input is empty!');
+}
+
+function isValidEmailAddress(address) {
+    // Allows for email address field to be optional,
+    // as it will not be empty if the input has the
+    // 'required' descriptor inside the tag
+    if (!address) {
+        return true;
+    }
+
+    var isValidEmailAddress = false;
+    var pattern = /[!?'":#/~`\[\]{}\-\+=|\(\)\^%]/;
+
+    if (!pattern.match(address)) {
+        var atComponents = address.split('@');
+        isValidEmailAddress = atComponents.length == 2 ||
+            atComponents[atComponents.length - 1].split(/\./).length > 1;
+    }
+
+    return isValidEmailAddress;
+}
+
+function isValidSender(form) {
+    var senderEmail = $(form).children('.info[name=sender]').val();
+    return isValidString(form, isValidEmailAddress(
+        senderEmail), 'Invalid sender email!');
+}
+
+function isValidReceiver(form) {
+    var receiverEmail = $(form).children('.info[name=receiver]').val();
+    return isValidString(form, isValidEmailAddress(
+        receiverEmail), 'Invalid receiver email!');
 }

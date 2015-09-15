@@ -20,6 +20,11 @@ a.download:hover {
     text-decoration:underline;
 }
 
+b.contact-info {
+    color:red;
+    font-size:150%;
+}
+
 b.textarea-instruction {
     color:orange;
     font-size:175%;

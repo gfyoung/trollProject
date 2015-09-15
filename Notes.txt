@@ -5,15 +5,18 @@ Suggestions page
 - Need sender email?
 - Optional subject line?
 
+Emails
+- Sanitize emails to prevent malicious JS?
+
 Provided downloads
 - Remove "Test Download" in any official releases
 
 Custom submission
 - Cross-browser compatibility
-  - Mac pyinstaller might help
+  - Requires working version of Python for each OS
+  - Can emulate Windows with Wine but no equivalent for Mac
   - Current work around: rely on different servers/OS's to run the code
-  - Better work around: different copies of Python on one machine and
-  trick pyinstaller into compiling for different systems
+    but this is not feasible due to lack of OS's on Linux server
 
 - Security issues
   - Need cooperation from user for the file to be run

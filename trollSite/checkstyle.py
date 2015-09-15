@@ -43,7 +43,7 @@ except ImportError:
           "to install\n"
     exit(-1)
 
-excluded = ['jQuery-1.11.3.js']
+excluded = ['jQuery.js']
 javascriptErrorFile = "javascriptStyleErrors.txt"
 
 print "\nPerforming Javascript checkstyle..."

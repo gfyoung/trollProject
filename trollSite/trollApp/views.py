@@ -205,7 +205,9 @@ def displaySuggestions(request):
     else:
         context = {
             "error_msg": request.session.get("error_msg"),
-            "prev_email": request.session.get("prev_email")
+            "prev_email": request.session.get("prev_email"),
+            "subject": request.session.get("subject", ""),
+            "sender": request.session.get("sender", "")
         }
         request.session["error_msg"] = None
         request.session["prev_email"] = None
@@ -229,15 +231,18 @@ def sendSuggestion(request):
     else:
         if request.method == "POST":
             emailBody = request.POST.get("suggestion", "")
+            subject = request.POST.get("subject", "")
+            sender = request.POST.get("sender", "")
+
             emailSucceed = True
             successCount = 0
 
             try:
-                successCount = send_mail("Troll Suggestion",
-                                         emailBody,
-                                         "no-reply@trollololer.com",
-                                         ['duhtrollmaster@gmail.com'],
-                                         fail_silently=True)
+                successCount = send_mail(
+                    "Troll Suggestion" if subject == "" else subject,
+                    emailBody,
+                    "no-reply@trollololer.com" if sender == "" else sender,
+                    ['duhtrollmaster@gmail.com'], fail_silently=True)
             except:
                 emailSucceed = False
 
@@ -246,11 +251,15 @@ def sendSuggestion(request):
                     request.session["error_msg"] = \
                         "The Troll Master Thanks You!"
                     request.session["prev_email"] = ""
+                    request.session["subject"] = ""
+                    request.session["sender"] = ""
 
                 else:  # fail
                     request.session["error_msg"] = \
                         "Error in submission! Please try submitting again!"
                     request.session["prev_email"] = emailBody
+                    request.session["subject"] = subject
+                    request.session["sender"] = sender
 
                 return HttpResponseRedirect("/trollApp/suggestions")
 

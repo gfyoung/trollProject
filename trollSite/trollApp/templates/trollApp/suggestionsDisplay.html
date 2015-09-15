@@ -22,9 +22,13 @@
         {% if error_msg %}
             <div class=error><b>ERROR: </b>{{ error_msg }}</div><br>
             <textarea type=text id=suggestion name=suggestion>{{ prev_email }}</textarea><br><br>
+            <b class="contact-info" id="sender">SENDER (OPTIONAL): </b><input class=info type=email id=sender name=sender value="{{ sender }}"><br><br>
+            <b class="contact-info" id="subject">SUBJECT (OPTIONAL): </b><input class=info type=text id=subject name=subject value="{{ subject }}"><br><br>
         {% else %}
             <div class=error></div>
             <textarea type=text id=suggestion name=suggestion></textarea><br><br>
+            <b class="contact-info" id="sender">SENDER (OPTIONAL): </b><input class=info type=email id=sender name=sender><br><br>
+            <b class="contact-info" id="subject">SUBJECT (OPTIONAL): </b><input class=info type=text id=subject name=subject><br><br>
         {% endif %}
         <input type=submit value=Submit!>
     </form>
