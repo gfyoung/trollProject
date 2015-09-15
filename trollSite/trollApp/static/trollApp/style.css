@@ -43,6 +43,7 @@ div, h1, h2 {
 
 div.error {
     color:red;
+    font-size:170%;
     text-align:left;
 }
 
@@ -131,7 +132,7 @@ img.winkingDevil {
 }
 
 input[type=submit] {
-    font-size:100%;
+    font-size:150%;
 }
 
 h1.pageTitle {

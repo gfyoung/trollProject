@@ -1,3 +1,4 @@
+var pattern = /[!?'":#/~`\[\]{}\-\+=\|\(\)\^<>%]/;
 var playVideoEmptyInputProb = 0.5;
 
 function playTrollSong() {
@@ -13,7 +14,7 @@ function playTrollSong() {
 }
 
 function displayMsg(msg) {
-	if ($('.error').html() == '') {
+	if ($('.error').html() === '') {
 		$('.error').after('<br>');
 	}
 
@@ -41,6 +42,12 @@ function isValidInput(form) {
     return isValidString(form, textInput, 'Input is empty!');
 }
 
+function isValidFilename(form) {
+    var filename = $(form).children('input#filename').val().replace(/\s/g, '');
+    return isValidString(form, !filename ||
+        !filename.match(pattern), 'Invalid filename!');
+}
+
 function isValidEmailAddress(address) {
     // Allows for email address field to be optional,
     // as it will not be empty if the input has the
@@ -50,9 +57,7 @@ function isValidEmailAddress(address) {
     }
 
     var isValidEmailAddress = false;
-    var pattern = /[!?'":#/~`\[\]{}\-\+=\|\(\)\^<>%]/;
-
-    if (!pattern.match(address)) {
+    if (!address.match(pattern)) {
         var atComponents = address.split('@');
         isValidEmailAddress = atComponents.length == 2 ||
             atComponents[atComponents.length - 1].split(/\./).length > 1;

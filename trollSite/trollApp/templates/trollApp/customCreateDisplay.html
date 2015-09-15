@@ -5,6 +5,12 @@
 <head>
     <title>Create the Troll</title>
     <style>
+        b.createInput{
+            color:red;
+            font-size:125%;
+            text-align:left;
+        }
+
         div.instructions {
             display:inline;
             float:left;
@@ -13,7 +19,7 @@
         }
 
         div.os-select {
-            color:orange;
+            color:red;
             text-align:left;
         }
 
@@ -27,9 +33,14 @@
         }
 
         input[type=file] {
-            background:red;
-            font-size:100%;
-            width:235px;
+            color:transparent;
+            font-size:150%;
+            height:100%;
+            width:13%;
+        }
+
+        input[type=text] {
+            font-size:90%;
         }
 
         select {
@@ -64,15 +75,19 @@
 <body>
 <h1 class="pageTitle">Create Your Own Troll File!</h1>
 <div style="float:left;padding-left:3%;text-align:left;width:700px">
-    <form action="{% url 'trollApp:customDownload' %}" method="post"
-          enctype="multipart/form-data" onsubmit="return isValidInput(this)">
+    <form action="{% url 'trollApp:customDownload' %}" method="post" enctype="multipart/form-data"
+          onsubmit="return isValidFilename(this) && isValidInput(this)">
         <b class="textarea-instruction">Input Your Python Code Here</b><br><br>
         {% csrf_token %}
         {% if error_msg %}
             <div class=error><b>ERROR: </b>{{ error_msg }}</div><br>
             <textarea type=text id=customCode name=code>{{ prev_code }}</textarea><br><br>
+            <b class="createInput">EXECUTABLE NAME (OPTIONAL):</b>
+            <input type="text" id=filename name=filename value={{ filename }}><br><br>
+            <b class="createInput">UPLOAD FILE (OPTIONAL):</b>
+            <input type="file" onchange="display(this);"><br><br>
             <div class="os-select">
-                <b>TARGET OS</b>:
+                <b>TARGET OS:</b>
                 <select name="OS">
                     {% if os_target == "Windows" %}
                         <option value="Windows" selected>Windows</option>
@@ -92,8 +107,12 @@
         {% else %}
             <div class=error></div>
             <textarea type=text id=customCode name=code></textarea><br><br>
+            <b class="createInput">EXECUTABLE NAME (OPTIONAL):</b>
+            <input type="text" id=filename name=filename><br><br>
+            <b class="createInput">UPLOAD FILE (OPTIONAL):</b>
+            <input type="file" onchange="display(this);"><br><br>
             <div class="os-select">
-                <b>TARGET OS</b>:
+                <b>TARGET OS:</b>
                 <select name="OS">
                     <option value="Windows">Windows</option>
                     <option value="Linux">Linux</option>
@@ -101,7 +120,6 @@
                 </select>
             </div><br>
         {% endif %}
-        <input type="file" onchange="display(this);"><br><br>
         <input type=submit value=Submit!>
     </form>
 </div>
@@ -109,8 +127,8 @@
 <div class="instructions">
     <b style="color:orange">Instructions</b><br><br>
     <b style="color:red">Type Python code into the textbox!<br><br>
-        OR<br><br>Submit a Python file!<br>The file contents will appear in the textbox!<br><br>
-        THEN<br><br>Select the OS to run the executable on<br><br>THEN<br><br>Hit Submit!</b>
+        OR<br><br>Upload a Python file!<br>The file contents will appear in the textbox!<br><br>
+        THEN<br><br>Select the OS to run the executable on<br>and provide an optional filename<br><br>THEN<br><br>Hit Submit!</b>
 </div>
 </body>
 </html>

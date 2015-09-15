@@ -7,7 +7,7 @@ from imp import find_module
 from json import dump
 from nltk.corpus import wordnet
 from platform import uname
-from random import random
+from random import random, randint
 from string import maketrans
 from subprocess import call
 from time import time
@@ -16,14 +16,15 @@ from webbrowser import open_new_tab
 
 import re
 
-spaces = re.compile(r'\s+')
-punctuation = """!"'#$%&()*+,-./:;<=>?@[\]^_`{|}~"""
-
-emailPattern = """[!?'":#/~`\[\]{}\-\+=\|\(\)\^<>%]"""
+PUNCTUATION = """!"'#$%&()*+,-./:;<=>?@[\]^_`{|}~"""
+EMAILPATTERN = """[!?'":#/~`\[\]{}\-\+=\|\(\)\^<>%]"""
 
 WINDOWS = "Windows"
 LINUX = "Linux"
 MAC = "Darwin"
+
+MINRANDVAL = 0
+MAXRANDVAL = 1000000
 
 
 def getTrollRedirectProb():
@@ -67,10 +68,12 @@ def displayCustomCreate(request):
         context = {
             "error_msg": request.session.get("error_msg"),
             "prev_code": request.session.get("prev_code"),
+            "filename": request.session.get("filename"),
             "os_target": request.session.get("os_target")
         }
         request.session["error_msg"] = None
         request.session["prev_code"] = None
+        request.session["filename"] = None
         request.session["os_target"] = None
 
         return render(request, 'trollApp/customCreateDisplay.html', context)
@@ -83,7 +86,7 @@ def downloadFile(request, os, filename):
 
     response = HttpResponse(wrapper, content_type=content_type)
     response['Content-Disposition'] = \
-        'attachment; filename={}'.format(filename)
+        'attachment; filename={filename}'.format(filename=filename)
     return response
 
 
@@ -124,14 +127,18 @@ def getMissingImports(code):
 
 def downloadCustomFile(request):
     if request.method == "POST":
+        filename = request.POST.get("filename", "")
+
         trollCode = request.POST.get("code", "")
         trollCode = trollCode.replace("\r\n", "\n")
 
         missingImports = getMissingImports(trollCode)
         call(["fab", "-f", "trollApp/customTrollCode/code/importUtil.py",
-              "installModules:{}".format(",".join(missingImports))])
+              "installModules:{modules}"
+             .format(modules=",".join(missingImports))])
 
-        tmpFile = "tmpFile_{}.py".format(int(time()))
+        tmpFile = "tmpFile_{time}_{rand}.py".format(
+            time=int(time()), rand=randint(MINRANDVAL, MAXRANDVAL))
         target = open("trollApp/customTrollCode/code/{}".format(tmpFile), "w")
         target.write(trollCode)
         target.close()
@@ -148,7 +155,8 @@ def downloadCustomFile(request):
             if osTarget == sysPlatform:
                 CREATE_NO_WINDOW = 0x08000000
                 returnCode = call(["python",
-                                   "{}/convertToExe.py".format(codeDirectory),
+                                   "{directory}/convertToExe.py"
+                                  .format(directory=codeDirectory),
                                    "-f", tmpFile],
                                   creationflags=CREATE_NO_WINDOW)
 
@@ -159,7 +167,8 @@ def downloadCustomFile(request):
             exeFilename = tmpFile.replace(".py", "")
             if osTarget == sysPlatform:  # run locally if possible
                 returnCode = call(["python",
-                                   "{}/convertToExe.py".format(codeDirectory),
+                                   "{directory}/convertToExe.py"
+                                  .format(directory=codeDirectory),
                                    "-f",
                                    tmpFile])
 
@@ -172,10 +181,12 @@ def downloadCustomFile(request):
                     serverConfigFile = "macConfig.json"
 
                 else:
-                    raise Exception("Unknown OS Target: {}".format(osTarget))
+                    raise Exception("Unknown OS Target: {target}"
+                                    .format(target=osTarget))
 
                 with lcd(remoteDirectory):
-                    local("cp {} serverConfig.json".format(serverConfigFile))
+                    local("cp {config} serverConfig.json"
+                          .format(config=serverConfigFile))
 
                     target = open(remoteDirectory + "tmpFileConfig.json", "w")
                     tmpFileConfig = {"tmpFile": tmpFile}
@@ -188,6 +199,7 @@ def downloadCustomFile(request):
             request.session["error_msg"] = "Error in submission!" \
                                            " Please try submitting again!"
             request.session["prev_code"] = trollCode
+            request.session["filename"] = filename
             request.session["os_target"] = osTarget
 
             return HttpResponseRedirect("/trollApp/customCreation")
@@ -197,7 +209,8 @@ def downloadCustomFile(request):
 
         response = HttpResponse(wrapper, content_type=content_type)
         response['Content-Disposition'] = \
-            'attachment; filename={}'.format(exeFilename)
+            'attachment; filename={filename}'.format(
+                filename=filename if filename != "" else exeFilename)
         return response
 
 
@@ -395,8 +408,8 @@ def getBestSynonym(word, curSyn=""):
 
 
 def sanitizeWord(word):
-    return str(word).translate(maketrans("", ""), punctuation)
+    return str(word).translate(maketrans("", ""), PUNCTUATION)
 
 
 def sanitizeEmail(email):
-    return re.sub(emailPattern, "", email)
+    return re.sub(EMAILPATTERN, "", email)

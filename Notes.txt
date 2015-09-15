@@ -5,32 +5,26 @@ Provided downloads
 - Remove "Test Download" in any official releases
 
 Custom submission
+- Performance issues (somewhat slow)
+
 - Cross-browser compatibility
   - Requires working version of Python for each OS
   - Can emulate Windows with Wine but no equivalent for Mac
   - Current work around: rely on different servers/OS's to run the code
-    but this is not feasible due to lack of OS's on Linux server
+    but this is not feasible in production due to lack of OS's on Linux server
 
 - Security issues
   - Need cooperation from user for the file to be run
     - Permission to download .exe
     - Make file executable on Linux or OSX
 
-- Give them their code as well in a zip (see stackoverflow above)
+- Give them their code as well in a zip
   - visibility of code to the user?
   - http://stackoverflow.com/questions/14568647/create-zip-in-python
-
-- Concurrency Issues (What happens when there are simultaneous submissions?)
-  - Current method is to use the system time to create temp file, but that can
-    be bad if there are multiple submissions at the same time (file overwrite
-    is a potential issue)
-  - Perhaps better way of naming temp files is needed (e.g. user-provided title)
 
 Design considerations
 - Arrangement of components should look "nice" across all browser/screen sizes
 - Text should look "nice" for reading across all browser/screen sizes
-- How to format the sizes of SUBMIT and SELECT input buttons?
 
-- Performance issues (somewhat slow)
-
-All TODO's in the code
+Troll games (next release)
+- Speed typing game
