@@ -50,7 +50,7 @@ function isValidEmailAddress(address) {
     }
 
     var isValidEmailAddress = false;
-    var pattern = /[!?'":#/~`\[\]{}\-\+=|\(\)\^%]/;
+    var pattern = /[!?'":#/~`\[\]{}\-\+=\|\(\)\^<>%]/;
 
     if (!pattern.match(address)) {
         var atComponents = address.split('@');

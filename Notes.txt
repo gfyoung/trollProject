@@ -1,13 +1,6 @@
 Troll emails
 - Troll links?
 
-Suggestions page
-- Need sender email?
-- Optional subject line?
-
-Emails
-- Sanitize emails to prevent malicious JS?
-
 Provided downloads
 - Remove "Test Download" in any official releases
 
@@ -35,8 +28,7 @@ Custom submission
 
 Design considerations
 - Arrangement of components should look "nice" across all browser/screen sizes
-- Text should look "large" enough for reading across all browser/screen sizes
-- Change the fonts to make them more appealing to read
+- Text should look "nice" for reading across all browser/screen sizes
 - How to format the sizes of SUBMIT and SELECT input buttons?
 
 - Performance issues (somewhat slow)

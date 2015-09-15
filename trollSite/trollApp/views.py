@@ -17,7 +17,9 @@ from webbrowser import open_new_tab
 import re
 
 spaces = re.compile(r'\s+')
-punctuation = """!"#$%&()*+,-./:;<=>?@[\]^_`{|}~"""
+punctuation = """!"'#$%&()*+,-./:;<=>?@[\]^_`{|}~"""
+
+emailPattern = """[!?'":#/~`\[\]{}\-\+=\|\(\)\^<>%]"""
 
 WINDOWS = "Windows"
 LINUX = "Linux"
@@ -230,7 +232,7 @@ def sendSuggestion(request):
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
         if request.method == "POST":
-            emailBody = request.POST.get("suggestion", "")
+            emailBody = sanitizeEmail(request.POST.get("suggestion", ""))
             subject = request.POST.get("subject", "")
             sender = request.POST.get("sender", "")
 
@@ -295,7 +297,7 @@ def sendTrollifiedEmail(request):
             subject = request.POST.get("subject", "")
             sender = request.POST.get("sender", "")
             receiver = request.POST.get("receiver", "")
-            emailBody = request.POST.get("trollEmail", "")
+            emailBody = sanitizeEmail(request.POST.get("trollEmail", ""))
 
             emailSucceed = True
             successCount = 0
@@ -331,7 +333,7 @@ def trollifyEmail(request):
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
         if request.method == "POST":
-            emailBody = request.POST.get("origEmail", "")
+            emailBody = sanitizeEmail(request.POST.get("origEmail", ""))
             request.session["orig_email"] = emailBody
 
             words = set(emailBody.split(" "))
@@ -394,3 +396,7 @@ def getBestSynonym(word, curSyn=""):
 
 def sanitizeWord(word):
     return str(word).translate(maketrans("", ""), punctuation)
+
+
+def sanitizeEmail(email):
+    return re.sub(emailPattern, "", email)
