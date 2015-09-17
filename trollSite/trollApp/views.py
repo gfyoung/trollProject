@@ -176,7 +176,7 @@ def downloadCustomFile(request):
             return HttpResponseRedirect("/trollApp/customCreation")
 
         exeFilename = tmpFile.replace(".py", ".exe") if \
-            osTarget == WINDOWS else exeFilename = tmpFile.replace(".py", "")
+            osTarget == WINDOWS else tmpFile.replace(".py", "")
         wrapper = FileWrapper(open(exeDirectory + exeFilename, 'rb'))
         content_type = "application/x-executable"
 
