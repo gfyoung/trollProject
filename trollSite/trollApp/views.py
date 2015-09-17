@@ -2,9 +2,7 @@ from django.core.mail import send_mail
 from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from fabric.api import lcd, local
 from imp import find_module
-from json import dump
 from nltk.corpus import wordnet
 from platform import uname
 from random import random, randint
@@ -145,14 +143,12 @@ def downloadCustomFile(request):
 
         codeDirectory = 'trollApp/customTrollCode/code/'
         exeDirectory = 'trollApp/customTrollCode/downloads/'
-        remoteDirectory = 'trollApp/customTrollCode/code/remote/'
 
         osTarget = request.POST.get("OS")
         sysPlatform = getPlatform()
 
-        if osTarget == WINDOWS:
-            exeFilename = tmpFile.replace(".py", ".exe")
-            if osTarget == sysPlatform:
+        if osTarget == sysPlatform:  # run locally if possible
+            if osTarget == WINDOWS:
                 CREATE_NO_WINDOW = 0x08000000
                 returnCode = call(["python",
                                    "{directory}/convertToExe.py"
@@ -160,40 +156,15 @@ def downloadCustomFile(request):
                                    "-f", tmpFile],
                                   creationflags=CREATE_NO_WINDOW)
 
-            else:  # No VM on which to run this conversion yet
-                returnCode = 1
-
-        else:
-            exeFilename = tmpFile.replace(".py", "")
-            if osTarget == sysPlatform:  # run locally if possible
+            else:
                 returnCode = call(["python",
                                    "{directory}/convertToExe.py"
                                   .format(directory=codeDirectory),
                                    "-f",
                                    tmpFile])
 
-            else:
-                returnCode = 0
-                if osTarget == LINUX:
-                    serverConfigFile = "linuxConfig.json"
-
-                elif osTarget == MAC:
-                    serverConfigFile = "macConfig.json"
-
-                else:
-                    raise Exception("Unknown OS Target: {target}"
-                                    .format(target=osTarget))
-
-                with lcd(remoteDirectory):
-                    local("cp {config} serverConfig.json"
-                          .format(config=serverConfigFile))
-
-                    target = open(remoteDirectory + "tmpFileConfig.json", "w")
-                    tmpFileConfig = {"tmpFile": tmpFile}
-                    dump(tmpFileConfig, target)
-                    target.close()
-
-                    local("fab convert_to_exe")
+        else:  # cannot run Python on foreign OS
+            returnCode = 1
 
         if returnCode != 0:  # fail
             request.session["error_msg"] = "Error in submission!" \
@@ -204,6 +175,8 @@ def downloadCustomFile(request):
 
             return HttpResponseRedirect("/trollApp/customCreation")
 
+        exeFilename = tmpFile.replace(".py", ".exe") if \
+            osTarget == WINDOWS else exeFilename = tmpFile.replace(".py", "")
         wrapper = FileWrapper(open(exeDirectory + exeFilename, 'rb'))
         content_type = "application/x-executable"
 

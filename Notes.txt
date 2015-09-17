@@ -9,7 +9,8 @@ Custom submission
 
 - Cross-browser compatibility
   - Requires working version of Python for each OS
-  - Can emulate Windows with Wine but no equivalent for Mac <-- TEST ON VM
+  - Difficult to emulate different OS' on one server
+    - Wine can be used to emulate Windows but it is not well polished
   - Current work around: rely on different servers/OS's to run the code
     but this is not feasible in production due to lack of OS's on Linux server
 
