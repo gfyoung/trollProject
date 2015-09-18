@@ -25,7 +25,7 @@ SECRET_KEY = 'h0^+z*mn_+5a6mvpt=_fle30$=wwzbu90_%&ns(u%gcykad-vt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "flambeau.media.mit.edu"]
 
 
 # Application definition
