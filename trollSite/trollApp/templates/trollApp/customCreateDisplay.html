@@ -16,6 +16,7 @@
             float:left;
             font-size:200%;
             padding-left:1%;
+            paddding-right:1%;
         }
 
         div.os-select {
@@ -34,9 +35,9 @@
 
         input[type=file] {
             color:transparent;
-            font-size:150%;
-            height:100%;
-            width:13%;
+            font-size:120%;
+            height:80%;
+            width:21%;
         }
 
         input[type=text] {
@@ -74,7 +75,7 @@
 </head>
 <body>
 <h1 class="pageTitle">Create Your Own Troll File!</h1>
-<div style="float:left;padding-left:3%;text-align:left;width:700px">
+<div style="float:left;padding-left:2%;text-align:left;width:700px">
     <form action="{% url 'trollApp:customDownload' %}" method="post" enctype="multipart/form-data"
           onsubmit="return isValidFilename(this) && isValidInput(this)">
         <b class="textarea-instruction">Input Your Python Code Here</b><br><br>

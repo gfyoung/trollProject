@@ -6,22 +6,6 @@
 <head>
     <title>Trollify Your Email</title>
     <style>
-        div#becomes {
-            float:left;
-            height:25em;
-            padding-left:3%;
-            padding-top:7em;
-            text-align:left;
-        }
-
-        div#becomes > h1 {
-            color:red;
-            font-size:300%;
-            padding-left:1em;
-            padding-right:1em;
-            padding-top:2em;
-        }
-
         form > input.info {
             background:black;
             color:#ff5200;
@@ -32,9 +16,9 @@
 </head>
 <body>
 <h1 class="pageTitle">Classic Troll: Make your messages deliberately confusing!</h1>
-<div style="float:left;padding-bottom:1%;padding-left:3%;text-align:left">
+<div style="float:left;padding-bottom:2%;padding-left:3%;text-align:left">
     <form action="{% url 'trollApp:trollEmail' %}" method="post" onsubmit="return isValidInput(this)">
-        <b class="textarea-instruction">Write Your Email Here, and We'll Trollify It!</b><br><br>
+        <b class="textarea-instruction">1) Write Your Email Here and Trollify It!</b><br><br>
         {% csrf_token %}
         <div class=error></div>
         {% if error_msg or troll_email %}
@@ -45,13 +29,11 @@
         <input type=submit value=Trollify!>
     </form>
 </div>
-<div id=becomes>
-    <h1>BECOMES...</h1>
-</div>
+<div style="width:15%;height:1px;float:left;"></div>
 <div style="float:left;padding-left:3%;text-align:left">
     <form action="{% url 'trollApp:sendTrollEmail' %}" method="post"
           onsubmit="return isValidInput(this) && isValidSender(this) && isValidReceiver(this)">
-        <b class="textarea-instruction">Send Your Newly Trollified Email!</b><br><br>
+        <b class="textarea-instruction">2) Send Your Newly Trollified Email!</b><br><br>
         {% csrf_token %}
         {% if error_msg %}
             <div class=error><b>ERROR: </b>{{ error_msg }}</div><br>
