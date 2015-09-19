@@ -6,7 +6,6 @@ from imp import find_module
 from nltk.corpus import wordnet
 from platform import uname
 from random import random, randint
-from signal import signal, SIGPIPE, SIG_DFL
 from string import maketrans
 from subprocess import call
 from time import time
@@ -25,8 +24,12 @@ MAC = "Darwin"
 MINRANDVAL = 0
 MAXRANDVAL = 1000000
 
-# Disable broken pipe "errors"
-signal(SIGPIPE, SIG_DFL)
+try:
+    # Disable broken pipe "errors"
+    from signal import signal, SIGPIPE, SIG_DFL
+    signal(SIGPIPE, SIG_DFL)
+except:
+    pass
 
 
 def getTrollRedirectProb():
