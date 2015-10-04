@@ -393,3 +393,7 @@ def sanitizeWord(word):
 
 def sanitizeEmail(email):
     return re.sub(EMAILPATTERN, "", email)
+
+
+def runTrollSpeedTyping(request):
+    return render(request, "trollApp/trollSpeedTyping.html")
