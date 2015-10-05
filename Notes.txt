@@ -1,9 +1,6 @@
 Troll emails
 - Troll links?
 
-Provided downloads
-- Remove "Test Download" in any official releases
-
 Custom submission
 - Performance issues (somewhat slow)
 

@@ -1,0 +1,3 @@
+1) Remove "Test Download"
+2) Disable any OS that you cannot use for custom create
+3) Disable DEBUG in settings.py
