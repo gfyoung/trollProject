@@ -21,5 +21,6 @@ urlpatterns = patterns(
     url(r'^trollifyEmail/create$', views.trollifyEmail, name='trollEmail'),
     url(r'^trollifyEmail/send$',
         views.sendTrollifiedEmail, name='sendTrollEmail'),
-    url(r'^trollSpeedTyping$', views.runTrollSpeedTyping, name='trollSpeedTyping')
+    url(r'^trollSpeedTyping$',
+        views.runTrollSpeedTyping, name='trollSpeedTyping')
 )
