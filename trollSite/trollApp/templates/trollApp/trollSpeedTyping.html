@@ -5,8 +5,28 @@
 <head>
 	<title>Troll Speeding Typing!</title>
 	<style>
-		div {
+		a {
 			display:inline-block;
+			float:right;
+			text-decoration: none;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+
+		body {
+			background:black;
+		}
+
+		.containItem {
+			color: red;
+			display: inline-block;
+			font-weight: bold;
+		}
+
+		div.invader {
+			display: inline-block;
 		}
 	</style>
 	<script src="{% static 'js/englishWordsList.js' %}"></script>
@@ -191,6 +211,7 @@
 		}
 
 		function drawInvaders(){
+			debugger;
 			$(".invader").remove();
 
 			for(var index = 0; index < INVADERCOUNT; index++){
@@ -288,9 +309,10 @@
 </head>
 <body>
 <div id="container" style="display:block">
-	<div id="score" style="float:right">Score: </div>
-	<div id="randomWord">New Word: </div><br>
-	<div id="userString">User-Typed String: </div>
+	<div class="containItem" id="score" style="float:right">Score: </div>
+	<div class="containItem" id="randomWord">New Word: </div><br>
+	<div class="containItem" id="userString">User-Typed String: </div>
+	<a class="containItem" href="{% url 'trollApp:trollGames' %}">Get Me Out of Here!</a>
 </div>
 <hr>
 </body>

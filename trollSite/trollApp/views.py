@@ -395,5 +395,15 @@ def sanitizeEmail(email):
     return re.sub(EMAILPATTERN, "", email)
 
 
+def displayTrollGames(request):
+    if random() < getTrollRedirectProb():
+        return render(request, 'trollApp/trollRedirectDisplay.html')
+    else:
+        return render(request, 'trollApp/trollGamesDisplay.html')
+
+
 def runTrollSpeedTyping(request):
-    return render(request, "trollApp/trollSpeedTyping.html")
+    if random() < getTrollRedirectProb():
+        return render(request, 'trollApp/trollRedirectDisplay.html')
+    else:
+        return render(request, 'trollApp/trollSpeedTyping.html')

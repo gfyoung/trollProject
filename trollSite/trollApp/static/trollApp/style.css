@@ -20,6 +20,17 @@ a.download:hover {
     text-decoration:underline;
 }
 
+a.trollGame {
+    color:red;
+    font-size:150%;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+a.trollGame:hover {
+    text-decoration:underline;
+}
+
 b.contact-info {
     color:red;
     font-size:150%;
@@ -32,9 +43,6 @@ b.textarea-instruction {
 
 body {
     background: black;
-    border:0;
-    margin:0;
-    padding:0;
 }
 
 div, h1, h2 {
@@ -81,8 +89,8 @@ div#suggest {
     width:225px;
 }
 
-div#trollSpeedTyping {
-    width:190px;
+div#trollGames {
+    width:180px;
 }
 
 div#trollify {
@@ -141,10 +149,4 @@ input[type=submit] {
 
 h1.pageTitle {
     color:#FF8250;
-}
-
-html {
-    border:0;
-    margin:0;
-    padding:0;
 }
