@@ -29,4 +29,7 @@ Design considerations
 - Text should look "nice" for reading across all browser/screen sizes
 
 Troll games (next release)
-- Speed typing game (look at pygame version)
+- Blackjack
+- Tetris? (tougher to implement)
+
+Own Troll Language? (need specifics)

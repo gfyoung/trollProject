@@ -52,6 +52,7 @@
 			MARGINLEFT = parseInt($('body').css('marginLeft').replace('px', ''));
 			MARGINRIGHT = parseInt($('body').css('marginRight').replace('px', ''));
 
+			setTrollOptions();
 			setWindowDependentParams();
 		});
 
@@ -80,11 +81,24 @@
 
 		var INVADERGENPROB = 0.25;
 
-		var SCORECUTOFF = 24;
 		var TROLLMESSAGE = "";
+		var SCORECUTOFF;
 		var ALLOWEDLETTERS = ['a', 'e', 'i', 'o', 'u', 'b', 'c',
 			'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p',
 			'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z'];
+
+		var TROLLOPTION;
+		var TROLLOPTIONS = {
+			UNDECIDED: 0,
+			REMOVELETTERS: 1,
+			CHANGELETTERS: 2,
+			MULTIPLYLETTERS: 3
+		};
+
+		function setTrollOptions(){
+			SCORECUTOFF = getRandomBoundedInt(1, 40);
+			TROLLOPTION = TROLLOPTIONS.UNDECIDED;
+		}
 
 		var FPS = 30;
 		setInterval(function(){
@@ -120,6 +134,14 @@
 					+ "px;height:" + INVADERHEIGHT + "px'></div>";
 		}
 
+		function getRandomBoundedInt(lowerBound, upperBound){
+			return Math.floor(Math.random() * upperBound) + lowerBound;
+		}
+
+		function getRandomUpperBoundedInt(upperBound){
+			return getRandomBoundedInt(0, upperBound);
+		}
+
 		function getKeyPress(){
 			var keyPressed;
 
@@ -147,7 +169,7 @@
 		}
 
 		function getNewRandomWord(){
-			var randomIndex = Math.round(Math.random() * (englishWords.length - 1));
+			var randomIndex = getRandomUpperBoundedInt(englishWords.length);
 			return englishWords[randomIndex];
 		}
 
@@ -184,9 +206,9 @@
 				}
 
 				if(missingIndices.length > 0){
-					randomIndex = Math.round(Math.random() * (missingIndices.length - 1));
+					randomIndex = getRandomUpperBoundedInt(missingIndices.length);
 					chosenIndex = missingIndices[randomIndex];
-					
+
 					INVADERS[chosenIndex] = new Invader();
 				}
 			}
@@ -195,13 +217,13 @@
 		function successfulInvasion(){
 			for(var index = 0; index < INVADERCOUNT; index++){
 				var invader = INVADERS[index];
-				
+
 				if(invader === null){
 					return false;
 				}
-
+				
 				var topCoord = parseInt(invader.style.top.replace('px', ''));
-
+				
 				if(topCoord !== VERTICALBOUNDARY){
 					return false;
 				}
@@ -244,20 +266,42 @@
 			return img;
 		}
 
+		function canTroll(){
+			return SCORE >= SCORECUTOFF;
+		}
+
 		function letterIsAllowed(letter){
 			return ($.inArray(letter, ALLOWEDLETTERS) !== -1);
+		}
+
+		function changeLetter(keyPress){
+			var letterDelta = getRandomBoundedInt(1, 26);
+			var newKeyPress = (keyPress - 65 + letterDelta)%26 + 65;
+			return String.fromCharCode(newKeyPress).toLowerCase();
+		}
+
+		function getRepeatedLetter(letter){
+			var repeatedLetter = '';
+			var letterMultiply = getRandomBoundedInt(2, 10);
+
+			for(var count = 0; count < letterMultiply; count++){
+				repeatedLetter += letter;
+			}
+
+			return repeatedLetter;
 		}
 
 		function update(){
 			if(successfulInvasion()){
 				destroyInvaders();
-				
+
 				RANDOMWORD = getNewRandomWord();
 				USERSTRING = '';
 				WORDCOUNT = 0;
 				VELOCITY = 1;
 				SCORE = 0;
 
+				setTrollOptions();
 				alert("You lose!" + TROLLMESSAGE);
 			}else if(USERSTRING === RANDOMWORD){
 				SCORE++;
@@ -272,8 +316,15 @@
 					VELOCITY += VELOCITYINCR;
 				}
 
-				if(SCORE >= SCORECUTOFF){
-					ALLOWEDLETTERS.splice(0, 1);
+				if(canTroll()){
+					if(TROLLOPTION === TROLLOPTIONS.UNDECIDED){
+						TROLLOPTION = getRandomBoundedInt(1,
+								Object.keys(TROLLOPTIONS).length);
+					}
+
+					if(TROLLOPTION === TROLLOPTIONS.REMOVELETTERS){
+						ALLOWEDLETTERS.splice(0, 1);
+					}
 				}
 			}else{
 				var keyPress = getKeyPress();
@@ -285,15 +336,30 @@
 				}else if(isLetter(keyPress)){
 					var letter = String.fromCharCode(keyPress).toLowerCase();
 					
-					if(SCORE < SCORECUTOFF || letterIsAllowed(letter)){
+					if(!canTroll() || (TROLLOPTION ===
+							TROLLOPTIONS.REMOVELETTERS
+							&& letterIsAllowed(letter))){
 						USERSTRING = USERSTRING + letter;
 					}else{
+						switch(TROLLOPTION){
+							case TROLLOPTIONS.CHANGELETTERS:
+								var changedLetter = changeLetter(keyPress);
+								USERSTRING = USERSTRING + changedLetter;
+								break;
+							case TROLLOPTIONS.MULTIPLYLETTERS:
+								var multiLetter = getRepeatedLetter(letter);
+								USERSTRING = USERSTRING + multiLetter;
+								break;
+							default:
+								break;
+						}
+
 						TROLLMESSAGE = "\n\nIt seems like you have some keyboard issues." +
 								"\nYou should get them checked out.";
 					}
 				}
 			}
-			
+
 			moveInvaders();
 			addInvader();
 		}
