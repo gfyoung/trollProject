@@ -31,6 +31,7 @@
 	</style>
 	<script src="{% static 'js/englishWordsList.js' %}"></script>
 	<script src="{% static 'js/jQuery.js' %}"></script>
+	<script src="{% static 'js/sound.js' %}"></script>
 	<script>
 		var GAMESCREENWIDTH;
 		var GAMESCREENHEIGHT;
@@ -303,12 +304,14 @@
 
 				setTrollOptions();
 				alert("You lose!" + TROLLMESSAGE);
+				TROLLMESSAGE = '';
 			}else if(USERSTRING === RANDOMWORD){
 				SCORE++;
 				WORDCOUNT++;
 				USERSTRING = '';
 				RANDOMWORD = getNewRandomWord();
 
+				Sound.play("explosion");
 				destroyInvaders();
 
 				if(WORDCOUNT === WORDTHRESHOLD){

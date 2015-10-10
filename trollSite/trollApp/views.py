@@ -407,3 +407,10 @@ def runTrollSpeedTyping(request):
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
         return render(request, 'trollApp/trollSpeedTyping.html')
+
+
+def runTrollAlienInvasion(request):
+    if random() < 0:
+        return render(request, 'trollApp/trollRedirectDisplay.html')
+    else:
+        return render(request, 'trollApp/trollAlienInvasion.html')

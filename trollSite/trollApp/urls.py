@@ -23,5 +23,7 @@ urlpatterns = patterns(
         views.sendTrollifiedEmail, name='sendTrollEmail'),
     url(r'^trollGames$', views.displayTrollGames, name='trollGames'),
     url(r'^trollGames/trollSpeedTyping$',
-        views.runTrollSpeedTyping, name='trollSpeedTyping')
+        views.runTrollSpeedTyping, name='trollSpeedTyping'),
+    url(r'^trollGames/trollAlienInvasion$',
+        views.runTrollAlienInvasion, name='trollAlienInvasion')
 )
