@@ -82,8 +82,20 @@ class BasicUrlAccessTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
 
     @unittest.skip("annoying to run")
-    def testgetBackSlashTrollAppPlayTrollSong(self):
+    def testGetBackSlashTrollAppPlayTrollSong(self):
         response = self.client.get("/trollApp/playTrollSong")
+        self.assertEqual(response.status_code, 200)
+
+    def testGetBackSlashTrollAppTrollGames(self):
+        response = self.client.get("/trollApp/trollGames")
+        self.assertEqual(response.status_code, 200)
+
+    def testGetBackSlashTrollAppTrollSpeedTyping(self):
+        response = self.client.get("/trollApp/trollGames/trollSpeedTyping")
+        self.assertEqual(response.status_code, 200)
+
+    def testGetBackSlashTrollAppTrollAlienInvasion(self):
+        response = self.client.get("/trollApp/trollGames/trollAlienInvasion")
         self.assertEqual(response.status_code, 200)
 
 
