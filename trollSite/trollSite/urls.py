@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
+from django.contrib.auth import views as authViews
 from django.views.generic.base import RedirectView
-from django.contrib import admin
+from trollApp.admin import adminSite
 
 
 def getAdminRoot():
@@ -19,7 +20,20 @@ urlpatterns = patterns(
         url='/trollApp/', permanent=False)),
     url(r'^trollApp/', include('trollApp.urls', namespace='trollApp')),
     url(r'^admin$', RedirectView.as_view(url='/admin/', permanent=False)),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include(adminSite.urls)),
+    url(r'^admin/password_reset/$', authViews.password_reset,
+        {'template_name': 'trollSiteAdmin/passwordResetForm.html'},
+        name='admin_password_reset'),
+    url(r'^admin/password_reset/done/$', authViews.password_reset_done,
+        {'template_name': 'trollSiteAdmin/passwordResetDone.html'},
+        name='password_reset_done'),
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$',
+        authViews.password_reset_confirm,
+        {'template_name': 'trollSiteAdmin/passwordResetConfirm.html'},
+        name='password_reset_confirm'),
+    url(r'^reset/done/$', authViews.password_reset_complete,
+        {'template_name': 'trollSiteAdmin/passwordResetComplete.html'},
+        name='password_reset_complete'),
     url(r'^static/admin/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': adminRoot}),
     url(r'^static/(?P<path>.*)$', 'django.views.static.serve',

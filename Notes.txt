@@ -21,6 +21,14 @@ Custom submission
   - http://stackoverflow.com/questions/14568647/create-zip-in-python
 
 Admin page
+- invalid_setup.html override?
+  - May need it later depending on configuration
+  - Generated in options.py (where ModelAdmin class is located)
+- app_index.html override?
+  - May need it later depending on configuration
+  - Generated in sites.py (where AdminSite class is located)
+- In general, search for templates to override in the templates folders
+  located under particular sub-folders of django/contrib
 - Better UI
   - Not of high priority given that it is not to be used by the public
 
@@ -29,7 +37,8 @@ Design considerations
 - Text should look "nice" for reading across all browser/screen sizes
 
 Troll games (next release)
-- Blackjack
+- Memory song game (see Pygame Simulate.py), troll the mouse clicks
 - Tetris? (tougher to implement)
+- Blackjack? (but how to troll?)
 
 Own Troll Language? (need specifics)
