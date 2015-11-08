@@ -1,5 +1,4 @@
 from django.test import TestCase
-from tempfile import NamedTemporaryFile
 from trollApp.models import ConfigOption, Synonym
 from trollApp.views import getBestSynonym, \
     getMissingImports, getSynonym, moduleExists
@@ -35,14 +34,20 @@ class BasicUrlAccessTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def testGetBackSlashTrollAppDownloadFile(self):
-        with NamedTemporaryFile(
-                prefix="testFile", suffix=".exe",
-                dir="trollApp/trollCode/downloads/Windows") as testDownload:
-            shortName = testDownload.name.split("/")[-1]
-
-            response = self.client.get(
-                "/trollApp/downloads/Windows/" + shortName)
-            self.assertEqual(response.status_code, 200)
+        # Could also create a temporary file, but
+        # test runs into issues when that method
+        # of testing is executed
+        #
+        # The downside of writing the test this
+        # way is that it creates a dependency on
+        # 'displaySuccessCall.exe' being in the
+        # codebase. If it is ever removed, or if
+        # the name is modified, this test will
+        # also have to be modified to account
+        # for the file change
+        response = self.client.get(
+            "/trollApp/downloads/Windows/displaySuccessCall.exe")
+        self.assertEqual(response.status_code, 200)
 
     def testGetBackSlashTrollAppCustomCreation(self):
         response = self.client.get("/trollApp/customCreation")
@@ -96,6 +101,10 @@ class BasicUrlAccessTestCase(TestCase):
 
     def testGetBackSlashTrollAppTrollAlienInvasion(self):
         response = self.client.get("/trollApp/trollGames/trollAlienInvasion")
+        self.assertEqual(response.status_code, 200)
+
+    def testGetBackSlashTrollAppTrollSimulate(self):
+        response = self.client.get("/trollApp/trollGames/trollSimulate")
         self.assertEqual(response.status_code, 200)
 
 

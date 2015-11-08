@@ -410,7 +410,14 @@ def runTrollSpeedTyping(request):
 
 
 def runTrollAlienInvasion(request):
-    if random() < 0:
+    if random() < getTrollRedirectProb():
         return render(request, 'trollApp/trollRedirectDisplay.html')
     else:
         return render(request, 'trollApp/trollAlienInvasion.html')
+
+
+def runTrollSimulate(request):
+    if random() < getTrollRedirectProb():
+        return render(request, 'trollApp/trollRedirectDisplay.html')
+    else:
+        return render(request, 'trollApp/trollSimulate.html')

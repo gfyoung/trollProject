@@ -35,9 +35,9 @@ Admin page
 Design considerations
 - Arrangement of components should look "nice" across all browser/screen sizes
 - Text should look "nice" for reading across all browser/screen sizes
+- Add some more UI to the simulate game?
 
 Troll games (next release)
-- Memory song game (see Pygame Simulate.py), troll the mouse clicks
 - Tetris? (tougher to implement)
 - Blackjack? (but how to troll?)
 

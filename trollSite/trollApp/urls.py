@@ -25,5 +25,7 @@ urlpatterns = patterns(
     url(r'^trollGames/trollSpeedTyping$',
         views.runTrollSpeedTyping, name='trollSpeedTyping'),
     url(r'^trollGames/trollAlienInvasion$',
-        views.runTrollAlienInvasion, name='trollAlienInvasion')
+        views.runTrollAlienInvasion, name='trollAlienInvasion'),
+    url(r'^trollGames/trollSimulate$',
+        views.runTrollSimulate, name='trollSimulate')
 )
