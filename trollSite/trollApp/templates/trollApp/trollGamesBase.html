@@ -1,16 +1,13 @@
 {% load staticfiles %}
-
-<!DOCTYPE html>
-<html>
-	<link rel="shortcut icon" href="/static/images/trollFaceIcon.ico" />
-	<link rel="stylesheet" type="text/css" href="{% static 'trollApp/gameStyle.css' %}">
-	<script src="{% static 'js/jQuery.js' %}"></script>
+{% include "trollApp/trollPageBase.html" %}
+    <link rel="stylesheet" type="text/css" href="{% static 'trollApp/gameStyle.css' %}">
     <script src="{% static 'js/sound.js' %}"></script>
 	<script>
-		var playVideoProb = 0.1;
+		var playVideoProb = 0.5;
 
 		$(document).ready(function(){
 			$("#escape").click(function(){
+				debugger;
 				if(Math.random() < playVideoProb){
 					alert("Some buttons are just too good to be true...");
 
@@ -22,4 +19,3 @@
 			});
 		});
 	</script>
-</html>

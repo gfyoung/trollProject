@@ -1,9 +1,9 @@
-{% include "trollApp/trollGamesBase.html" %}
 {% load staticfiles %}
 
 <!DOCTYPE html>
 <html>
 <head>
+	{% include "trollApp/trollGamesBase.html" %}
     <title>Troll Music Simulation!</title>
     <style>
         .container {
@@ -229,7 +229,7 @@
 <body>
 <div id="container" style="display:block">
     <div class="containItem" id="score">SCORE: 0</div>
-    <a class="containItem" href="{% url 'trollApp:trollGames' %}">Get Me Out of Here!</a>
+    <a class="containItem" id="escape" href="{% url 'trollApp:trollGames' %}">Get Me Out of Here!</a>
 </div>
 <hr><br><br>
 <div class="container" style="margin-top:3%">

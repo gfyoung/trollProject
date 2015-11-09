@@ -1,10 +1,10 @@
-{% include "trollApp/trollGamesBase.html" %}
 {% load staticfiles %}
 
 <!-- Much of the work was taken from http://www.html5rocks.com/en/tutorials/canvas/notearsgame/ -->
 <!DOCTYPE html>
 <html>
 <head>
+	{% include "trollApp/trollGamesBase.html" %}
     <title>Alien Invasion!</title>
     <script src="{% static 'js/jQueryHotkeys.js' %}"></script>
     <script src="{% static 'js/keyStatus.js' %}"></script>
@@ -13,7 +13,7 @@
 <body>
     <div id="container" style="display:block">
         <div class="containItem" id="killed">Enemies Killed: </div>
-        <a class="containItem" href="{% url 'trollApp:trollGames' %}">Get Me Out of Here!</a><br>
+        <a class="containItem" id="escape" href="{% url 'trollApp:trollGames' %}">Get Me Out of Here!</a><br>
         <div class="containItem" id="survived">Enemies Survived: </div>
     </div>
     <hr>
