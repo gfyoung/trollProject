@@ -48,7 +48,7 @@ except ImportError:
     exit(-1)
 
 excludedJs = ['jQuery.js', 'jQueryColor.js',
-              'englishWordsList.js']
+              'englishWordsList.js', 'jQueryHotkeys.js']
 javascriptErrorFile = "javascriptStyleErrors.txt"
 
 print "\nPerforming Javascript checkstyle..."
