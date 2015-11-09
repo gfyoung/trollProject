@@ -35,7 +35,6 @@ Admin page
 Design considerations
 - Arrangement of components should look "nice" across all browser/screen sizes
 - Text should look "nice" for reading across all browser/screen sizes
-- Add some more UI to the simulate game?
 
 Troll games (next release)
 - Tetris? (tougher to implement)
