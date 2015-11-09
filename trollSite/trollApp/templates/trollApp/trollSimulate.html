@@ -1,40 +1,19 @@
+{% include "trollApp/trollGamesBase.html" %}
 {% load staticfiles %}
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>Troll Music Simulation!</title>
-    <link rel="shortcut icon" href="/static/images/trollFaceIcon.ico" />
     <style>
-        a {
-            display:inline-block;
-            float:right;
-            text-decoration:none;
-        }
-
-        a:hover {
-            text-decoration:underline;
-        }
-
-        body {
-            background:black;
-        }
-
         .container {
             height:200px;
             margin-bottom:30px;
             margin-left:35%;
         }
 
-        .containItem {
-            color:red;
-            display:inline-block;
-            font-size:200%;
-            font-weight:bold;
-        }
-
         #div1 {
-            background-color:#c8c800;
+            background-color:#969600;
             float:left;
             height:200px;
             margin-right:30px;
@@ -42,14 +21,14 @@
         }
 
         #div2 {
-            background-color: #0000c8;
+            background-color: #000096;
             float: left;
             height: 200px;
             width: 200px;
         }
 
         #div3 {
-            background-color: #c80000;
+            background-color: #960000;
             float: left;
             height: 200px;
             margin-right: 30px;
@@ -57,7 +36,7 @@
         }
 
         #div4 {
-            background-color:#00c800;
+            background-color:#009600;
             float:left;
             height:200px;
             width:200px;
@@ -71,16 +50,16 @@
     <script src="{% static 'js/jQueryColor.js' %}"></script>
     <script src="{% static 'js/sound.js' %}"></script>
     <script>
-        var RED = getRGB([200, 0, 0]);
+        var RED = getRGB([150, 0, 0]);
         var BRIGHTRED = getRGB([255, 0, 0]);
 
-        var GREEN = getRGB([0, 200, 0]);
+        var GREEN = getRGB([0, 150, 0]);
         var BRIGHTGREEN = getRGB([0, 255, 0]);
 
-        var BLUE = getRGB([0, 0, 200]);
+        var BLUE = getRGB([0, 0, 150]);
         var BRIGHTBLUE = getRGB([0, 0, 255]);
 
-        var YELLOW = getRGB([200, 200, 0]);
+        var YELLOW = getRGB([150, 150, 0]);
         var BRIGHTYELLOW = getRGB([255, 255, 0]);
 
         var ANIMATIONDUR = 500;
@@ -94,7 +73,7 @@
         var AWAITINGINPUT = false;
 
         var BACKSPACE = 8;
-        var TROLLCUTOFF = 5;
+        var TROLLCUTOFF = Math.floor(Math.random() * 10) + 3;
 
         var COLORSOUNDS = [
             {div: "#div1", bright: BRIGHTYELLOW, normal: YELLOW, beep: "beep1"},

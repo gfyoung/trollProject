@@ -1,0 +1,25 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+	<link rel="shortcut icon" href="/static/images/trollFaceIcon.ico" />
+	<link rel="stylesheet" type="text/css" href="{% static 'trollApp/gameStyle.css' %}">
+	<script src="{% static 'js/jQuery.js' %}"></script>
+    <script src="{% static 'js/sound.js' %}"></script>
+	<script>
+		var playVideoProb = 0.1;
+
+		$(document).ready(function(){
+			$("#escape").click(function(){
+				if(Math.random() < playVideoProb){
+					alert("Some buttons are just too good to be true...");
+
+					$.ajax({
+						url: '/trollApp/playTrollSong',
+						type: 'GET'
+					});
+				}
+			});
+		});
+	</script>
+</html>

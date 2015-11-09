@@ -1,3 +1,4 @@
+{% include "trollApp/trollGamesBase.html" %}
 {% load staticfiles %}
 
 <!-- Much of the work was taken from http://www.html5rocks.com/en/tutorials/canvas/notearsgame/ -->
@@ -5,35 +6,9 @@
 <html>
 <head>
     <title>Alien Invasion!</title>
-    <link rel="shortcut icon" href="/static/images/trollFaceIcon.ico" />
-    <style>
-        a {
-            display:inline-block;
-            float:right;
-            text-decoration:none;
-        }
-
-        a:hover {
-            text-decoration:underline;
-        }
-
-        body {
-            background:black;
-            font-family: Verdana;
-            font-size: 10pt;
-        }
-
-        .containItem {
-            color: red;
-            display: inline-block;
-            font-weight:bold;
-        }
-    </style>
-    <script src="{% static 'js/jQuery-1.4.4.js' %}"></script>
     <script src="{% static 'js/jQueryHotkeys.js' %}"></script>
     <script src="{% static 'js/keyStatus.js' %}"></script>
     <script src="{% static 'js/sprite.js' %}"></script>
-    <script src="{% static 'js/sound.js' %}"></script>
 </head>
 <body>
     <div id="container" style="display:block">
@@ -88,7 +63,7 @@
 			MARGINRIGHT = parseInt($('body').css('marginRight').replace('px', ''));
 
 			$("canvas").width($(window).width() - (MARGINLEFT + MARGINRIGHT + 20));
-			$("canvas").height($(window).height() - ($("div#container").height() + 35));
+			$("canvas").height($(window).height() - ($("div#container").height() + 40));
 		});
 
 		
@@ -165,7 +140,7 @@
                 I.y >= 0 && I.y <= CANVAS_HEIGHT;
             };
 
-            I.sprite = Sprite("enemy");
+            I.sprite = Sprite("trollFace");
             I.exploded = Sprite("explosion");
             I.hasExploded = false;
 
@@ -204,7 +179,7 @@
         }
 
         var canvasElement = $("<canvas width='" + CANVAS_WIDTH +
-          "' height='" + CANVAS_HEIGHT + "'></canvas");
+          "' height='" + CANVAS_HEIGHT + "'></canvas>");
         var canvas = canvasElement.get(0).getContext("2d");
         canvasElement.appendTo('body');
 
