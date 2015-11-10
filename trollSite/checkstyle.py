@@ -47,6 +47,10 @@ except ImportError:
           "to install\n"
     exit(-1)
 
+# The excluded JS files are either libraries or pieces of
+# code that have already been checked for checkstyle and
+# that should not be modified too frequently unless it is
+# absolutely necessary
 excludedJs = ['jQuery.js', 'jQueryColor.js',
               'englishWordsList.js', 'jQueryHotkeys.js']
 javascriptErrorFile = "javascriptStyleErrors.txt"

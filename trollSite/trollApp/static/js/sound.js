@@ -1,13 +1,13 @@
-var Sound = (function($){
+var Sound = (function($) {
 	var format;
-	if(typeof($.browser) === 'undefined'){
+	if (typeof($.browser) === 'undefined') {
 		format = /webkit/.test(navigator.
-			userAgent.toLowerCase()) ? ".mp3" : ".wav";
-	}else{
-		format = $.browser.webkit ? ".mp3" : ".wav";
+			userAgent.toLowerCase()) ? '.mp3' : '.wav';
+	} else {
+		format = $.browser.webkit ? '.mp3' : '.wav';
 	}
 
-	var soundPath = "/static/sounds/";
+	var soundPath = '/static/sounds/';
 	var sounds = {};
 
 	function loadSoundChannel(name) {
@@ -17,40 +17,40 @@ var Sound = (function($){
 		return sound;
 	}
 
-	function Sound(name, maxChannels){
+	function Sound(name, maxChannels) {
 		return {
-			play: function(){
+			play: function() {
 				Sound.play(name, maxChannels);
 			},
 
-			stop: function(){
+			stop: function() {
 				Sound.stop(name);
 			}
-		}
+		};
 	}
 
 	return $.extend(Sound, {
-		play: function(name, maxChannels){
+		play: function(name, maxChannels) {
 			// Note: Too many channels crash browsers
 			maxChannels = maxChannels || 4;
 
-			if(!sounds[name]){
+			if (!sounds[name]) {
 				sounds[name] = [loadSoundChannel(name)];
 			}
 
-			var freeChannels = $.grep(sounds[name], function(sound){
+			var freeChannels = $.grep(sounds[name], function(sound) {
 				return sound.currentTime == sound.duration ||
 					sound.currentTime == 0;
 			});
 
-			if(freeChannels[0]){
-				try{
+			if (freeChannels[0]) {
+				try {
 					freeChannels[0].currentTime = 0;
-				}catch(e){}
+				} catch (e) {}
 
 				freeChannels[0].play();
-			}else{
-				if(!maxChannels || sounds[name].length < maxChannels) {
+			} else {
+				if (!maxChannels || sounds[name].length < maxChannels) {
 					var sound = loadSoundChannel(name);
 					sounds[name].push(sound);
 					sound.play();
@@ -58,8 +58,8 @@ var Sound = (function($){
 			}
 		},
 
-		stop: function(name){
-			if(sounds[name]){
+		stop: function(name) {
+			if (sounds[name]) {
 				sounds[name].stop();
 			}
 		}
