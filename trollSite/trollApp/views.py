@@ -1,5 +1,4 @@
 from django.core.mail import send_mail
-from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from imp import find_module
@@ -11,6 +10,7 @@ from subprocess import call
 from time import time
 from trollApp.models import ConfigOption, Download, Synonym
 from webbrowser import open_new_tab
+from wsgiref.util import FileWrapper
 
 import re
 

@@ -167,49 +167,49 @@ class ModuleExistsTest(TestCase):
 
 class GetMissingModulesTest(TestCase):
     def testGetMissingModulesDirectExistingSingle(self):
-        importStatement = "import pandas"
+        importStatement = "import math"
         self.assertEqual(len(getMissingImports(importStatement)), 0)
 
     def testGetMissingModulesDirectExistingMultiple(self):
-        importStatement = "import pandas, matplotlib"
+        importStatement = "import math, os"
         self.assertEqual(len(getMissingImports(importStatement)), 0)
 
     def testGetMissingModulesDirectExistingFunnySpacing(self):
-        importStatement = "import pandas,matplotlib,      flask"
+        importStatement = "import math,os,      sys"
         self.assertEqual(len(getMissingImports(importStatement)), 0)
 
     def testGetMissingModulesDirectExistingWithDot(self):
-        importStatement = "import pandas.DataFrame"
+        importStatement = "import django.test"
         self.assertEqual(len(getMissingImports(importStatement)), 0)
 
     def testGetMissingModulesDirectNonExistent(self):
-        importStatement = "import pandas, pilo"
+        importStatement = "import math, pilo"
         missingImports = getMissingImports(importStatement)
         self.assertEqual(len(missingImports), 1)
         self.assertItemsEqual(["pilo"], missingImports)
 
     def testGetMissingModulesDirectMulitpleNonExistent(self):
-        importStatement = "import pandas, pilo, silo"
+        importStatement = "import math, pilo, silo"
         missingImports = getMissingImports(importStatement)
         self.assertEqual(len(missingImports), 2)
         self.assertItemsEqual(["pilo", "silo"], missingImports)
 
     def testGetMissingModulesDirectNonExistentFunnySpacing(self):
-        importStatement = "import pandas       ,pilo"
+        importStatement = "import math       ,pilo"
         missingImports = getMissingImports(importStatement)
         self.assertEqual(len(missingImports), 1)
         self.assertItemsEqual(["pilo"], missingImports)
 
     def testGetMissingModulesFromExisting(self):
-        importStatement = "from pandas import DataFrame"
+        importStatement = "from math import pi"
         self.assertEqual(len(getMissingImports(importStatement)), 0)
 
     def testGetMissingModulesFromExistingFunnySpacing(self):
-        importStatement = "from  pandas    import      DataFrame"
+        importStatement = "from  math    import      pi"
         self.assertEqual(len(getMissingImports(importStatement)), 0)
 
     def testGetMissingModulesFromExistingWithDot(self):
-        importStatement = "from pandas.DataFrame import to_csv"
+        importStatement = "from django.test import testcases"
         self.assertEqual(len(getMissingImports(importStatement)), 0)
 
     def testGetMissingModulesFromNonExistent(self):
@@ -225,21 +225,21 @@ class GetMissingModulesTest(TestCase):
         self.assertItemsEqual(["pilo", "nilo"], missingImports)
 
     def testGetMissingModulesFromDirectCombo(self):
-        importStatement = "from pandas import DataFrame\nimport re"
+        importStatement = "from math import pi\nimport re"
         self.assertEqual(len(getMissingImports(importStatement)), 0)
 
     def testGetMissingModulesFromDirectComboFunnySpacing(self):
-        importStatement = "from  pandas import  DataFrame\n  import     re"
+        importStatement = "from  math import  pi\n  import     re"
         self.assertEqual(len(getMissingImports(importStatement)), 0)
 
     def testGetMissingModulesFromDirectComboNonExistent(self):
-        importStatement = "from pilo import DataFrame\nimport tilo"
+        importStatement = "from pilo import zilo\nimport tilo"
         missingImports = getMissingImports(importStatement)
         self.assertEqual(len(missingImports), 2)
         self.assertItemsEqual(["pilo", "tilo"], missingImports)
 
     def testGetMissingModulesFromDirectComboNonExistentWithDot(self):
-        importStatement = "from pilo.silo import DataFrame\nimport tilo"
+        importStatement = "from pilo.silo import zilo\nimport tilo"
         missingImports = getMissingImports(importStatement)
         self.assertEqual(len(missingImports), 2)
         self.assertItemsEqual(["pilo", "tilo"], missingImports)
