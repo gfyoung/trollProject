@@ -1,7 +1,7 @@
 # trollProject
 Website for all wonderful things troll
 
-# Instructions for Development Work
+# Running the Website Locally (Development Work)
 * Fork and clone this repository
 * Move to your trollProject/trollSite directory
 * From there, run the following command: `python manage.py runserver`
