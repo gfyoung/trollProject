@@ -4,6 +4,7 @@ from django.contrib.auth import views as authViews
 from django.views.generic.base import RedirectView
 from trollApp.admin import adminSite
 
+
 def getAdminRoot():
     import django
     from os.path import dirname
@@ -35,4 +36,4 @@ urlpatterns = patterns(
         {'template_name': 'trollSiteAdmin/passwordResetComplete.html'},
         name='password_reset_complete'),
 ) + static(r'^static/admin/(?P<path>.*)$', document_root=adminRoot) \
-+ static(r'^static/(?P<path>.*)$', document_root='trollApp/static')
+  + static(r'^static/(?P<path>.*)$', document_root='trollApp/static')

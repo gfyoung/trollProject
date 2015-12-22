@@ -43,8 +43,9 @@ except ImportError:
     print "\nFAILURE: Cannot run Javascript checkstyle! " \
           "Missing library closure_linter"
     print "Please run '(sudo) pip install " \
-          "https://closure-linter.googlecode.com/svn/trunk/'" \
-          "to install\n"
+          "https://closure-linter.googlecode.com/svn/trunk/' " \
+          "to install OR clone the Git repository on GitHub " \
+          "and follow the installation instructions there \n"
     exit(-1)
 
 # The excluded JS files are either libraries or pieces of
@@ -76,6 +77,6 @@ except:
 print "\nOverall result of checkstyle is:"
 
 if errorsFound:
-    print "FAILURE: Checkstyle complete, but errors were found!\n"
+    raise Exception("Checkstyle complete, but errors were found!\n")
 else:
     print "SUCCESS: Checkstyle complete, and no errors were found!\n"

@@ -11,9 +11,9 @@ from time import time
 from trollApp.models import ConfigOption, Download, Synonym
 from webbrowser import open_new_tab
 
-try: # Python 2.7.11 or Python 3.x
+try:  # Python 2.7.11 or Python 3.x
     from wsgiref.util import FileWrapper
-except ImportError: # Django Version <= 1.8
+except ImportError:  # Django Version <= 1.8
     from django.core.servers.basehttp import FileWrapper
 
 import re
