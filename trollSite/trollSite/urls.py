@@ -1,8 +1,8 @@
+from django.conf.urls.static import static
 from django.conf.urls import patterns, include, url
 from django.contrib.auth import views as authViews
 from django.views.generic.base import RedirectView
 from trollApp.admin import adminSite
-
 
 def getAdminRoot():
     import django
@@ -34,9 +34,5 @@ urlpatterns = patterns(
     url(r'^reset/done/$', authViews.password_reset_complete,
         {'template_name': 'trollSiteAdmin/passwordResetComplete.html'},
         name='password_reset_complete'),
-    url(r'^static/admin/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': adminRoot}),
-    url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': 'trollApp/static'}),
-    url(r'^.*$', 'django.views.defaults.page_not_found')
-)
+) + static(r'^static/admin/(?P<path>.*)$', document_root=adminRoot) \
++ static(r'^static/(?P<path>.*)$', document_root='trollApp/static')
