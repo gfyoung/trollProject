@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from fabric.api import local
 from optparse import OptionParser
 from os import getcwd, listdir
@@ -52,7 +54,7 @@ if __name__ == '__main__':
     opt, args = parser.parse_args()
 
     if not opt.fname:
-        print "No file specified for conversion"
+        print("No file specified for conversion")
 
     else:
         filename = opt.fname[0]
@@ -102,11 +104,11 @@ if __name__ == '__main__':
                         target.close()
 
                     else:
-                        print "No description provided for file, " \
-                              "so no new entry was added"
+                        print("No description provided for file, "
+                              "so no new entry was added")
 
             else:
-                print "File does not exist"
+                print("File does not exist")
 
         else:
-            print "Invalid file for conversion!"
+            print("Invalid file for conversion!")

@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from fabric.api import local
 from optparse import OptionParser
 from os import chdir, getcwd, listdir
@@ -43,7 +45,7 @@ if __name__ == '__main__':
     opt, args = parser.parse_args()
 
     if not opt.fname:
-        print "No file specified for conversion"
+        print("No file specified for conversion")
 
     else:
         codeDirectory = "trollApp/customTrollCode/code"
@@ -70,6 +72,6 @@ if __name__ == '__main__':
                     local("rm -r build")
                     local("rm -r dist")
             else:
-                print "File does not exist"
+                print("File does not exist")
         else:
-            print "Invalid file for conversion!"
+            print("Invalid file for conversion!")

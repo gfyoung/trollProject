@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from fabric.api import env, local, sudo
 from json import load
 from platform import uname
@@ -15,8 +17,8 @@ def login_into_server():
         serverConfig = load(jsonData)
 
     except:
-        print "Missing 'localConfig.json' file!"
-        print "Aborting Server access immediately"
+        print("Missing 'localConfig.json' file!")
+        print("Aborting Server access immediately")
 
         import sys
         sys.exit(1)
@@ -27,8 +29,8 @@ def login_into_server():
         env.password = serverConfig['password']
 
     except:
-        print "Improper configuraton of 'localConfig.json' file!"
-        print "Aborting Server access immediately"
+        print("Improper configuraton of 'localConfig.json' file!")
+        print("Aborting Server access immediately")
 
         import sys
         sys.exit(1)
@@ -36,7 +38,7 @@ def login_into_server():
 
 def installModules(*modules):
     for module in modules:
-        print "Attempting to install {}...".format(module)
+        print("Attempting to install {}...".format(module))
 
         try:
             if getPlatform() != "Windows":
@@ -44,10 +46,10 @@ def installModules(*modules):
             else:
                 local("pip install {}".format(module))
 
-            print "Successfully installed {}\n".format(module)
+            print("Successfully installed {}\n".format(module))
 
         except:
-            print "Failed to install {}\n".format(module)
+            print("Failed to install {}\n".format(module))
 
 # only when we run the file with the fab command do we want to login
 # for sure; otherwise, none of our commands will work
