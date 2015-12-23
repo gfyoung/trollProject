@@ -148,7 +148,7 @@ def downloadCustomFile(request):
 
         tmpFile = "tmpFile_{time}_{rand}.py".format(
             time=int(time()), rand=randint(MINRANDVAL, MAXRANDVAL))
-        target = open("trollApp/customTrollCode/code/{}".format(tmpFile), "w")
+        target = open("trollApp/customTrollCode/code/{0}".format(tmpFile), "w")
         target.write(trollCode)
         target.close()
 

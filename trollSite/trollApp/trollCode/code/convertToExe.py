@@ -66,11 +66,11 @@ if __name__ == '__main__':
                     if platform == "Darwin":
                         platform = "Mac"
 
-                    local("pyinstaller -w -F {}".format(filename))
+                    local("pyinstaller -w -F {0}".format(filename))
                     local("cp dist/{executable} "
                           "../downloads/{platform}/{executable}"
                           .format(executable=executable, platform=platform))
-                    local("rm {}.spec".format(executable))
+                    local("rm {0}.spec".format(executable))
                     local("rm -r build")
                     local("rm -r dist")
 
@@ -90,11 +90,13 @@ if __name__ == '__main__':
                         descr = opt.descr[0]
                         conn = connect(DATABASE)
                         nextId = conn.execute("SELECT COALESCE(MAX(id), 0) " +
-                                              "FROM {}".format(TABLE)
+                                              "FROM {0}".format(TABLE)
                                               ).fetchone()[0] + 1
-                        cmd = "INSERT INTO {} VALUES " \
-                              "({}, '{}', '{}', '{}')"\
-                            .format(TABLE, nextId, platform, executable, descr)
+                        cmd = "INSERT INTO {table} VALUES " \
+                              "({nextId}, '{platform}', '{exe}', '{descr}')"\
+                            .format(table=TABLE, nextId=nextId,
+                                    platform=platform, exe=executable,
+                                    descr=descr)
                         conn.execute(cmd)
                         conn.commit()
                         conn.close()

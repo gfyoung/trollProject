@@ -40,7 +40,7 @@ except:
 file_count = 500
 num_times = 500
 
-filename = 'Important File {}.txt'
+filename = 'Important File {0}.txt'
 message = 'You have been troll' + 'ol' * num_times + 'ed'
 
 for index in xrange(1, file_count + 1):

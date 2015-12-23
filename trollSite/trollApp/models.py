@@ -11,7 +11,8 @@ class Download(models.Model):
             else self.filename + ".exe"
 
     def __unicode__(self):
-        return "{}: {}".format(self.filename, self.description)
+        return "{filename}: {descr}".format(
+                filename=self.filename, descr=self.description)
 
 
 class Synonym(models.Model):
@@ -19,7 +20,8 @@ class Synonym(models.Model):
     synonym = models.CharField(max_length=200)
 
     def __unicode__(self):
-        return "Word: {}, Synonym: {}".format(self.word, self.synonym)
+        return "Word: {word}, Synonym: {syn}".format(
+                word=self.word, syn=self.synonym)
 
 
 class ConfigOption(models.Model):
@@ -27,4 +29,5 @@ class ConfigOption(models.Model):
     value = models.CharField(max_length=200)
 
     def __unicode__(self):
-        return "Name: {}, Value: {}".format(self.name, self.value)
+        return "Name: {name}, Value: {val}".format(
+                name=self.name, val=self.value)
