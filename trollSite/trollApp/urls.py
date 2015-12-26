@@ -1,9 +1,8 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.views.generic.base import RedirectView
 from trollApp import views
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^$', RedirectView.as_view(url='/trollApp/home', permanent=False)),
     url(r'^home$', views.displayWelcome, name='home'),
     url(r'^about$', views.displayAbout, name='about'),
@@ -28,4 +27,4 @@ urlpatterns = patterns(
         views.runTrollAlienInvasion, name='trollAlienInvasion'),
     url(r'^trollGames/trollSimulate$',
         views.runTrollSimulate, name='trollSimulate')
-)
+]
