@@ -2,21 +2,39 @@ from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from imp import find_module
-from nltk.corpus import wordnet
 from platform import uname
 from random import random, randint
-from string import maketrans
 from subprocess import call
 from time import time
 from trollApp.models import ConfigOption, Download, Synonym
 from webbrowser import open_new_tab
+
+import os
+import re
+import sys
 
 try:  # Python 2.7.11 or Python 3.x
     from wsgiref.util import FileWrapper
 except ImportError:  # Django Version <= 1.8
     from django.core.servers.basehttp import FileWrapper
 
-import re
+# Installing the NLTK corpus on Travis
+# is too vulnerable to network issues and
+# unexpected installation errors, so we need
+# to mock the data in order to test
+try:
+    from nltk.corpus import wordnet
+except ImportError:
+    mockNLTKDir = os.path.abspath(os.path.join(
+            os.path.dirname(__file__), "tests"))
+    sys.path.insert(0, mockNLTKDir)
+    import mockNLTK as wordnet
+
+# Python 3 compatibility
+try:
+    from string import maketrans
+except ImportError:
+    maketrans = str.maketrans
 
 PUNCTUATION = """!"'#$%&()*+,-./:;<=>?@[\]^_`{|}~"""
 EMAILPATTERN = """[!?'":#/~`\[\]{}\-\+=\|\(\)\^<>%]"""
@@ -392,7 +410,10 @@ def getBestSynonym(word, curSyn=""):
 
 
 def sanitizeWord(word):
-    return str(word).translate(maketrans("", ""), PUNCTUATION)
+    try:
+        return str(word).translate(maketrans("", ""), PUNCTUATION)
+    except TypeError:
+        return str(word).translate(maketrans("", "", PUNCTUATION))
 
 
 def sanitizeEmail(email):

@@ -198,6 +198,12 @@ class ModuleExistsTest(TestCase):
 
 
 class GetMissingModulesTest(TestCase):
+    # Python 3 Compatibility
+    try:
+        TestCase.assertItemsEqual
+    except AttributeError:
+        assertItemsEqual = TestCase.assertCountEqual
+
     def testGetMissingModulesDirectExistingSingle(self):
         importStatement = "import math"
         self.assertEqual(len(getMissingImports(importStatement)), 0)
