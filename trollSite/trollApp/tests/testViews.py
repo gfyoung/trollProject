@@ -7,6 +7,8 @@ import unittest
 
 
 class BasicUrlAccessTestCase(TestCase):
+    missingDataMsg = "Expected data not found"
+
     def setUp(self):
         trollRedirectProb = ConfigOption.objects.filter(
             name="trollRedirectProb")[0]
@@ -23,15 +25,27 @@ class BasicUrlAccessTestCase(TestCase):
 
     def testGetBackSlashTrollAppHome(self):
         response = self.client.get("/trollApp/home")
+        data = "Greetings, Fellow Troll!"
+
         self.assertEqual(response.status_code, 200)
+        self.assertTrue(data in response.content.decode('utf-8'),
+                        msg=self.missingDataMsg)
 
     def testGetBackSlashTrollAppAbout(self):
         response = self.client.get("/trollApp/about")
+        data = "May the troll be with you!"
+
         self.assertEqual(response.status_code, 200)
+        self.assertTrue(data in response.content.decode('utf-8'),
+                        msg=self.missingDataMsg)
 
     def testGetBackSlashTrollAppDisplayDownloads(self):
         response = self.client.get("/trollApp/downloads")
+        data = "Example Troll Files"
+
         self.assertEqual(response.status_code, 200)
+        self.assertTrue(data in response.content.decode('utf-8'),
+                        msg=self.missingDataMsg)
 
     def testGetBackSlashTrollAppDownloadFile(self):
         # Could also create a temporary file, but
@@ -51,7 +65,11 @@ class BasicUrlAccessTestCase(TestCase):
 
     def testGetBackSlashTrollAppCustomCreation(self):
         response = self.client.get("/trollApp/customCreation")
+        data = "Create Your Own Troll File!"
+
         self.assertEqual(response.status_code, 200)
+        self.assertTrue(data in response.content.decode('utf-8'),
+                        msg=self.missingDataMsg)
 
     @unittest.skip("annoying to run")
     def testPostBackSlashTrollAppCustomCreationDownload(self):
@@ -62,7 +80,12 @@ class BasicUrlAccessTestCase(TestCase):
 
     def testGetBackSlashTrollAppSuggestions(self):
         response = self.client.get("/trollApp/suggestions")
+        data = ("Send us your suggestions for new trolls "
+                "and improvements to the website!")
+
         self.assertEqual(response.status_code, 200)
+        self.assertTrue(data in response.content.decode('utf-8'),
+                        msg=self.missingDataMsg)
 
     def testGetBackSlashTrollAppSendSuggestions(self):
         response = self.client.post("/trollApp/sendSuggestion",
@@ -71,7 +94,12 @@ class BasicUrlAccessTestCase(TestCase):
 
     def testGetBackSlashTrollAppTrollifyEmail(self):
         response = self.client.get("/trollApp/trollifyEmail")
+        data = ("Classic Troll: Make your messages "
+                "deliberately confusing!")
+
         self.assertEqual(response.status_code, 200)
+        self.assertTrue(data in response.content.decode('utf-8'),
+                        msg=self.missingDataMsg)
 
     def testPostBackSlashTrollAppTrollifyEmailCreate(self):
         response = self.client.post("/trollApp/trollifyEmail/create",
@@ -93,7 +121,11 @@ class BasicUrlAccessTestCase(TestCase):
 
     def testGetBackSlashTrollAppTrollGames(self):
         response = self.client.get("/trollApp/trollGames")
+        data = "Welcome to the Troll Games!"
+
         self.assertEqual(response.status_code, 200)
+        self.assertTrue(data in response.content.decode('utf-8'),
+                        msg=self.missingDataMsg)
 
     def testGetBackSlashTrollAppTrollSpeedTyping(self):
         response = self.client.get("/trollApp/trollGames/trollSpeedTyping")

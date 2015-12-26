@@ -14,6 +14,10 @@ class Download(models.Model):
         return "{filename}: {descr}".format(
                 filename=self.filename, descr=self.description)
 
+    __repr__ = __unicode__
+    __bytes__ = __unicode__
+    __str__ = __unicode__
+
 
 class Synonym(models.Model):
     word = models.CharField(max_length=200)
@@ -23,6 +27,10 @@ class Synonym(models.Model):
         return "Word: {word}, Synonym: {syn}".format(
                 word=self.word, syn=self.synonym)
 
+    __repr__ = __unicode__
+    __bytes__ = __unicode__
+    __str__ = __unicode__
+
 
 class ConfigOption(models.Model):
     name = models.CharField(max_length=200)
@@ -31,3 +39,7 @@ class ConfigOption(models.Model):
     def __unicode__(self):
         return "Name: {name}, Value: {val}".format(
                 name=self.name, val=self.value)
+
+    __repr__ = __unicode__
+    __bytes__ = __unicode__
+    __str__ = __unicode__

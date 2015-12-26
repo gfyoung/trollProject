@@ -1,6 +1,12 @@
 from django.test import TestCase
 from trollApp.models import ConfigOption, Download, Synonym
 
+# Python 3 compatibility
+try:
+    unicode
+except NameError:
+    unicode = str
+
 
 class DownloadTestCase(TestCase):
     def setUp(self):
