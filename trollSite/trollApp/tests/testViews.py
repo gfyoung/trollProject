@@ -1,7 +1,8 @@
 from django.test import TestCase
 from trollApp.models import ConfigOption, Synonym
 from trollApp.views import getBestSynonym, \
-    getMissingImports, getSynonym, moduleExists
+    getMissingImports, getSynonym, moduleExists, \
+    sanitizeWord, sanitizeEmail
 
 import unittest
 
@@ -281,3 +282,47 @@ class GetMissingModulesTest(TestCase):
         missingImports = getMissingImports(importStatement)
         self.assertEqual(len(missingImports), 2)
         self.assertItemsEqual(["pilo", "tilo"], missingImports)
+
+
+class SanitizeWordTest(TestCase):
+    stringMismatchMsg = "{0} != {1}"
+
+    def testSanitizeWordCleanWord(self):
+        word = "Clean"
+        expected = "Clean"
+
+        self.assertEqual(sanitizeWord(word), expected,
+                         msg=self.stringMismatchMsg.format(
+                             sanitizeWord(word), expected))
+
+    def testSanitizeWordDirtWord(self):
+        word = "&{D;/;i+{!}r||~'.?#ty!!"
+        expected = "Dirty"
+
+        self.assertEqual(sanitizeWord(word), expected,
+                         msg=self.stringMismatchMsg.format(
+                                 sanitizeWord(word), expected))
+
+
+class SanitizeEmailTest(TestCase):
+    emailMismatchMsg = "{0} != {1}"
+
+    def testSanitizeWordCleanWord(self):
+        email = "This is a clean email"
+        expected = "This is a clean email"
+
+        self.assertEqual(sanitizeWord(email), expected,
+                         msg=self.emailMismatchMsg.format(
+                                 sanitizeEmail(email), expected))
+
+    def testSanitizeWordDirtWord(self):
+        word = ("T%&*%^#$&h%^*$#%^&%i*^&*$%#^&%s!"
+                "?@$@#!@$@ i!@$@#s?!#$?@$;- a|@#$"
+                "#@$%&$^ d|--(*&%$i@#!@$@@#!@$@$#"
+                "@r&%t@#!@$@^&(%*&)+=y&#$%$ e%&^#$"
+                "@m$#@a%&$%^i*(%$l%^@#$%")
+        expected = "This is a dirty email"
+
+        self.assertEqual(sanitizeWord(word), expected,
+                         msg=self.emailMismatchMsg.format(
+                                 sanitizeWord(word), expected))
