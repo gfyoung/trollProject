@@ -39,9 +39,3 @@ Design considerations
 Troll games (next release)
 - Tetris? (tougher to implement)
 - Blackjack? (but how to troll?)
-
-Own Troll Language? (need specifics)
-
-Django 1.9 Deprecation Warnings
-- Need to create list of URLs to avoid the warning but Django keeps complaining
-  about strings having no 'regex' attributes
