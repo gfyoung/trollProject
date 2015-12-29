@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/gfyoung/trollProject.svg?branch=master)](https://travis-ci.org/gfyoung/trollProject)
 
+[![Build status](https://ci.appveyor.com/api/projects/status/99y4rnj23e3yjo4k/branch/master?svg=true)](https://ci.appveyor.com/project/gfyoung/trollproject/branch/master)
+
 # trollProject
 Website for all wonderful things troll
 

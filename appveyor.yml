@@ -1,0 +1,68 @@
+skip_tags: true
+clone_depth: 1
+
+os: Visual Studio 2015
+
+# Django 1.8 requires Python version >= 2.7
+#
+# Django 1.9 requires Python version >= 3.4
+# if using Python 3
+#
+# Note that we have a separate build using
+# Python 2.7.9 and Django 1.8 because one
+# of the classes used in the website requires
+# either Django 1.8 or the wsgrief library,
+# which exists only in Python 2.7.11 and
+# Python 3.x. However, the website should
+# be able to run just fine on older versions
+# of Python 2.7 using Django 1.8
+environment:
+   matrix:
+      - PYTHON_HOME: C:\Python27
+        DJANGO_VERSION: 1.8
+      - PYTHON_HOME: C:\Python27
+        DJANGO_VERSION: 1.9
+      - PYTHON_HOME: C:\Python279
+        DJANGO_VERSION: 1.8
+      - PYTHON_HOME: C:\Python32
+        DJANGO_VERSION: 1.8
+      - PYTHON_HOME: C:\Python33
+        DJANGO_VERSION: 1.8
+      - PYTHON_HOME: C:\Python34
+        DJANGO_VERSION: 1.8
+      - PYTHON_HOME: C:\Python34
+        DJANGO_VERSION: 1.9
+      - PYTHON_HOME: C:\Python35
+        DJANGO_VERSION: 1.8
+      - PYTHON_HOME: C:\Python35
+        DJANGO_VERSION: 1.9
+
+platform:
+   - x86
+   - x64
+
+install:
+   - IF [%PYTHON_HOME%]==[C:\Python279] appveyor DownloadFile https://www.python.org/ftp/python/2.7.9/python-2.7.9.msi
+   - IF [%PYTHON_HOME%]==[C:\Python279] mkdir %PYTHON_HOME% && msiexec /i python-2.7.9.msi /qn TARGETDIR=%PYTHON_HOME%
+   - IF [%PYTHON_HOME%]==[C:\Python32] appveyor DownloadFile https://www.python.org/ftp/python/3.2.5/python-3.2.5.msi
+   - IF [%PYTHON_HOME%]==[C:\Python32] msiexec /i python-3.2.5.msi /qn
+   - appveyor DownloadFile https://bootstrap.pypa.io/get-pip.py
+   - '%PYTHON_HOME%\python get-pip.py'
+
+build_script:
+   - uname -a
+   - df -h
+   # Preparatory installations into
+   # the global environment
+   - '%PYTHON_HOME%\Scripts\pip install --upgrade pip'
+   - '%PYTHON_HOME%\Scripts\pip install virtualenv'
+   # Build into own virtualenv in order
+   # to control the build environment
+   - '%PYTHON_HOME%\Scripts\virtualenv venv'
+   - venv\Scripts\activate
+   - python -V
+   - pip install --upgrade pip setuptools
+   - 'pip install Django==%DJANGO_VERSION%'
+
+test_script:
+   - cd trollSite && python manage.py test
