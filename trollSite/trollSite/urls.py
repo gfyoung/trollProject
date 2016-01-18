@@ -34,5 +34,10 @@ urlpatterns = [
     url(r'^reset/done/$', authViews.password_reset_complete,
         {'template_name': 'trollSiteAdmin/passwordResetComplete.html'},
         name='password_reset_complete'),
+    url(r'^static/admin/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': adminRoot}),
+    url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': 'trollApp/static'}
+    ),
 ] + static(r'^static/admin/(?P<path>.*)$', document_root=adminRoot) \
   + static(r'^static/(?P<path>.*)$', document_root='trollApp/static')
