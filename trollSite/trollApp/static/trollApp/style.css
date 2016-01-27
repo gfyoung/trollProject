@@ -58,13 +58,6 @@ div.error {
 div.menuOption {
     display:inline-block;
     height:35px;
-    padding-left:2%;
-    padding-right:2%;
-}
-
-div.menuOption {
-    display:inline-block;
-    height:35px;
     padding-left:1%;
     padding-right:1%;
 }
